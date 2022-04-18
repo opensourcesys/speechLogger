@@ -36,6 +36,7 @@ LOCAL_LOG = r"%temp%\nvda-speech.log"
 REMOTE_LOG = r"%temp%\nvda-speech-remote.log"
 # END OF CONFIGURATION
 
+import os
 from functools import wraps
 from enum import Enum, unique, auto, IntEnum
 
@@ -44,40 +45,19 @@ import globalPluginHandler
 import speech
 import globalPlugins
 import ui
-from speech import types
+from speech.types import SpeechSequence, Optional
 from speech.priorities import Spri
+from scriptHandler import script
+from logHandler import log
 
 addonHandler.initTranslation()
+	
 
 @unique
 class Origin(Enum):
 	LOCAL = auto()
 	REMOTE = auto()
 
-#: Module level variable to track whether we should be logging, starts False
-capturing = False
-
-# We need to wrap speech.speech.speak() in order to capture speech from it.
-speech.speech.speechLogger_old_speak = speech.speech.speak
-@wraps(speech.speech.speak)
-def new_speak(  # noqa: C901
-		sequence: SpeechSequence,
-		symbolLevel: Optional[int] = None,
-		priority: Spri = Spri.NORMAL
-):
-	captureSpeech(sequence, Origin.LOCAL)
-	return speech.speech.speechLogger_old_speak(sequence, symbolLevel, priority)
-
-def captureSpeech(sequence: SpeechSequence, origin: Origin):
-	if not capturing:
-		return
-	file = None
-	if origin == Origin.LOCAL and LOCAL_LOG is not None:
-		file = LOCAL_LOG
-	if origin == Origin.REMOTE and REMOTE_LOG is not None:
-		file = REMOTE_LOG
-	if file is not None:
-		logToFile(sequence, file)
 
 def logToFile(sequence: SpeechSequence, file: str):
 	with open(file, "ab") as f:
@@ -85,37 +65,151 @@ def logToFile(sequence: SpeechSequence, file: str):
 			speech for speech in sequence if isinstance(speech, str)
 		) + "\n")
 
+
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+
+	#: Tracks whether we should be logging, starts False
+	capturing = False
 
 	def __init__(self):
 		super().__init__()
+		# Parse and test the filenames
+		self.fileSetup()
 		# Wrap speech.speech.speak, so we can get its output first
+		old_speak = speech.speech.speak
+		@wraps(speech.speech.speak)
+		def new_speak(  # noqa: C901
+				sequence: SpeechSequence,
+				symbolLevel: Optional[int] = None,
+				priority: Spri = Spri.NORMAL
+		):
+			self.captureSpeech(sequence, Origin.LOCAL)
+			return old_speak(sequence, symbolLevel, priority)
 		speech.speech.speak = new_speak
-		# Adjust NVDA Remote to obtain its speech output.
-		# First, find out if NVDA Remote is running, and get a reference if so:
-		remotePlugin = None
-		for plugin in globalPluginHandler.runningPlugins:
-			if isinstance(plugin, globalPlugins.remoteClient.GlobalPlugin):
-				remotePlugin = plugin
-				break
-		# If we found it, register a handler for its speech:
-		if remotePlugin is not None:
-			remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self.captureRemoteSpeech)
+		# We can't handle getting our callback into NVDA Remote during __init__,
+		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
+		#: Holds an initially empty reference to NVDA Remote
+		self.remotePlugin = None
+
+	def fileSetup(self):
+		"""Makes sure the paths exist, and the files can be written."""
+		global LOCAL_LOG, REMOTE_LOG
+		# If either filename is set to None, it means the user doesn't want logging for that type
+		if LOCAL_LOG is None:
+			self.doLogLocal = False
+			self.localLogFile = None
+		else:
+			self.doLogLocal = True
+			self.localLogFile = os.path.abspath(os.path.expandvars(LOCAL_LOG))
+			# Test open
+			try:
+				with open(self.localLogFile, "ab+") as f:
+					pass
+			except Exception as e:
+				log.warn(f"Couldn't open local log file {self.localLogFile} for appending. {e}")
+				self.localLogFile = None
+				self.doLogLocal = False
+		if REMOTE_LOG is None:
+			self.doLogRemote = False
+			self.remoteLogFile = None
+		else:
+			self.doLogREMOTE = True
+			self.remoteLogFile = os.path.abspath(os.path.expandvars(REMOTE_LOG))
+			# Test open
+			try:
+				with open(self.remoteLogFile, "ab+") as test:
+					pass
+			except Exception as e:
+				log.warn(f"Couldn't open remote log file {self.remoteLogFile} for appending. {e}")
+				self.remoteLogFile = None
+				self.doLogRemote = False
+
+	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
+		if not self.capturing:
+			return
+		file = None
+		if origin == Origin.LOCAL and self.doLogLocal:
+			file = self.localLogFile
+		elif origin == Origin.REMOTE and self.doLogRemote:
+			file = self.remoteLogFile
+		if file is not None:
+			logToFile(sequence, file)
 			
-	def captureRemoteSpeech(self, *args, **kwargs):
+	def _captureRemoteSpeech(self, *args, **kwargs):
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
 		if 'sequence' in kwargs:
-			captureSpeech(kwargs.get('sequence'), Origin.REMOTE)
+			self.captureSpeech(kwargs.get('sequence'), Origin.REMOTE)
 		return
+
+	def _obtainRemote(self) -> bool:
+		"""Gets us a reference to the NVDA Remote add-on, if available.
+		Returns True if we got (or had) one, False otherwise.
+		"""
+		# If we already have it, we don't need to get it
+		if self.remotePlugin is not None:
+			return True
+		# Find out if NVDA Remote is running, and get a reference if so:
+		try:
+			for plugin in globalPluginHandler.runningPlugins:
+				if isinstance(plugin, globalPlugins.remoteClient.GlobalPlugin):
+					self.remotePlugin = plugin
+					return True  # break
+		except TypeError:  # NVDA Remote is not running
+			return False
+
+	def _setupRemoteCallback(self) -> bool:
+		# If we have a reference to the Remote plugin, register a handler for its speech:
+		if self.remotePlugin is not None:
+			try:
+				self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self._captureRemoteSpeech)
+				self.startedRemoteLogging = True
+			except:  # Couldn't do, probably disconnected
+				# Translators: a message to tell the user that we failed to start remote logging.
+				ui.message(_("Couldn't log speech from a remote session (maybe there is none?)."))
+				self.startedRemoteLogging = False
+		else:
+			self.startedRemoteLogging = False
+	return self.startedRemoteLogging
+
+#aaaa
 
 	@script(
 		category="Tools",
 		description=_("Toggles logging of local and remote speech")
 	)
 	def script_speechLogToggle(self, gesture):
-		if capturing:
+		"""Toggles whether we are actively logging, and sets up the remote portion if necessary."""
+		if self.capturing:  # Stop
+			self.capturing = False
+			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging speech."))
-			capturing = False
-		else:
-			ui.message(_("Started logging speech."))
-			capturing = True
+		else:  ## Start
+			# Setup the initial message fragment
+			if self.doLogLocal:
+				# Translators: a message fragment telling the user that logging of local speech has begun, will be added to.
+				message = _("Started logging local ")
+			else:
+				# Translators: a message fragment telling users that logging has started.
+				message = _("Started logging ")
+			# If this is the first time we're trying to start capturing,
+			# we need to initialize the NVDA Remote portion of our log.
+			if self.remotePlugin is None and self._obtainRemote():
+				# We didn't have Remote before, but we do have it now. Configure the callback.
+				self._setupRemoteCallback()
+			# Add to the user message
+			if self.remotePlugin is not None:
+				# Translators: the word "and", a conjunction in case both kinds of speech are being logged.
+				message += _("and ") if LOCAL_LOG is not None else ""
+				# Translators: the word "remote", indicating remote speech.
+				message += _("remote ")
+			# Handles the case where no logging is ultimately possible.
+			if not self.doLogLocal and (not self.doLogRemote or self.remotePlugin is None):
+				# Translators: message to user when no log files configured, but user attempted logging
+				ui.message(_("Can't start logging; no logs configured!"))
+				self.capturing = False
+			else:  # At least one log was configured above
+				self.capturing = True
+				# Translators: finish the message to the user.
+				message += _("speech logging.")
+				ui.message(message)
+
