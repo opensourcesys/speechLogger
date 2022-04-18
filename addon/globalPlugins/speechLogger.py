@@ -92,16 +92,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super().__init__()
 		# Wrap speech.speech.speak, so we can get its output first
 		speech.speech.speak = new_speak
-		# Adjust NVDA Remote to obtain its speech output.
-		# First, find out if NVDA Remote is running, and get a reference if so:
-		remotePlugin = None
-		for plugin in globalPluginHandler.runningPlugins:
-			if isinstance(plugin, globalPlugins.remoteClient.GlobalPlugin):
-				remotePlugin = plugin
-				break
-		# If we found it, register a handler for its speech:
-		if remotePlugin is not None:
-			remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self.captureRemoteSpeech)
+		# We can't handle getting our callback into NVDA Remote during __init__,
+		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
+		#: Holds an initially empty reference to NVDA Remote
+		self.remotePlugin = None
 			
 	def captureRemoteSpeech(self, *args, **kwargs):
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
@@ -114,9 +108,60 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description=_("Toggles logging of local and remote speech")
 	)
 	def script_speechLogToggle(self, gesture):
-		if capturing:
-			ui.message(_("Stopped logging speech."))
+		"""Toggles whether we are actively logging, and sets up the remote portion if necessary."""
+		if capturing:  # Stop
 			capturing = False
-		else:
-			ui.message(_("Started logging speech."))
-			capturing = True
+			# Translators: message to tell the user that we are no longer logging.
+			ui.message(_("Stopped logging speech."))
+		else:  ## Start
+			# Setup the initial message fragment
+			if LOCAL_LOG is not NONE:
+				# Translators: a message fragment telling the user that logging of local speech has begun, will be added to.
+				message = _("Started logging local ")
+			else:
+				# Translators: a message fragment telling users that logging has started.
+				message = _("Started logging ")
+			# If this is the first time we're trying to start capturing,
+			# we need to initialize the NVDA Remote portion of our log.
+			if self.remotePlugin is None and self._obtainRemote():
+				# We didn't have Remote before, but we do have it now. Configure the callback.
+				self._setupRemoteCallback()
+			# Add to the user message
+			if self.remotePlugin is not None:
+				# Translators: the word "and", a conjunction in case both kinds of speech are being logged.
+				message += _("and ") if LOCAL_LOG is not None else ""
+				# Translators: the word "remote", indicating remote speech.
+				message += _("remote ")
+			# Handles the case where no logging is ultimately possible.
+			if LOCAL_LOG is None and
+			(REMOTE_LOG is None or self.remotePlugin is None):
+				# Translators: message to user when no log files configured, but user attempted logging
+				ui.message(_("Can't start logging; no logs configured!"))
+				capturing = False
+			else:  # At least one log was configured above
+				capturing = True
+				# Translators: finish the message to the user.
+				message += _("speech logging.")
+				ui.message(message)
+
+	def _obtainRemote(self) -> bool:
+		"""Gets us a reference to the NVDA Remote add-on, if available.
+		Returns True if we got (or had) one, False otherwise.
+		"""
+		# If we already have it, we don't need to get it
+		if self.remotePlugin is not None:
+			return True
+		# Find out if NVDA Remote is running, and get a reference if so:
+		try:
+			for plugin in globalPluginHandler.runningPlugins:
+				if isinstance(plugin, globalPlugins.remoteClient.GlobalPlugin):
+					self.remotePlugin = plugin
+					return True  # break
+		except TypeError:  # NVDA Remote is not running
+			return False
+
+	def _setupRemoteCallback(self) -> None:
+		# If we have a reference to the Remote plugin, register a handler for its speech:
+		if self.remotePlugin is not None:
+			remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self.captureRemoteSpeech)
+
