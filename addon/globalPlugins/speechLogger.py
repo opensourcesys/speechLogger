@@ -49,36 +49,13 @@ from speech.priorities import Spri
 from scriptHandler import script
 
 addonHandler.initTranslation()
+	
 
 @unique
 class Origin(Enum):
 	LOCAL = auto()
 	REMOTE = auto()
 
-#: Module level variable to track whether we should be logging, starts False
-capturing = False
-
-# We need to wrap speech.speech.speak() in order to capture speech from it.
-speech.speech.speechLogger_old_speak = speech.speech.speak
-@wraps(speech.speech.speak)
-def new_speak(  # noqa: C901
-		sequence: SpeechSequence,
-		symbolLevel: Optional[int] = None,
-		priority: Spri = Spri.NORMAL
-):
-	captureSpeech(sequence, Origin.LOCAL)
-	return speech.speech.speechLogger_old_speak(sequence, symbolLevel, priority)
-
-def captureSpeech(sequence: SpeechSequence, origin: Origin):
-	if not capturing:
-		return
-	file = None
-	if origin == Origin.LOCAL and LOCAL_LOG is not None:
-		file = LOCAL_LOG
-	if origin == Origin.REMOTE and REMOTE_LOG is not None:
-		file = REMOTE_LOG
-	if file is not None:
-		logToFile(sequence, file)
 
 def logToFile(sequence: SpeechSequence, file: str):
 	with open(file, "ab") as f:
@@ -86,16 +63,41 @@ def logToFile(sequence: SpeechSequence, file: str):
 			speech for speech in sequence if isinstance(speech, str)
 		) + "\n")
 
+
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+
+	#: Tracks whether we should be logging, starts False
+	capturing = False
 
 	def __init__(self):
 		super().__init__()
 		# Wrap speech.speech.speak, so we can get its output first
+		old_speak = speech.speech.speak
+		@wraps(speech.speech.speak)
+		def new_speak(  # noqa: C901
+				sequence: SpeechSequence,
+				symbolLevel: Optional[int] = None,
+				priority: Spri = Spri.NORMAL
+		):
+			self.captureSpeech(sequence, Origin.LOCAL)
+			return old_speak(sequence, symbolLevel, priority)
 		speech.speech.speak = new_speak
 		# We can't handle getting our callback into NVDA Remote during __init__,
 		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
 		#: Holds an initially empty reference to NVDA Remote
 		self.remotePlugin = None
+
+	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
+		global LOCAL_LOG, REMOTE_LOG
+		if not self.capturing:
+			return
+		file = None
+		if origin == Origin.LOCAL and LOCAL_LOG is not None:
+			file = LOCAL_LOG
+		if origin == Origin.REMOTE and REMOTE_LOG is not None:
+			file = REMOTE_LOG
+		if file is not None:
+			logToFile(sequence, file)
 			
 	def captureRemoteSpeech(self, *args, **kwargs):
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
@@ -109,8 +111,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_speechLogToggle(self, gesture):
 		"""Toggles whether we are actively logging, and sets up the remote portion if necessary."""
-		if capturing:  # Stop
-			capturing = False
+		global LOCAL_LOG, REMOTE_LOG
+		if self.capturing:  # Stop
+			self.capturing = False
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging speech."))
 		else:  ## Start
@@ -136,9 +139,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if LOCAL_LOG is None and (REMOTE_LOG is None or self.remotePlugin is None):
 				# Translators: message to user when no log files configured, but user attempted logging
 				ui.message(_("Can't start logging; no logs configured!"))
-				capturing = False
+				self.capturing = False
 			else:  # At least one log was configured above
-				capturing = True
+				self.capturing = True
 				# Translators: finish the message to the user.
 				message += _("speech logging.")
 				ui.message(message)
