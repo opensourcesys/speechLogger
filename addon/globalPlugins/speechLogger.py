@@ -37,7 +37,7 @@ REMOTE_LOG = r"%temp%\nvda-speech-remote.log"
 # END OF CONFIGURATION
 
 from functools import wraps
-from enum import Enum, unique, auto
+from enum import Enum, unique, auto, IntEnum
 
 import addonHandler
 import globalPluginHandler
@@ -45,6 +45,7 @@ import speech
 import globalPlugins
 import ui
 from speech import types
+from speech.priorities import Spri
 
 addonHandler.initTranslation()
 
