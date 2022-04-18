@@ -165,5 +165,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def _setupRemoteCallback(self) -> None:
 		# If we have a reference to the Remote plugin, register a handler for its speech:
 		if self.remotePlugin is not None:
-			remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self.captureRemoteSpeech)
+			self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self.captureRemoteSpeech)
 
