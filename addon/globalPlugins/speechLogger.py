@@ -1,4 +1,4 @@
-# Speech Logger with Remote Support, V22.0.1
+# Speech Logger with Remote Support, V22.0
 #
 #    Copyright (C) 2022 Luke Davis <XLTechie@newanswertech.com>
 #
@@ -111,7 +111,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		category="Tools",
 		description=_("Toggles logging of local and remote speech")
 	)
-	script_speechLogToggle(self, gesture):
+	def script_speechLogToggle(self, gesture):
 		if capturing:
 			ui.message(_("Stopped logging speech."))
 			capturing = False
