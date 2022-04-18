@@ -118,7 +118,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("Stopped logging speech."))
 		else:  ## Start
 			# Setup the initial message fragment
-			if LOCAL_LOG is not NONE:
+			if LOCAL_LOG is not None:
 				# Translators: a message fragment telling the user that logging of local speech has begun, will be added to.
 				message = _("Started logging local ")
 			else:
