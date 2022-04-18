@@ -133,8 +133,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Translators: the word "remote", indicating remote speech.
 				message += _("remote ")
 			# Handles the case where no logging is ultimately possible.
-			if LOCAL_LOG is None and
-			(REMOTE_LOG is None or self.remotePlugin is None):
+			if LOCAL_LOG is None and (REMOTE_LOG is None or self.remotePlugin is None):
 				# Translators: message to user when no log files configured, but user attempted logging
 				ui.message(_("Can't start logging; no logs configured!"))
 				capturing = False
