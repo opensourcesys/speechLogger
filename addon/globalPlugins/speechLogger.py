@@ -46,6 +46,7 @@ import globalPlugins
 import ui
 from speech.types import SpeechSequence, Optional
 from speech.priorities import Spri
+from scriptHandler import script
 
 addonHandler.initTranslation()
 
