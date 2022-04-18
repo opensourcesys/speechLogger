@@ -44,7 +44,7 @@ import globalPluginHandler
 import speech
 import globalPlugins
 import ui
-from speech import types
+from speech.types import SpeechSequence
 from speech.priorities import Spri
 
 addonHandler.initTranslation()
@@ -57,7 +57,8 @@ class Origin(Enum):
 #: Module level variable to track whether we should be logging, starts False
 capturing = False
 
-# We need to wrap speech.speech.speak() in order to capture speech from it.
+# We need to wrap speech.speech.
+speak() in order to capture speech from it.
 speech.speech.speechLogger_old_speak = speech.speech.speak
 @wraps(speech.speech.speak)
 def new_speak(  # noqa: C901
