@@ -141,6 +141,38 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.captureSpeech(kwargs.get('sequence'), Origin.REMOTE)
 		return
 
+	def _obtainRemote(self) -> bool:
+		"""Gets us a reference to the NVDA Remote add-on, if available.
+		Returns True if we got (or had) one, False otherwise.
+		"""
+		# If we already have it, we don't need to get it
+		if self.remotePlugin is not None:
+			return True
+		# Find out if NVDA Remote is running, and get a reference if so:
+		try:
+			for plugin in globalPluginHandler.runningPlugins:
+				if isinstance(plugin, globalPlugins.remoteClient.GlobalPlugin):
+					self.remotePlugin = plugin
+					return True  # break
+		except TypeError:  # NVDA Remote is not running
+			return False
+
+	def _setupRemoteCallback(self) -> bool:
+		# If we have a reference to the Remote plugin, register a handler for its speech:
+		if self.remotePlugin is not None:
+			try:
+				self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self._captureRemoteSpeech)
+				self.startedRemoteLogging = True
+			except:  # Couldn't do, probably disconnected
+				# Translators: a message to tell the user that we failed to start remote logging.
+				ui.message(_("Couldn't log speech from a remote session (maybe there is none?)."))
+				self.startedRemoteLogging = False
+		else:
+			self.startedRemoteLogging = False
+	return self.startedRemoteLogging
+
+#aaaa
+
 	@script(
 		category="Tools",
 		description=_("Toggles logging of local and remote speech")
@@ -181,32 +213,3 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				message += _("speech logging.")
 				ui.message(message)
 
-	def _obtainRemote(self) -> bool:
-		"""Gets us a reference to the NVDA Remote add-on, if available.
-		Returns True if we got (or had) one, False otherwise.
-		"""
-		# If we already have it, we don't need to get it
-		if self.remotePlugin is not None:
-			return True
-		# Find out if NVDA Remote is running, and get a reference if so:
-		try:
-			for plugin in globalPluginHandler.runningPlugins:
-				if isinstance(plugin, globalPlugins.remoteClient.GlobalPlugin):
-					self.remotePlugin = plugin
-					return True  # break
-		except TypeError:  # NVDA Remote is not running
-			return False
-
-	def _setupRemoteCallback(self) -> bool:
-		# If we have a reference to the Remote plugin, register a handler for its speech:
-		if self.remotePlugin is not None:
-			try:
-				self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self.captureRemoteSpeech)
-				self.startedRemoteLogging = True
-			except:  # Couldn't do, probably disconnected
-				# Translators: a message to tell the user that we failed to start remote logging.
-				ui.message(_("Couldn't log speech from a remote session (maybe there is none?)."))
-				self.startedRemoteLogging = False
-		else:
-			self.startedRemoteLogging = False
-	return self.startedRemoteLogging
