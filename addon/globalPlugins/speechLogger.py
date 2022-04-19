@@ -10,14 +10,16 @@
 # You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-"""An NVDA add-on which logs, in real time, spoken output to a file.
+"""An NVDA add-on which logs, in real time, spoken output to a file or files.
 This includes any output generated using the NVDA remote add-on.
-Based on suggestions sent to the nvda-addons@groups.io mailing list by James Scholes (https://nvda-addons.groups.io/g/nvda-addons/message/18552).
+Lightly based on suggestions sent to the nvda-addons@groups.io mailing list by James Scholes (https://nvda-addons.groups.io/g/nvda-addons/message/18552).
 This add-on has no UI, and must be configured by constants below.
 
-You must define your own start-stop gesture for this add-on before using it. It can be found in the Tools category of Input Gestures.
+You have to define your own toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
+Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
 Since the path(s) must be edited in the source, you have to reload plugins (NVDA+Ctrl+F3, or NVDA restart) in order to change them.
+(N.B. reloading plugins doesn't work for this at the moment, reason unknown.)
 
 The log files are opened and closed for each speech utterance, because the original mandate for this add-on
 was to have real-time saving of output.
@@ -68,12 +70,21 @@ def logToFile(sequence: SpeechSequence, file: str):
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
-	#: Tracks whether we should be logging, starts False
-	capturing = False
-
 	def __init__(self):
 		super().__init__()
-		# Parse and test the filenames
+		# Sane defaults for runtime variables
+		#: Tracks whether we are logging local speech, starts False
+		self.capturingLocal = False
+		#: Tracks whether we are logging remote speech, starts False
+		self.capturingRemote = False
+		#: Do we intend to log local speech?
+		self.doLogLocal = False
+		#: Do we intend to log remote speech?
+		self.doLogRemote = False
+		# We can't handle getting our callback into NVDA Remote during __init__,
+		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
+		#: Holds an initially empty reference to NVDA Remote
+		self.remotePlugin = None
 		self.fileSetup()
 		# Wrap speech.speech.speak, so we can get its output first
 		old_speak = speech.speech.speak
@@ -86,10 +97,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.captureSpeech(sequence, Origin.LOCAL)
 			return old_speak(sequence, symbolLevel, priority)
 		speech.speech.speak = new_speak
-		# We can't handle getting our callback into NVDA Remote during __init__,
-		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
-		#: Holds an initially empty reference to NVDA Remote
-		self.remotePlugin = None
 
 	def fileSetup(self):
 		"""Makes sure the paths exist, and the files can be written."""
@@ -125,12 +132,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				self.doLogRemote = False
 
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
-		if not self.capturing:
-			return
+		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
 		file = None
-		if origin == Origin.LOCAL and self.doLogLocal:
+		if origin == Origin.LOCAL and self.capturingLocal:
 			file = self.localLogFile
-		elif origin == Origin.REMOTE and self.doLogRemote:
+		elif origin == Origin.REMOTE and self.capturingRemote:
 			file = self.remoteLogFile
 		if file is not None:
 			logToFile(sequence, file)
@@ -139,7 +145,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
 		if 'sequence' in kwargs:
 			self.captureSpeech(kwargs.get('sequence'), Origin.REMOTE)
-		return
 
 	def _obtainRemote(self) -> bool:
 		"""Gets us a reference to the NVDA Remote add-on, if available.
@@ -162,54 +167,59 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if self.remotePlugin is not None:
 			try:
 				self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self._captureRemoteSpeech)
-				self.startedRemoteLogging = True
+				startedRemoteLogging = True
 			except:  # Couldn't do, probably disconnected
-				# Translators: a message to tell the user that we failed to start remote logging.
-				ui.message(_("Couldn't log speech from a remote session (maybe there is none?)."))
-				self.startedRemoteLogging = False
+				startedRemoteLogging = False
 		else:
-			self.startedRemoteLogging = False
-	return self.startedRemoteLogging
-
-#aaaa
+			startedRemoteLogging = False
+		return startedRemoteLogging
 
 	@script(
 		category="Tools",
-		description=_("Toggles logging of local and remote speech")
+		# Translators: the description of an item in the input gestures tools category
+		description=_("Toggles logging of local speech")
 	)
-	def script_speechLogToggle(self, gesture):
-		"""Toggles whether we are actively logging, and sets up the remote portion if necessary."""
-		if self.capturing:  # Stop
-			self.capturing = False
+	def script_toggleLocalSpeechLogging(self, gesture):
+		"""Toggles whether we are actively logging local speech."""
+		if self.capturingLocal:  # Stop
+			self.capturingLocal = False
 			# Translators: message to tell the user that we are no longer logging.
-			ui.message(_("Stopped logging speech."))
+			ui.message(_("Stopped logging local speech."))
 		else:  ## Start
-			# Setup the initial message fragment
+			# Must check whether we can or should log
 			if self.doLogLocal:
-				# Translators: a message fragment telling the user that logging of local speech has begun, will be added to.
-				message = _("Started logging local ")
+				self.captureLocal = True
+				# Translators: a message to tell the user that we are now logging.
+				ui.message(_("Started logging local speech."))
 			else:
-				# Translators: a message fragment telling users that logging has started.
-				message = _("Started logging ")
-			# If this is the first time we're trying to start capturing,
-			# we need to initialize the NVDA Remote portion of our log.
-			if self.remotePlugin is None and self._obtainRemote():
-				# We didn't have Remote before, but we do have it now. Configure the callback.
-				self._setupRemoteCallback()
-			# Add to the user message
-			if self.remotePlugin is not None:
-				# Translators: the word "and", a conjunction in case both kinds of speech are being logged.
-				message += _("and ") if LOCAL_LOG is not None else ""
-				# Translators: the word "remote", indicating remote speech.
-				message += _("remote ")
-			# Handles the case where no logging is ultimately possible.
-			if not self.doLogLocal and (not self.doLogRemote or self.remotePlugin is None):
-				# Translators: message to user when no log files configured, but user attempted logging
-				ui.message(_("Can't start logging; no logs configured!"))
-				self.capturing = False
-			else:  # At least one log was configured above
-				self.capturing = True
-				# Translators: finish the message to the user.
-				message += _("speech logging.")
-				ui.message(message)
+				# Translators: a message to tell the user that we can't start this kind of logging
+				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
 
+	@script(
+		category="Tools",
+		# Translators: the description of an item in the input gestures tools category
+		description=_("Toggles logging of remote speech")
+	)
+	def script_toggleRemoteSpeechLogging(self, gesture):
+		"""Toggles whether we are actively logging remote speech."""
+		if self.capturingRemote:  # Stop
+			self.capturingRemote = False
+			# Translators: message to tell the user that we are no longer logging.
+			ui.message(_("Stopped logging remote speech."))
+		else:  ## Start
+			# Must check whether we can or should log
+			if self.doLogLocal:
+				# If this is the first time we're trying to start capturing,
+				# we need to initialize the NVDA Remote portion of our log.
+				if self.remotePlugin is None and self._obtainRemote():
+					# We didn't have Remote before, but we do have it now. Configure the callback.
+					if self._setupRemoteCallback():
+						self.captureRemote = True
+						# Translators: a message to tell the user that we are now logging.
+						ui.message(_("Started logging remote speech."))
+					else:
+						# Translators: a message to tell the user that we failed to start remote logging.
+						ui.message(_("Could not log speech from the remote session, maybe you need to connect?"))
+			else:
+				# Translators: a message to tell the user that we can't start this kind of logging
+				ui.message(_("Unable to log local speech. Check NVDA log for more information."))

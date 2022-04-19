@@ -18,7 +18,13 @@ By default, the output logs are stored as follows:
 
 ### Starting and stopping logging
 
-This add-on has no gesture set by default.
+This add-on has no gestures set by default.
+You have to define your own toggle gestures, under the NVDA Input Gestures Tools category.
+Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
-It supports one: a gesture to toggle whether it is logging or not.
-To set this, open NVDA's Input Gestures dialog (NVDA+N, P, N), and configure the shortcut key for "Toggles speech logging" under the Tools category.
+### Notes
+
+It is not possible to start logging for remote sessions, until you actually start one.
+There is no way too, for example, start logging, and have it wait, on stand-by, until a remote session starts, and begin logging at that time.
+The followup implication is also true: when the remote session ends, logging automatically stops.
+(This is a forward-looking statement. You will currently get log errors or something until you toggle off logging, after a remote session ends.)
