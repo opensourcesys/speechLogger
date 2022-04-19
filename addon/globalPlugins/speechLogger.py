@@ -130,12 +130,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				self.doLogRemote = False
 
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
-		if not self.capturingLocal or self.capturingRemote:
-			return
+		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
 		file = None
-		if origin == Origin.LOCAL and self.doLogLocal:
+		if origin == Origin.LOCAL and self.capturingLocal:
 			file = self.localLogFile
-		elif origin == Origin.REMOTE and self.doLogRemote:
+		elif origin == Origin.REMOTE and self.capturingRemote:
 			file = self.remoteLogFile
 		if file is not None:
 			logToFile(sequence, file)
