@@ -10,14 +10,16 @@
 # You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-"""An NVDA add-on which logs, in real time, spoken output to a file.
+"""An NVDA add-on which logs, in real time, spoken output to a file or files.
 This includes any output generated using the NVDA remote add-on.
-Based on suggestions sent to the nvda-addons@groups.io mailing list by James Scholes (https://nvda-addons.groups.io/g/nvda-addons/message/18552).
+Lightly based on suggestions sent to the nvda-addons@groups.io mailing list by James Scholes (https://nvda-addons.groups.io/g/nvda-addons/message/18552).
 This add-on has no UI, and must be configured by constants below.
 
-You must define your own start-stop gesture for this add-on before using it. It can be found in the Tools category of Input Gestures.
+You have to define your own toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
+Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
 Since the path(s) must be edited in the source, you have to reload plugins (NVDA+Ctrl+F3, or NVDA restart) in order to change them.
+(N.B. reloading plugins doesn't work for this at the moment, reason unknown.)
 
 The log files are opened and closed for each speech utterance, because the original mandate for this add-on
 was to have real-time saving of output.
@@ -143,7 +145,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
 		if 'sequence' in kwargs:
 			self.captureSpeech(kwargs.get('sequence'), Origin.REMOTE)
-		return
 
 	def _obtainRemote(self) -> bool:
 		"""Gets us a reference to the NVDA Remote add-on, if available.
