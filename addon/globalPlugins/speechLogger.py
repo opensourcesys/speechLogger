@@ -63,14 +63,14 @@ class Origin(Enum):
 
 def logToFile(sequence: SpeechSequence, file: str):
 	deblog(f"In logToFile, logging to {file}")
-	with open(file, "ab") as f:
+	with open(file, "a+") as f:
 		f.write("\n".join(
 			speech for speech in sequence if isinstance(speech, str)
 		) + "\n")
 
 def deblog(message: str):
 	file = os.path.abspath(os.path.expandvars(r"%temp%\lukeslog.txt"))
-	with open(file, "ab") as f:
+	with open(file, "a+") as f:
 		f.write(message + "\n")
 
 
