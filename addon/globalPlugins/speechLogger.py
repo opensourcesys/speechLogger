@@ -44,9 +44,9 @@ from enum import Enum, unique, auto, IntEnum
 
 import addonHandler
 import globalPluginHandler
-import speech
 import globalPlugins
 import ui
+import speech
 from speech.types import SpeechSequence, Optional
 from speech.priorities import Spri
 from scriptHandler import script
@@ -57,11 +57,13 @@ addonHandler.initTranslation()
 
 @unique
 class Origin(Enum):
+	"""Enum to tell our methods where a speech sequence came from."""
 	LOCAL = auto()
 	REMOTE = auto()
 
 
 def logToFile(sequence: SpeechSequence, file: str):
+	"""Helper function to append text of the given speech sequence to the given file."""
 	deblog(f"In logToFile, logging to {file}")
 	with open(file, "a+") as f:
 		f.write("\n".join(
@@ -69,6 +71,8 @@ def logToFile(sequence: SpeechSequence, file: str):
 		) + "\n")
 
 def deblog(message: str):
+	"""Crude debug log appender. Disable by uncommenting the return statement."""
+	#return  # Don't log anything; production code should use this.
 	file = os.path.abspath(os.path.expandvars(r"%temp%\lukeslog.txt"))
 	with open(file, "a+") as f:
 		f.write(message + "\n")
