@@ -96,7 +96,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
 		#: Holds an initially empty reference to NVDA Remote
 		self.remotePlugin = None
-		self.fileSetup()
+		self.fileSetup() #aaaa
 		# Wrap speech.speech.speak, so we can get its output first
 		old_speak = speech.speech.speak
 		@wraps(speech.speech.speak)
@@ -123,10 +123,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.localLogFile = os.path.abspath(os.path.expandvars(LOCAL_LOG))
 			# Test open
 			try:
-				with open(self.localLogFile, "ab+") as f:
+				with open(self.localLogFile, "a+") as f:
 					pass
 			except Exception as e:
-				log.warn(f"Couldn't open local log file {self.localLogFile} for appending. {e}")
+				log.error(f"Couldn't open local log file {self.localLogFile} for appending. {e}")
 				self.localLogFile = None
 				self.doLogLocal = False
 		if REMOTE_LOG is None:
@@ -140,7 +140,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				with open(self.remoteLogFile, "ab+") as test:
 					pass
 			except Exception as e:
-				log.warn(f"Couldn't open remote log file {self.remoteLogFile} for appending. {e}")
+				log.error(f"Couldn't open remote log file {self.remoteLogFile} for appending. {e}")
 				self.remoteLogFile = None
 				self.doLogRemote = False
 		deblog(f"fileSetup: doLogLocal: {self.doLogLocal}, doLogRemote: {self.doLogRemote},\nlocalLogFile: {self.localLogFile},\nremoteLogFile: {self.remoteLogFile}")
