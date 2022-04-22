@@ -116,14 +116,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Because our runtime flags and variables are many and confusing,
 		# We try to prevent some errors by using Immutable Key Objects to hold them.
 		self.flags = ImmutableKeyObj(
-			# Tracks whether we are actively logging local speech
-			localActive=False,
-			# Tracks whether we are actively logging remote speech
-			remoteActive=False,
 			# Do we intend to log local speech?
 			logLocal=False,
+			# Tracks whether we are actively logging local speech
+			localActive=False,
 			# Do we intend to log remote speech?
-			logRemote=False
+			logRemote=False,
+			# Tracks whether we are actively logging remote speech
+			remoteActive=False
 		)
 		self.files = ImmutableKeyObj(local=LOCAL_LOG, remote=REMOTE_LOG)
 		# We can't handle getting our callback into NVDA Remote during __init__,
