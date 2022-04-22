@@ -289,6 +289,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 						deblog("Remote toggle script:  failed to register the callback.")
 						# Translators: a message to tell the user that we failed to start remote logging.
 						ui.message(_("Could not log speech from the remote session. Maybe you need to connect?"))
+				else:  # self._obtainRemote() returned False
+					deblog("Remote toggle script: _obtainRemote() failed.")
+					# Translators: a message telling the user that the Remote add-on is unavailable.
+					ui.message(_("Failed! Could not find the NVDA Remote add-on."))
 			else:
 				deblog(f"Remote toggle script: can't do that kind of logging. Flags: {self.flags}\nFiles: {self.files}.")
 				# Translators: a message to tell the user that we can't start this kind of logging
