@@ -44,9 +44,9 @@ from enum import Enum, unique, auto, IntEnum
 
 import addonHandler
 import globalPluginHandler
-import speech
 import globalPlugins
 import ui
+import speech
 from speech.types import SpeechSequence, Optional
 from speech.priorities import Spri
 from scriptHandler import script
@@ -57,37 +57,75 @@ addonHandler.initTranslation()
 
 @unique
 class Origin(Enum):
+	"""Enum to tell our methods where a speech sequence came from."""
 	LOCAL = auto()
 	REMOTE = auto()
 
 
 def logToFile(sequence: SpeechSequence, file: str):
+	"""Helper function to append text of the given speech sequence to the given file."""
 	deblog(f"In logToFile, logging to {file}")
-	with open(file, "a+") as f:
+	with open(file, "a+", encoding="utf-8") as f:
 		f.write("\n".join(
-			speech for speech in sequence if isinstance(speech, str)
+			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
 		) + "\n")
 
 def deblog(message: str):
+	"""Crude debug log appender. Disable by uncommenting the return statement."""
+	#return  # Don't log anything; production code should use this.
 	file = os.path.abspath(os.path.expandvars(r"%temp%\lukeslog.txt"))
-	with open(file, "a+") as f:
+	with open(file, "a+", encoding="utf-8") as f:
 		f.write(message + "\n")
+
+
+class ImmutableKeyObj:
+	"""Helper type which you initialize with kwargs that become its members, after which no new members can be added.
+	Think of it as an implementation of __slots__, that works at the instance level.
+	"""
+	def __setattr__(self, key, val):
+		"""If object already has key as a member, its value is set to val. Otherwise KeyError is raised."""
+		if not hasattr(self, key):
+			raise KeyError(f'Can not set: {self} has no member "{key}".')
+		else:
+			object.__setattr__(self, key, val)
+
+	def __init__(self, *args, **kwargs):
+		"""Sets its kwargs with their values as the instance members, and gently prevents other members.
+		Example:
+		options = ImmutableKeyObj(recursive=True, backupExt=".bac")
+		options.recursive  ## True
+		options.backupExt = ".bk"  # Success
+		options.file = "testing.txt"  # Fail, KeyError is raised
+		"""
+		self.__dict__ = {k: v for k, v in kwargs.items()}
+
+	def __repr__(self):
+		"""Returns the members of the instance as a formatted string."""
+		itemSep = ", "  # A comma and a space between items
+		kvSep = ": "  # A colon and a space between each key and value
+		return itemSep.join(kvSep.join((k, str(v))) for (k, v) in self.__dict__.items())
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
+		global LOCAL_LOG, REMOTE_LOG
 		super().__init__()
 		deblog("Initializing.")
-		# Sane defaults for runtime variables
-		#: Tracks whether we are logging local speech, starts False
-		self.capturingLocal = False
-		#: Tracks whether we are logging remote speech, starts False
-		self.capturingRemote = False
-		#: Do we intend to log local speech?
-		self.doLogLocal = False
-		#: Do we intend to log remote speech?
-		self.doLogRemote = False
+		# Runtime vars and their sane defaults:
+		# Because our runtime flags and variables are many and confusing,
+		# We try to prevent some errors by using Immutable Key Objects to hold them.
+		self.flags = ImmutableKeyObj(
+			# Tracks whether we are actively logging local speech
+			localActive=False,
+			# Tracks whether we are actively logging remote speech
+			remoteActive=False,
+			# Do we intend to log local speech?
+			logLocal=False,
+			# Do we intend to log remote speech?
+			logRemote=False
+		)
+		self.files = ImmutableKeyObj(local=LOCAL_LOG, remote=REMOTE_LOG)
 		# We can't handle getting our callback into NVDA Remote during __init__,
 		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
 		#: Holds an initially empty reference to NVDA Remote
@@ -101,7 +139,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				symbolLevel: Optional[int] = None,
 				priority: Spri = Spri.NORMAL
 		):
-			deblog("In wrapped speak.")
+			#deblog("In wrapped speak.")
 			self.captureSpeech(sequence, Origin.LOCAL)
 			return old_speak(sequence, symbolLevel, priority)
 		speech.speech.speak = new_speak
@@ -109,48 +147,47 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def fileSetup(self):
 		"""Makes sure the paths exist, and the files can be written."""
 		deblog("In fileSetup.")
-		global LOCAL_LOG, REMOTE_LOG
 		# If either filename is set to None, it means the user doesn't want logging for that type
-		if LOCAL_LOG is None:
-			self.doLogLocal = False
-			self.localLogFile = None
+		if self.files.local is None:
+			self.flags.logLocal = False
 		else:
-			self.doLogLocal = True
-			self.localLogFile = os.path.abspath(os.path.expandvars(LOCAL_LOG))
+			self.flags.logLocal = True
+			# Regularize filename
+			self.files.local = os.path.abspath(os.path.expandvars(self.files.local))
 			# Test open
 			try:
-				with open(self.localLogFile, "ab+") as f:
+				with open(self.files.local, "a+", encoding="utf-8") as f:
 					pass
 			except Exception as e:
-				log.warn(f"Couldn't open local log file {self.localLogFile} for appending. {e}")
-				self.localLogFile = None
-				self.doLogLocal = False
-		if REMOTE_LOG is None:
-			self.doLogRemote = False
-			self.remoteLogFile = None
+				log.error(f"Couldn't open local log file {self.files.local} for appending. {e}")
+				self.files.local = None
+				self.flags.logLocal = False
+		if self.files.remote is None:
+			self.flags.logRemote = False
 		else:
-			self.doLogREMOTE = True
-			self.remoteLogFile = os.path.abspath(os.path.expandvars(REMOTE_LOG))
+			self.flags.logRemote = True
+			# Regularize filename
+			self.files.remote = os.path.abspath(os.path.expandvars(self.files.remote))
 			# Test open
 			try:
-				with open(self.remoteLogFile, "ab+") as test:
+				with open(self.files.remote, "a+", encoding="utf-8") as test:
 					pass
 			except Exception as e:
-				log.warn(f"Couldn't open remote log file {self.remoteLogFile} for appending. {e}")
-				self.remoteLogFile = None
-				self.doLogRemote = False
-		deblog(f"fileSetup: doLogLocal: {self.doLogLocal}, doLogRemote: {self.doLogRemote},\nlocalLogFile: {self.localLogFile},\nremoteLogFile: {self.remoteLogFile}")
+				log.error(f"Couldn't open remote log file {self.files.remote} for appending. {e}")
+				self.files.remote = None
+				self.flags.logRemote = False
+		deblog(f"fileSetup: {self.flags}\n{self.files}")
 
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
 		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
 		file = None
-		if origin == Origin.LOCAL and self.capturingLocal:
-			file = self.localLogFile
-		elif origin == Origin.REMOTE and self.capturingRemote:
-			file = self.remoteLogFile
+		if origin == Origin.LOCAL and self.flags.localActive:
+			file = self.files.local
+		elif origin == Origin.REMOTE and self.flags.remoteActive:
+			file = self.files.remote
 		if file is not None:
 			logToFile(sequence, file)
-		deblog(f"In captureSpeech. Type is: {origin}, and file is: {file},\ncapturingLocal: {self.capturingLocal}, capturingRemote: {self.capturingRemote}.")
+		#deblog(f"In captureSpeech. Type is: {origin}, and file is: {file},\nFlags: {self.flags}.")
 
 	def _captureRemoteSpeech(self, *args, **kwargs):
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
@@ -179,6 +216,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return False
 
 	def _setupRemoteCallback(self) -> bool:
+		"""Adds our callback to NVDA Remote, if possible."""
 		deblog("In _setupRemoteCallback.")
 		# If we have a reference to the Remote plugin, register a handler for its speech:
 		if self.remotePlugin is not None:
@@ -202,21 +240,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleLocalSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging local speech."""
-		deblog(f"In local toggle script. CapturingLocal was {self.capturingLocal}.")
-		if self.capturingLocal:  # Stop
+		deblog(f"In local toggle script. Capture was {self.flags.localActive}.")
+		if self.flags.localActive:  # Currently logging, stop
 			deblog("Local toggle script: stopping.")
-			self.capturingLocal = False
+			self.flags.localActive = False
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging local speech."))
-		else:  ## Start
-			deblog(f"Local toggle script: starting, DoLogLocal was {self.doLogLocal}, captureLocal was {self.captureLocal}.")
+		else:  # Currently not logging, start
+			deblog(f"Local toggle script: starting, Flags: {self.flags}.")
 			# Must check whether we can or should log
-			if self.doLogLocal:
-				self.captureLocal = True
+			if self.flags.logLocal:
+				self.flags.localActive = True
 				# Translators: a message to tell the user that we are now logging.
 				ui.message(_("Started logging local speech."))
 			else:
-				deblog(f"Local toggle script: failed to start, DoLogLocal was {self.doLogLocal}, captureLocal was {self.captureLocal}.")
+				deblog(f"Local toggle script: failed to start, Flags: {self.flags}.")
 				# Translators: a message to tell the user that we can't start this kind of logging
 				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
 
@@ -227,15 +265,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
-		deblog(f"In remote toggle script. CapturingRemote was {self.capturingRemote}.")
-		if self.capturingRemote:  # Stop
-			self.capturingRemote = False
+		deblog(f"In remote toggle script. Capturing was {self.flags.remoteActive}.")
+		if self.flags.remoteActive:  # We were logging, stop
+			self.flags.remoteActive = False
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging remote speech."))
-		else:  ## Start
-			deblog(f"Remote toggle script: starting, doLogRemote was {self.doLogRemote}, capturingRemote was {self.capturingRemote}.")
+		else:  # We weren't logging, start
+			deblog(f"Remote toggle script: starting, flags: {self.flags}.")
 			# Must check whether we can or should log
-			if self.doLogRemote:
+			if self.flags.logRemote:
 				# If this is the first time we're trying to start capturing,
 				# we need to initialize the NVDA Remote portion of our log.
 				deblog("Remote toggle script: attempting to start, checking for remote.")
@@ -243,7 +281,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					# We didn't have Remote before, but we do have it now. Configure the callback.
 					deblog("Remote toggle script: setting up the callback.")
 					if self._setupRemoteCallback():
-						self.capturingRemote = True
+						self.flags.remoteActive = True
 						deblog("Remote toggle script: success.")
 						# Translators: a message to tell the user that we are now logging.
 						ui.message(_("Started logging remote speech."))
@@ -252,6 +290,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 						# Translators: a message to tell the user that we failed to start remote logging.
 						ui.message(_("Could not log speech from the remote session, maybe you need to connect?"))
 			else:
-				deblog(f"Remote toggle script: can't do that kind of logging. CapturingRemote was {self.capturingRemote}, doLogRemote was {self.doLogRemote}.")
+				deblog(f"Remote toggle script: can't do that kind of logging. Flags: {self.flags}\nFiles: {self.files}.")
 				# Translators: a message to tell the user that we can't start this kind of logging
 				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
