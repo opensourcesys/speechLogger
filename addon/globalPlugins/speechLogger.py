@@ -286,7 +286,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 						# Translators: a message to tell the user that we are now logging.
 						ui.message(_("Started logging remote speech."))
 					else:
-						deblog("Remote toggle script:  failed.")
+						deblog("Remote toggle script:  failed to register the callback.")
 						# Translators: a message to tell the user that we failed to start remote logging.
 						ui.message(_("Could not log speech from the remote session. Maybe you need to connect?"))
 			else:
