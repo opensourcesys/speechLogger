@@ -277,8 +277,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# If this is the first time we're trying to start capturing,
 				# we need to initialize our NVDA Remote interface.
 				deblog("Remote toggle script: attempting to start, checking for remote.")
-				if self.remotePlugin is None and self._obtainRemote():
-					# We didn't have Remote before, but we do have it now. Configure the callback.
+				if self._obtainRemote():
+					# We have obtained (or already had) a reference to NVDA Remote. Configure the callback.
 					deblog("Remote toggle script: setting up the callback.")
 					if self._setupRemoteCallback():
 						self.flags.remoteActive = True
