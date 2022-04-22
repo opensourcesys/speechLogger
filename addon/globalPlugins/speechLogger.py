@@ -72,7 +72,7 @@ def logToFile(sequence: SpeechSequence, file: str):
 
 def deblog(message: str):
 	"""Crude debug log appender. Disable by uncommenting the return statement."""
-	#return  # Don't log anything; production code should use this.
+	return  # Don't log anything; production code should use this.
 	file = os.path.abspath(os.path.expandvars(r"%temp%\lukeslog.txt"))
 	with open(file, "a+", encoding="utf-8") as f:
 		f.write(message + "\n")
