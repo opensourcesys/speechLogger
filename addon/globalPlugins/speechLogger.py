@@ -65,15 +65,16 @@ class Origin(Enum):
 def logToFile(sequence: SpeechSequence, file: str):
 	"""Helper function to append text of the given speech sequence to the given file."""
 	deblog(f"In logToFile, logging to {file}")
-	with open(file, "a+") as f:
+	with open(file, "a+", encoding="utf-8") as f:
 		f.write("\n".join(
-			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)) + "\n")
+			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
+		) + "\n")
 
 def deblog(message: str):
 	"""Crude debug log appender. Disable by uncommenting the return statement."""
 	#return  # Don't log anything; production code should use this.
 	file = os.path.abspath(os.path.expandvars(r"%temp%\lukeslog.txt"))
-	with open(file, "a+") as f:
+	with open(file, "a+", encoding="utf-8") as f:
 		f.write(message + "\n")
 
 
@@ -155,7 +156,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.files.local = os.path.abspath(os.path.expandvars(self.files.local))
 			# Test open
 			try:
-				with open(self.files.local, "a+") as f:
+				with open(self.files.local, "a+", encoding="utf-8") as f:
 					pass
 			except Exception as e:
 				log.error(f"Couldn't open local log file {self.files.local} for appending. {e}")
@@ -169,7 +170,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.files.remote = os.path.abspath(os.path.expandvars(self.files.remote))
 			# Test open
 			try:
-				with open(self.files.remote, "a+") as test:
+				with open(self.files.remote, "a+", encoding="utf-8") as test:
 					pass
 			except Exception as e:
 				log.error(f"Couldn't open remote log file {self.files.remote} for appending. {e}")
