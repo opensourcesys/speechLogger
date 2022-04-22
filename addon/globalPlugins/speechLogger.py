@@ -211,7 +211,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					self.remotePlugin = plugin
 					deblog("_obtainRemote: found it, returning True.")
 					return True  # break
-		except TypeError:  # NVDA Remote is not running
+		except AttributeError:  # NVDA Remote is not running
 			deblog("_obtainRemote: couldn't find it, returning False.")
 			return False
 
