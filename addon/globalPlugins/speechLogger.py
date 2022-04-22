@@ -275,7 +275,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Must check whether we can or should log
 			if self.flags.logRemote:
 				# If this is the first time we're trying to start capturing,
-				# we need to initialize the NVDA Remote portion of our log.
+				# we need to initialize our NVDA Remote interface.
 				deblog("Remote toggle script: attempting to start, checking for remote.")
 				if self.remotePlugin is None and self._obtainRemote():
 					# We didn't have Remote before, but we do have it now. Configure the callback.
