@@ -265,7 +265,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
-		deblog(f"In remote toggle script. Capturing was {self.flags.remoteActive}.")
+		deblog(f"In remote toggle script. Flags: {self.flags}.")
 		if self.flags.remoteActive:  # We were logging, stop
 			self.flags.remoteActive = False
 			# Translators: message to tell the user that we are no longer logging.
@@ -275,10 +275,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Must check whether we can or should log
 			if self.flags.logRemote:
 				# If this is the first time we're trying to start capturing,
-				# we need to initialize the NVDA Remote portion of our log.
+				# we need to initialize our NVDA Remote interface.
 				deblog("Remote toggle script: attempting to start, checking for remote.")
-				if self.remotePlugin is None and self._obtainRemote():
-					# We didn't have Remote before, but we do have it now. Configure the callback.
+				if self._obtainRemote():
+					# We have obtained (or already had) a reference to NVDA Remote. Configure the callback.
 					deblog("Remote toggle script: setting up the callback.")
 					if self._setupRemoteCallback():
 						self.flags.remoteActive = True
@@ -286,9 +286,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 						# Translators: a message to tell the user that we are now logging.
 						ui.message(_("Started logging remote speech."))
 					else:
-						deblog("Remote toggle script:  failed.")
+						deblog("Remote toggle script:  failed to register the callback.")
 						# Translators: a message to tell the user that we failed to start remote logging.
-						ui.message(_("Could not log speech from the remote session, maybe you need to connect?"))
+						ui.message(_("Could not log speech from the remote session. Maybe you need to connect?"))
 			else:
 				deblog(f"Remote toggle script: can't do that kind of logging. Flags: {self.flags}\nFiles: {self.files}.")
 				# Translators: a message to tell the user that we can't start this kind of logging
