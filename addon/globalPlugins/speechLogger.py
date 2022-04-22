@@ -265,7 +265,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
-		deblog(f"In remote toggle script. Capturing was {self.flags.remoteActive}.")
+		deblog(f"In remote toggle script. Flags: {self.flags}.")
 		if self.flags.remoteActive:  # We were logging, stop
 			self.flags.remoteActive = False
 			# Translators: message to tell the user that we are no longer logging.
