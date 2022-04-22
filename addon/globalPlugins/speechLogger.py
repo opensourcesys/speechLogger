@@ -67,7 +67,7 @@ def logToFile(sequence: SpeechSequence, file: str):
 	deblog(f"In logToFile, logging to {file}")
 	with open(file, "a+") as f:
 		f.write("\n".join(
-			speech for speech in sequence if isinstance(speech, str)
+			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
 		) + "\n")
 
 def deblog(message: str):
