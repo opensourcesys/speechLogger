@@ -67,8 +67,7 @@ def logToFile(sequence: SpeechSequence, file: str):
 	deblog(f"In logToFile, logging to {file}")
 	with open(file, "a+") as f:
 		f.write("\n".join(
-			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
-		) + "\n")
+			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)) + "\n")
 
 def deblog(message: str):
 	"""Crude debug log appender. Disable by uncommenting the return statement."""
@@ -139,10 +138,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				symbolLevel: Optional[int] = None,
 				priority: Spri = Spri.NORMAL
 		):
-			deblog("In wrapped speak.")
+			#deblog("In wrapped speak.")
 			self.captureSpeech(sequence, Origin.LOCAL)
 			return old_speak(sequence, symbolLevel, priority)
-		#speech.speech.speak = types.MethodType(new_speak, self)  # Alternative patch method
 		speech.speech.speak = new_speak
 
 	def fileSetup(self):
@@ -188,7 +186,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			file = self.files.remote
 		if file is not None:
 			logToFile(sequence, file)
-		deblog(f"In captureSpeech. Type is: {origin}, and file is: {file},\nFlags: {self.flags}.")
+		#deblog(f"In captureSpeech. Type is: {origin}, and file is: {file},\nFlags: {self.flags}.")
 
 	def _captureRemoteSpeech(self, *args, **kwargs):
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
