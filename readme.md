@@ -26,12 +26,14 @@ Look for "Toggles logging of local speech" and "Toggles logging of remote speech
 
 It is not possible to start logging for remote sessions, until you actually start one.
 There is no way too, for example, start logging, and have it wait, on stand-by, until a remote session starts, and begin logging at that time.
-The followup implication is also true: when the remote session ends, logging automatically stops.
-(This is a forward-looking statement. You will currently get undefined behavior until you toggle off logging, after a remote session ends.)
+
+However it currently appears from limited testing, that once started, logging will continue across remote sessions.
+
+As of 22.0.10, speech is now broken up by the same two spaces which NVDA uses in its own log. That is, when a speech sequence contains multiple spoken chunks, they will be separated by two spaces instead of the newline that was previously used.
+
+This text separator is configurable in the Configuration section of the add-on.
 
 ### Known bugs
 
-As of 22.0.9:
-* Speech is broken up in the log files by newlines between each utterance of a sequence. That results in some blocks that are broken up where one might not expect. I can easily fix this, but haven't decided whether it is a desirable thing or not. Comments welcome.
-* After starting remote logging, it can not be stopped while the session is still connected. It is untested what happens if one session is disconnected, logging is left running, and another session is started.
+As of 22.0.10:
 * There was a periodic clash between Speech Logger and Speech History while this add-on was in development. I am unsure if it has been resolved by the latest version; interoperability with Speech History was not my immediate goal for this alpha series. Disable one of them if anything strange happens, such as NVDA log errors involving speech.speech.speak, or Speech History, or strange event failures.

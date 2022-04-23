@@ -1,6 +1,6 @@
-# Speech Logger with Remote Support, V22.0
+# NVDA Speech Logger add-on, V22.0
 #
-#    Copyright (C) 2022 Luke Davis <XLTechie@newanswertech.com>
+#    Copyright (C) 2022 Luke Davis <XLTechie@newanswertech.com>, James Scholes
 #
 # This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
 # as published by    the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
@@ -36,6 +36,8 @@ LOCAL_LOG = r"%temp%\nvda-speech.log"
 #: If you use exactly the same path and name as LOCAL_LOG, then both kinds of speech are logged to the same file.
 #: Set to None to disable remote speech logging.
 REMOTE_LOG = r"%temp%\nvda-speech-remote.log"
+#: Text inserted between different segments of a speech sequence. NVDA uses two spaces for its log, so we'll use that here.
+SPEECH_SEPARATOR = "  "
 # END OF CONFIGURATION
 
 import os
@@ -52,8 +54,14 @@ from speech.priorities import Spri
 from scriptHandler import script
 from logHandler import log
 
+from .immutableKeyObj import ImmutableKeyObj
+
 addonHandler.initTranslation()
 	
+# Default check
+if not isinstance(SPEECH_SEPARATOR, str):
+	SPEECH_SEPARATOR = "  "  # Reset to default
+
 
 @unique
 class Origin(Enum):
@@ -66,7 +74,7 @@ def logToFile(sequence: SpeechSequence, file: str):
 	"""Helper function to append text of the given speech sequence to the given file."""
 	deblog(f"In logToFile, logging to {file}")
 	with open(file, "a+", encoding="utf-8") as f:
-		f.write("\n".join(
+		f.write(SPEECH_SEPARATOR.join(
 			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
 		) + "\n")
 
@@ -76,34 +84,6 @@ def deblog(message: str):
 	file = os.path.abspath(os.path.expandvars(r"%temp%\lukeslog.txt"))
 	with open(file, "a+", encoding="utf-8") as f:
 		f.write(message + "\n")
-
-
-class ImmutableKeyObj:
-	"""Helper type which you initialize with kwargs that become its members, after which no new members can be added.
-	Think of it as an implementation of __slots__, that works at the instance level.
-	"""
-	def __setattr__(self, key, val):
-		"""If object already has key as a member, its value is set to val. Otherwise KeyError is raised."""
-		if not hasattr(self, key):
-			raise KeyError(f'Can not set: {self} has no member "{key}".')
-		else:
-			object.__setattr__(self, key, val)
-
-	def __init__(self, *args, **kwargs):
-		"""Sets its kwargs with their values as the instance members, and gently prevents other members.
-		Example:
-		options = ImmutableKeyObj(recursive=True, backupExt=".bac")
-		options.recursive  ## True
-		options.backupExt = ".bk"  # Success
-		options.file = "testing.txt"  # Fail, KeyError is raised
-		"""
-		self.__dict__ = {k: v for k, v in kwargs.items()}
-
-	def __repr__(self):
-		"""Returns the members of the instance as a formatted string."""
-		itemSep = ", "  # A comma and a space between items
-		kvSep = ": "  # A colon and a space between each key and value
-		return itemSep.join(kvSep.join((k, str(v))) for (k, v) in self.__dict__.items())
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -123,7 +103,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Do we intend to log remote speech?
 			logRemote=False,
 			# Tracks whether we are actively logging remote speech
-			remoteActive=False
+			remoteActive=False,
+			# Has the NVDA Remote speech capturing callback been registered?
+			callbackRegistered=False
 		)
 		self.files = ImmutableKeyObj(local=LOCAL_LOG, remote=REMOTE_LOG)
 		# We can't handle getting our callback into NVDA Remote during __init__,
@@ -215,22 +197,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			deblog("_obtainRemote: couldn't find it, returning False.")
 			return False
 
-	def _setupRemoteCallback(self) -> bool:
+	def _registerCallback(self) -> bool:
 		"""Adds our callback to NVDA Remote, if possible."""
-		deblog("In _setupRemoteCallback.")
+		deblog("In _registerCallback.")
 		# If we have a reference to the Remote plugin, register a handler for its speech:
 		if self.remotePlugin is not None:
-			deblog("_setupRemoteCallback: attempting to assign the callback.")
+			# If we already registered a callback, we're done early.
+			# FixMe: should deregister the callback on session shutdown.
+			if self.flags.callbackRegistered:
+					return True
+			deblog("_registerCallback: attempting to assign the callback.")
 			try:
 				self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self._captureRemoteSpeech)
+				self.flags.callbackRegistered = True
 				startedRemoteLogging = True
-				deblog("_setupRemoteCallback: success.")
+				deblog("_registerCallback: success.")
 			except:  # Couldn't do, probably disconnected
 				startedRemoteLogging = False
-				deblog("_setupRemoteCallback: failed.")
+				deblog("_registerCallback: failed.")
 		else:
 			startedRemoteLogging = False
-			deblog("_setupRemoteCallback: didn't have a Remote plugin reference, couldn't try.")
+			deblog("_registerCallback: didn't have a Remote plugin reference, couldn't try.")
 		return startedRemoteLogging
 
 	@script(
@@ -280,15 +267,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				if self._obtainRemote():
 					# We have obtained (or already had) a reference to NVDA Remote. Configure the callback.
 					deblog("Remote toggle script: setting up the callback.")
-					if self._setupRemoteCallback():
+					if self._registerCallback():
 						self.flags.remoteActive = True
 						deblog("Remote toggle script: success.")
 						# Translators: a message to tell the user that we are now logging.
 						ui.message(_("Started logging remote speech."))
 					else:
 						deblog("Remote toggle script:  failed to register the callback.")
-						# Translators: a message to tell the user that we failed to start remote logging.
-						ui.message(_("Could not log speech from the remote session. Maybe you need to connect?"))
+						# Translators: a message to tell the user that we can not start logging because remote may not be connected..
+						ui.message(_("Could not log remote speech, probably not connected."))
 				else:  # self._obtainRemote() returned False
 					deblog("Remote toggle script: _obtainRemote() failed.")
 					# Translators: a message telling the user that the Remote add-on is unavailable.
