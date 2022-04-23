@@ -268,7 +268,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					else:
 						deblog("Remote toggle script:  failed to register the callback.")
 						# Translators: a message to tell the user that we failed to start remote logging.
-						ui.message(_("Could not log speech from the remote session. Maybe you need to connect?"))
+						ui.message(_("Could not log remote speech. Maybe you need to connect?"))
 				else:  # self._obtainRemote() returned False
 					deblog("Remote toggle script: _obtainRemote() failed.")
 					# Translators: a message telling the user that the Remote add-on is unavailable.
