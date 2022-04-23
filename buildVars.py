@@ -39,7 +39,7 @@ addon_info = {
 	# Add-on update channel (default is None, denoting stable releases,
 	# and for development releases, use "dev".)
 	# Do not change unless you know what you are doing!
-	"addon_updateChannel": "dev",
+	"addon_updateChannel": None,
 }
 
 # Define the python files that are the sources of your add-on.
