@@ -1,6 +1,6 @@
-# Speech Logger with Remote Support, V22.0
+# NVDA Speech Logger add-on, V22.0
 #
-#    Copyright (C) 2022 Luke Davis <XLTechie@newanswertech.com>
+#    Copyright (C) 2022 Luke Davis <XLTechie@newanswertech.com>, James Scholes
 #
 # This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
 # as published by    the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
