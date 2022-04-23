@@ -59,7 +59,7 @@ from .immutableKeyObj import ImmutableKeyObj
 addonHandler.initTranslation()
 	
 # Default check
-if not isinstance(SPEECH_SEPARATOR, 'str'):
+if not isinstance(SPEECH_SEPARATOR, str):
 	SPEECH_SEPARATOR = "  "  # Reset to default
 
 
