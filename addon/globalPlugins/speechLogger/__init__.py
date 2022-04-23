@@ -36,6 +36,8 @@ LOCAL_LOG = r"%temp%\nvda-speech.log"
 #: If you use exactly the same path and name as LOCAL_LOG, then both kinds of speech are logged to the same file.
 #: Set to None to disable remote speech logging.
 REMOTE_LOG = r"%temp%\nvda-speech-remote.log"
+#: Text inserted between different segments of a speech sequence. NVDA uses two spaces for its log, so we'll use that here.
+SPEECH_SEPARATOR = "  "
 # END OF CONFIGURATION
 
 import os
@@ -56,6 +58,10 @@ from .immutableKeyObj import ImmutableKeyObj
 
 addonHandler.initTranslation()
 	
+# Default check
+if not isinstance(SPEECH_SEPARATOR, 'str'):
+	SPEECH_SEPARATOR = "  "  # Reset to default
+
 
 @unique
 class Origin(Enum):
@@ -68,7 +74,7 @@ def logToFile(sequence: SpeechSequence, file: str):
 	"""Helper function to append text of the given speech sequence to the given file."""
 	deblog(f"In logToFile, logging to {file}")
 	with open(file, "a+", encoding="utf-8") as f:
-		f.write("\n".join(
+		f.write(SPEECH_SEPARATOR.join(
 			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
 		) + "\n")
 
