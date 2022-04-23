@@ -197,27 +197,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			deblog("_obtainRemote: couldn't find it, returning False.")
 			return False
 
-	def _setupRemoteCallback(self) -> bool:
+	def _registerCallback(self) -> bool:
 		"""Adds our callback to NVDA Remote, if possible."""
-		deblog("In _setupRemoteCallback.")
+		deblog("In _registerCallback.")
 		# If we have a reference to the Remote plugin, register a handler for its speech:
 		if self.remotePlugin is not None:
 			# If we already registered a callback, we're done early.
 			# FixMe: should deregister the callback on session shutdown.
 			if self.flags.callbackRegistered:
 					return True
-			deblog("_setupRemoteCallback: attempting to assign the callback.")
+			deblog("_registerCallback: attempting to assign the callback.")
 			try:
 				self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self._captureRemoteSpeech)
 				self.flags.callbackRegistered = True
 				startedRemoteLogging = True
-				deblog("_setupRemoteCallback: success.")
+				deblog("_registerCallback: success.")
 			except:  # Couldn't do, probably disconnected
 				startedRemoteLogging = False
-				deblog("_setupRemoteCallback: failed.")
+				deblog("_registerCallback: failed.")
 		else:
 			startedRemoteLogging = False
-			deblog("_setupRemoteCallback: didn't have a Remote plugin reference, couldn't try.")
+			deblog("_registerCallback: didn't have a Remote plugin reference, couldn't try.")
 		return startedRemoteLogging
 
 	@script(
@@ -267,7 +267,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				if self._obtainRemote():
 					# We have obtained (or already had) a reference to NVDA Remote. Configure the callback.
 					deblog("Remote toggle script: setting up the callback.")
-					if self._setupRemoteCallback():
+					if self._registerCallback():
 						self.flags.remoteActive = True
 						deblog("Remote toggle script: success.")
 						# Translators: a message to tell the user that we are now logging.
