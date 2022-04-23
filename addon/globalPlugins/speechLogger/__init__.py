@@ -103,7 +103,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Do we intend to log remote speech?
 			logRemote=False,
 			# Tracks whether we are actively logging remote speech
-			remoteActive=False
+			remoteActive=False,
+			# Has the NVDA Remote speech capturing callback been registered?
+			callbackRegistered=False
 		)
 		self.files = ImmutableKeyObj(local=LOCAL_LOG, remote=REMOTE_LOG)
 		# We can't handle getting our callback into NVDA Remote during __init__,
@@ -200,9 +202,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		deblog("In _setupRemoteCallback.")
 		# If we have a reference to the Remote plugin, register a handler for its speech:
 		if self.remotePlugin is not None:
+			# If we already registered a callback, we're done early.
+			# FixMe: should deregister the callback on session shutdown.
+			if self.flags.callbackRegistered:
+					return True
 			deblog("_setupRemoteCallback: attempting to assign the callback.")
 			try:
 				self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self._captureRemoteSpeech)
+				self.flags.callbackRegistered = True
 				startedRemoteLogging = True
 				deblog("_setupRemoteCallback: success.")
 			except:  # Couldn't do, probably disconnected
