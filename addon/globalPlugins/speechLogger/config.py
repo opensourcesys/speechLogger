@@ -43,6 +43,8 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			" when NVDA is restarted."
 		)
 		helper.addItem(wx.StaticText(self, label=introText))
+
+		# Grouping for path info
 		groupSizer = wx.StaticBoxSizer(
 			wx.VERTICAL, self,
 			# Translators: label of the log files location grouping.
@@ -50,6 +52,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		)
 		groupHelper = helper.addItem(gui.guiHelper.BoxSizerHelper(self, sizer=groupSizer))
 		groupBox = groupSizer.GetStaticBox()
+
 		# Translators: The label of a button to browse for a directory.
 		browseText = _("Browse...")
 		# Translators: The title of the dialog presented when browsing for the log directory.
@@ -57,6 +60,12 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		dirChooserHelper = gui.guiHelper.PathSelectionHelper(groupBox, browseText, dirChooserTitle)
 		directoryEntryControl = groupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
+
+		# Translators: label of a text field to enter local speech log filename.
+		localFNControl = groupHelper.addLabeledControl(_("Local speech log filename: "), wx.TextCtrl)
+		# Translators: label of a text field to enter remote speech log filename.
+		remoteFNControl = groupHelper.addLabeledControl(_("Remote speech log filename: "), wx.TextCtrl)
+
 		# Translators: Text of a checkbox to specify whether logs are exchanged on NVDA start.
 		rotateLogsText = _("&Rotate logs on NVDA startup")
 		self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
