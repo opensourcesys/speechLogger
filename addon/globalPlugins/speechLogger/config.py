@@ -12,10 +12,10 @@
 
 import wx
 
-import gui
-import config
 import addonHandler
+import config
 import ui
+import gui
 
 addonHandler.initTranslation()
 
@@ -35,6 +35,14 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		"""Creates a settings panel."""
 		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		# Translators: the introductory text for the settings dialog
+		introText = _(
+			"Choose the log directory and filenames for the speech logs.\n"
+			"System variables such as %temp% are permitted.\n"
+			"Also choose whether the logs are rotated (renamed with \"old\" prepended)"
+			" when NVDA is restarted."
+		)
+		helper.addItem(wx.StaticText(self, label=introText))
 		groupSizer = wx.StaticBoxSizer(
 			wx.VERTICAL, self,
 			# Translators: label of the log files location grouping.
