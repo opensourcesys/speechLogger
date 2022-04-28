@@ -48,6 +48,7 @@ import addonHandler
 import globalPluginHandler
 import globalPlugins
 import ui
+import gui
 import speech
 from speech.types import SpeechSequence, Optional
 from speech.priorities import Spri
@@ -55,6 +56,7 @@ from scriptHandler import script
 from logHandler import log
 
 from .immutableKeyObj import ImmutableKeyObj
+from .config import SpeechLoggerSettings
 
 addonHandler.initTranslation()
 	
@@ -112,6 +114,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
 		#: Holds an initially empty reference to NVDA Remote
 		self.remotePlugin = None
+		# Establish the add-on's NVDA config
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechLoggerSettings)
 		self.fileSetup()
 		# Wrap speech.speech.speak, so we can get its output first
 		old_speak = speech.speech.speak
@@ -125,6 +129,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.captureSpeech(sequence, Origin.LOCAL)
 			return old_speak(sequence, symbolLevel, priority)
 		speech.speech.speak = new_speak
+
+	def terminate(self):
+		# Remove the NVDA settings panel
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
 
 	def fileSetup(self):
 		"""Makes sure the paths exist, and the files can be written."""
