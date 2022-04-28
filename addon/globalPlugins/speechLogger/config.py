@@ -23,8 +23,12 @@ addonHandler.initTranslation()
 
 #: speechLogger Add-on config database
 config.conf.spec["speechLogger"] = {
-	"local": "",
-	"remote": ""
+	"folder": "string(default='%temp%')",
+	"local": "string(default='NVDA-speech.log')",
+	"remote": "string(default='NVDA-speech-remote.log')",
+	"rotate": "boolean(default=False)",
+	"separator": "string(default='2spc')",
+	"customSeparator": "string(default='')"
 }
 
 # Some past iteration of this was probably based on something by Joseph Lee.
@@ -40,6 +44,19 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		"You may also choose whether the logs grow continuously, or are rotated (renamed with \"-old\" "
 		"before the extension) when NVDA starts.\nFinally, you can alter the string used to separate multiple"
 		" utterances from the same speech sequence."
+	)
+
+	availableSeparators = (
+		# Translators: a separator option in the separators combobox
+		("2spc", _("Two spaces (NVDA log style)")),
+		# Translators: a separator option in the separators combobox
+		("nl", _("Newline")),
+		# Translators: a separator option in the separators combobox
+		("comma", _("A comma and space")),
+		# Translators: a separator option in the separators combobox
+		("__", _("Two underscores")),
+		# Translators: a separator option in the separators combobox
+		("custom", _("Custom"))
 	)
 
 	def makeSettings(self, settingsSizer):
@@ -64,16 +81,23 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseText, dirChooserTitle)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
+		self.logDirectoryEdit.SetValue(config.conf['speechLogger']['folder'])
 
-		# Translators: label of a text field to enter local speech log filename.
-		localFNControl = fileGroupHelper.addLabeledControl(_("Local speech log filename: "), wx.TextCtrl)
-		# Translators: label of a text field to enter remote speech log filename.
-		remoteFNControl = fileGroupHelper.addLabeledControl(_("Remote speech log filename: "), wx.TextCtrl)
+		self.localFNControl = fileGroupHelper.addLabeledControl(
+			# Translators: label of a text field to enter local speech log filename.
+			_("Local speech log filename: "), wx.TextCtrl
+		)
+		self.localFNControl.SetValue(config.conf['speechLogger']['local'])
+		self.remoteFNControl = fileGroupHelper.addLabeledControl(
+			# Translators: label of a text field to enter remote speech log filename.
+			_("Remote speech log filename: "), wx.TextCtrl
+		)
+		self.remoteFNControl.SetValue(config.conf['speechLogger']['remote'])
 
 		# Translators: Text of a checkbox to specify whether logs are exchanged on NVDA start.
 		rotateLogsText = _("&Rotate logs on NVDA startup")
 		self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
-		self.rotateLogsCB.Value = False
+		self.rotateLogsCB.SetValue(config.conf['speechLogger']['rotate'])
 
 		# Grouping for separator options
 		sepGroupSizer = wx.StaticBoxSizer(
@@ -86,35 +110,34 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: this is the label for a combobox providing possible separator values
 		separatorComboLabel = _("Utterance separator")
-		separatorOptions = (
-			# Translators: a separator option in the separators combobox
-			("2spc", _("Two spaces (NVDA log style)")),
-			# Translators: a separator option in the separators combobox
-			("nl", _("Newline")),
-			# Translators: a separator option in the separators combobox
-			("comma", _("A comma and space")),
-			# Translators: a separator option in the separators combobox
-			("__", _("Two underscores")),
-			# Translators: a separator option in the separators combobox
-			("custom", _("Custom"))
-		)
-		separatorDisplayChoices = [name for setting, name in separatorOptions]
-		separatorChoiceControl = sepGroupHelper.addLabeledControl(
+		separatorDisplayChoices = [name for setting, name in self.availableSeparators]
+		self.separatorChoiceControl = sepGroupHelper.addLabeledControl(
 			separatorComboLabel, wx.Choice, choices=separatorDisplayChoices
 		)
-		separatorChoiceControl.SetSelection(0)
-		"""for index, (setting, name) in enumerate(separatorOptions):
-			if setting == config.conf["speechLogger"]["separatorChoice"]:
-				separatorChoiceControl.SetSelection(index)
+		# Iterate the combobox choices, and pick the one listed in config
+		for index, (setting, name) in enumerate(self.availableSeparators):
+			if setting == config.conf['speechLogger']['separator']:
+				self.separatorChoiceControl.SetSelection(index)
 				break
-		else:
-			log.debugWarning("Could not set separator combobox to the config derived option.")"""
+		else:  # Unrecognized choice saved in configuration
+			log.debugWarning(
+				"Could not set separator combobox to the config derived option of"
+				f' "{config.conf["speechLogger"]["separator"]}". Using default.'
+			)
+			self.separatorChoiceControl.SetSelection(0)  # Use default
 
-		customSeparatorControl = sepGroupHelper.addLabeledControl(
+		self.customSeparatorControl = sepGroupHelper.addLabeledControl(
 			# Translators: the label for a text field requesting an optional custom separator string
 			_(r"Custom utterance separator (can use escapes like \t): "), wx.TextCtrl
 		)
+		self.customSeparatorControl.SetValue(config.conf['speechLogger']['customSeparator'])
 
 	def onSave(self):
-		#config.conf["speechLogger"]["local"] = self.localCB.Value
-		pass
+		config.conf['speechLogger']['folder'] = self.logDirectoryEdit.Value
+		config.conf['speechLogger']['local'] = self.localFNControl.Value
+		config.conf['speechLogger']['remote'] = self.remoteFNControl.Value
+		config.conf['speechLogger']['rotate'] = self.rotateLogsCB.Value
+		# Get the text of the selected separator
+		sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
+		config.conf['speechLogger']['separator'] = sepText
+		config.conf['speechLogger']['customSeparator'] = self.customSeparatorControl.Value
