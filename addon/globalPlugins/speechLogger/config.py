@@ -101,6 +101,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		separatorChoiceControl = sepGroupHelper.addLabeledControl(
 			separatorComboLabel, wx.Choice, choices=separatorDisplayChoices
 		)
+		separatorChoiceControl.SetSelection(0)
 		"""for index, (setting, name) in enumerate(separatorOptions):
 			if setting == config.conf["speechLogger"]["separatorChoice"]:
 				separatorChoiceControl.SetSelection(index)
