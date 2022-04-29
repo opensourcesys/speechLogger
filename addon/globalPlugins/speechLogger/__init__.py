@@ -40,7 +40,7 @@ from speech.priorities import Spri
 from scriptHandler import script
 from logHandler import log
 
-from .config import SpeechLoggerSettings
+from .configUI import SpeechLoggerSettings
 from .immutableKeyObj import ImmutableKeyObj
 
 addonHandler.initTranslation()
