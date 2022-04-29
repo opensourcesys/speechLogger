@@ -35,6 +35,9 @@ config.conf.spec["speechLogger"] = {
 class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	"""NVDA configuration panel based configurator  for speechLogger."""
 
+	#: Class variable to track whether the configuration has been changed in the panel, thus causing the
+	#: add-on to refresh its idea of the configuration.
+	hasConfigChanges = True
 	# Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 	title = _("Speech Logger")
 	# Translators: the introductory text for the settings dialog
@@ -141,3 +144,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
 		config.conf['speechLogger']['separator'] = sepText
 		config.conf['speechLogger']['customSeparator'] = self.customSeparatorControl.Value
+
+	def postSave(self):
+		"""After saving settings, set a flag to cause a config re-read by the add-on."""
+		SpeechLoggerSettings.hasConfigChanges = True
