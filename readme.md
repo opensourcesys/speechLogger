@@ -2,19 +2,29 @@
 
 This file and add-on are works in progress.
 
-### No UI
+### Configuration
 
-This add-on doesn't currently have a GUI to configure it.
-It tries to have sane defaults, but you may want to change the configuration.
+To configure this add-on, open the NVDA menu, go to Preferences, then Settings, then Speech Logger (NVDA+N, P, S, S, S, on a default U.S. English keyboard).
 
-To do this, open the source file in %appdata%\nvda\addons\speechLogger\globalPlugins\speechLogger.py, and edit the "configuration" section according to your preferences.
+The following settings are available:
+* The log directory. You can enter or browse for your desired destination directory, which must already exist. System variables such as %temp%, %userprofile%, etc., can be used in this field.
+* Local log filename. The created file will be placed in the above directory. This will contain speech logged while the local log mode is engaged.
+* Remote log filename. The created file will be placed in the above directory. This will contain speech logged while the remote log mode is engaged.
+* Rotate logs upon NVDA startup. If unchecked (the default), logs will continue to grow indefinitely. If checked, every time NVDA restarts, it will rename the log files with a "-old" appendix, right before the file extension, analgas to what is done with the NVDA log file.
+* Separator. This combobox lets you choose one of the available utterance separators. See below for more information.
+* Custom separator. This field lets you enter a custom utterance separator (see below), which is used if "custom" is chosen in the combobox.
 
-### Default output files
+#### Utterance separator
 
-By default, the output logs are stored as follows:
+When NVDA speaks something such as "`recycle bin  1 of 55`" while it's reading your desktop, this is considered two separate utterances. The first one is the item name ("`Recycle bin`", in this example), and the second is the object position information ("`1 of 55`", in this example).
 
-* Local speech is stored in `%temp%\nvda-speech.log`.
-* Remote speech is stored in `%temp%\nvda-speech-remote.log`.
+Depending on what you are reading, and how you have NVDA configured, there can be several separate utterances that happen during a single speech sequence.
+
+In the normal NVDA log at debug level, each individual utterance is separated with two spaces, as it is written in the example above.
+
+Speech Logger allows you to separate utterances in the same way NVDA does (with two spaces), or by one of a few reasonable alternatives (a newline, a comma and a space, two underscores), or by a custom sequence of your own devising.
+
+If, for example, you wanted your utterance separator to be two dollar signs (`$$`), you would set the combobox to "custom", and enter "`$$`" (without the quotes), in the custom separator field.
 
 ### Starting and stopping logging
 
@@ -22,18 +32,11 @@ This add-on has no gestures set by default.
 You have to define your own toggle gestures, under the NVDA Input Gestures Tools category.
 Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
-### Notes
+### A note on remote speech logging
 
-It is not possible to start logging for remote sessions, until you actually start one.
+This add-on is intended to work with the NVDA Remote add-on, for logging of remote speech.
+
+It is important to know, that it is not possible to start logging for remote sessions until you actually start one.
 There is no way too, for example, start logging, and have it wait, on stand-by, until a remote session starts, and begin logging at that time.
 
 However it currently appears from limited testing, that once started, logging will continue across remote sessions.
-
-As of 22.0.10, speech is now broken up by the same two spaces which NVDA uses in its own log. That is, when a speech sequence contains multiple spoken chunks, they will be separated by two spaces instead of the newline that was previously used.
-
-This text separator is configurable in the Configuration section of the add-on.
-
-### Known bugs
-
-As of 22.0.10:
-* There was a periodic clash between Speech Logger and Speech History while this add-on was in development. I am unsure if it has been resolved by the latest version; interoperability with Speech History was not my immediate goal for this alpha series. Disable one of them if anything strange happens, such as NVDA log errors involving speech.speech.speak, or Speech History, or strange event failures.

@@ -11,34 +11,18 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """An NVDA add-on which logs, in real time, spoken output to a file or files.
-This includes any output generated using the NVDA remote add-on.
+This can include any output generated using the NVDA remote add-on.
 Lightly based on suggestions sent to the nvda-addons@groups.io mailing list by James Scholes (https://nvda-addons.groups.io/g/nvda-addons/message/18552).
-This add-on has no UI, and must be configured by constants below.
+
+This add-on must be configured before use. Configure it in NVDA Preferences -> Settings -> Speech Logger.
 
 You have to define your own toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
 Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
-Since the path(s) must be edited in the source, you have to reload plugins (NVDA+Ctrl+F3, or NVDA restart) in order to change them.
-(N.B. reloading plugins doesn't work for this at the moment, reason unknown.)
-
 The log files are opened and closed for each speech utterance, because the original mandate for this add-on
 was to have real-time saving of output.
-That means lots of disk activity, and probably not wonderful performance unless writing to a RAMDisk or an SSD.
-
-Note also that these files are never truncated, and must be managed manually or they will grow very large.
+Be warned that means lots of disk activity.
 """
-
-# CONFIGURATION
-#: Speech generated locally is output to this file.
-#: Set to None to disable local speech logging.
-LOCAL_LOG = r"%temp%\nvda-speech.log"
-#: Speech collected from the NVDA Remote add-on is saved to this file.
-#: If you use exactly the same path and name as LOCAL_LOG, then both kinds of speech are logged to the same file.
-#: Set to None to disable remote speech logging.
-REMOTE_LOG = r"%temp%\nvda-speech-remote.log"
-#: Text inserted between different segments of a speech sequence. NVDA uses two spaces for its log, so we'll use that here.
-SPEECH_SEPARATOR = "  "
-# END OF CONFIGURATION
 
 import os
 from functools import wraps
@@ -61,10 +45,6 @@ from .immutableKeyObj import ImmutableKeyObj
 
 addonHandler.initTranslation()
 	
-# Default check
-if not isinstance(SPEECH_SEPARATOR, str):
-	SPEECH_SEPARATOR = "  "  # Reset to default
-
 
 @unique
 class Origin(Enum):
