@@ -172,15 +172,26 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# This is handled by __init__() and rotateLogs(); we just update the flag.
 		self.flags.rotate = config.conf['speechLogger']['rotate']
 		# Stage 4: utterance separation
+		# For this one we may need the configured custom separator. However, it seems that
+		# some part of NVDA or Configobj, escapes escape chars such as \t. We must undo that.
+		unescapedCustomSeparator = config.conf['speechLogger']['customSeparator'].encode().decode("unicode_escape")
 		separators = {
 			"2spc": "  ",
 			"nl": "\n",
 			"comma": ", ",
 			"__": "__",
-			"custom": config.conf['speechLogger']['customSeparator']
+			"custom": unescapedCustomSeparator
 		}
-		# Default, if needed, is derived from config spec
-		self.utteranceSeparator = separators[config.conf['speechLogger']['separator']]
+		log.debug(f"###\n{', '.join(str(ord(c)) for c in config.conf['speechLogger']['customSeparator'])}\n{', '.join(str(ord(c)) for c in unescapedCustomSeparator)}")
+		# In case the user has gone munging the config file, we must catch key errors.
+		try:
+			self.utteranceSeparator = separators[config.conf['speechLogger']['separator']]
+		except KeyError:
+			log.error(
+				f'Value "{config.conf["speechLogger"]["separator"]}", found in NVDA config, is '
+				'not a known separator. Using default of two spaces.'
+			)
+			self.utteranceSeparator = separators["2spc"]
 
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
 		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
