@@ -294,4 +294,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def rotateLogs(self):
 		"""Not implemented."""
+		# FixMe: coming in next version
 		pass

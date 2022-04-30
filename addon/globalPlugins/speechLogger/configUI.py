@@ -44,10 +44,18 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	panelDescription = _(
 		"Choose the log directory and filenames for the speech logs. "
 		"System variables such as %temp% are permitted.\n"
-		"You may also choose whether the logs grow continuously, or are rotated (renamed with \"-old\" "
-		"before the extension) when NVDA starts.\nFinally, you can alter the string used to separate multiple"
+		"You can also alter the string used to separate multiple"
 		" utterances from the same speech sequence."
 	)
+
+# Suspended description, awaiting the return of the rotation feature.
+#	panelDescription = _(
+#		"Choose the log directory and filenames for the speech logs. "
+#		"System variables such as %temp% are permitted.\n"
+#		"You may also choose whether the logs grow continuously, or are rotated (renamed with \"-old\" "
+#		"before the extension) when NVDA starts.\nFinally, you can alter the string used to separate multiple"
+#		" utterances from the same speech sequence."
+#	)
 
 	availableSeparators = (
 		# Translators: a separator option in the separators combobox
@@ -97,10 +105,11 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		)
 		self.remoteFNControl.SetValue(config.conf['speechLogger']['remote'])
 
+		# FixMe: log rotation is coming in the next version.
 		# Translators: Text of a checkbox to specify whether logs are exchanged on NVDA start.
-		rotateLogsText = _("&Rotate logs on NVDA startup")
-		self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
-		self.rotateLogsCB.SetValue(config.conf['speechLogger']['rotate'])
+		#rotateLogsText = _("&Rotate logs on NVDA startup")
+		#self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
+		#self.rotateLogsCB.SetValue(config.conf['speechLogger']['rotate'])
 
 		# Grouping for separator options
 		sepGroupSizer = wx.StaticBoxSizer(
@@ -144,7 +153,8 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		config.conf.profiles[0]['speechLogger']['folder'] = self.logDirectoryEdit.Value
 		config.conf.profiles[0]['speechLogger']['local'] = self.localFNControl.Value
 		config.conf.profiles[0]['speechLogger']['remote'] = self.remoteFNControl.Value
-		config.conf.profiles[0]['speechLogger']['rotate'] = self.rotateLogsCB.Value
+		# FixMe: log rotation is coming soon.
+		#config.conf.profiles[0]['speechLogger']['rotate'] = self.rotateLogsCB.Value
 		# Get the text of the selected separator
 		sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
 		config.conf.profiles[0]['speechLogger']['separator'] = sepText

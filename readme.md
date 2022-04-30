@@ -10,7 +10,6 @@ The following settings are available:
 * The log directory. You can enter or browse for your desired destination directory, which must already exist. System variables such as %temp%, %userprofile%, etc., can be used in this field.
 * Local log filename. The created file will be placed in the above directory. This will contain speech logged while the local log mode is engaged.
 * Remote log filename. The created file will be placed in the above directory. This will contain speech logged while the remote log mode is engaged.
-* Rotate logs upon NVDA startup. If unchecked (the default), logs will continue to grow indefinitely. If checked, every time NVDA restarts, it will rename the log files with a "-old" appendix, right before the file extension, analgas to what is done with the NVDA log file.
 * Separator. This combobox lets you choose one of the available utterance separators. See below for more information.
 * Custom separator. This field lets you enter a custom utterance separator (see below), which is used if "custom" is chosen in the combobox.
 
