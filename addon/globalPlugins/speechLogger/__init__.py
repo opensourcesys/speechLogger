@@ -11,34 +11,18 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 """An NVDA add-on which logs, in real time, spoken output to a file or files.
-This includes any output generated using the NVDA remote add-on.
+This can include any output generated using the NVDA remote add-on.
 Lightly based on suggestions sent to the nvda-addons@groups.io mailing list by James Scholes (https://nvda-addons.groups.io/g/nvda-addons/message/18552).
-This add-on has no UI, and must be configured by constants below.
+
+This add-on must be configured before use. Configure it in NVDA Preferences -> Settings -> Speech Logger.
 
 You have to define your own toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
 Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
-Since the path(s) must be edited in the source, you have to reload plugins (NVDA+Ctrl+F3, or NVDA restart) in order to change them.
-(N.B. reloading plugins doesn't work for this at the moment, reason unknown.)
-
 The log files are opened and closed for each speech utterance, because the original mandate for this add-on
 was to have real-time saving of output.
-That means lots of disk activity, and probably not wonderful performance unless writing to a RAMDisk or an SSD.
-
-Note also that these files are never truncated, and must be managed manually or they will grow very large.
+Be warned that means lots of disk activity.
 """
-
-# CONFIGURATION
-#: Speech generated locally is output to this file.
-#: Set to None to disable local speech logging.
-LOCAL_LOG = r"%temp%\nvda-speech.log"
-#: Speech collected from the NVDA Remote add-on is saved to this file.
-#: If you use exactly the same path and name as LOCAL_LOG, then both kinds of speech are logged to the same file.
-#: Set to None to disable remote speech logging.
-REMOTE_LOG = r"%temp%\nvda-speech-remote.log"
-#: Text inserted between different segments of a speech sequence. NVDA uses two spaces for its log, so we'll use that here.
-SPEECH_SEPARATOR = "  "
-# END OF CONFIGURATION
 
 import os
 from functools import wraps
@@ -49,21 +33,18 @@ import globalPluginHandler
 import globalPlugins
 import ui
 import gui
+import config
 import speech
 from speech.types import SpeechSequence, Optional
 from speech.priorities import Spri
 from scriptHandler import script
 from logHandler import log
 
+from .configUI import SpeechLoggerSettings
 from .immutableKeyObj import ImmutableKeyObj
-from .config import SpeechLoggerSettings
 
 addonHandler.initTranslation()
 	
-# Default check
-if not isinstance(SPEECH_SEPARATOR, str):
-	SPEECH_SEPARATOR = "  "  # Reset to default
-
 
 @unique
 class Origin(Enum):
@@ -72,31 +53,13 @@ class Origin(Enum):
 	REMOTE = auto()
 
 
-def logToFile(sequence: SpeechSequence, file: str):
-	"""Helper function to append text of the given speech sequence to the given file."""
-	deblog(f"In logToFile, logging to {file}")
-	with open(file, "a+", encoding="utf-8") as f:
-		f.write(SPEECH_SEPARATOR.join(
-			toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
-		) + "\n")
-
-def deblog(message: str):
-	"""Crude debug log appender. Disable by uncommenting the return statement."""
-	return  # Don't log anything; production code should use this.
-	file = os.path.abspath(os.path.expandvars(r"%temp%\lukeslog.txt"))
-	with open(file, "a+", encoding="utf-8") as f:
-		f.write(message + "\n")
-
-
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
-		global LOCAL_LOG, REMOTE_LOG
 		super().__init__()
-		deblog("Initializing.")
 		# Runtime vars and their sane defaults:
 		# Because our runtime flags and variables are many and confusing,
-		# We try to prevent some errors by using Immutable Key Objects to hold them.
+		# We try to prevent some errors by using Immutable Key Objects to hold them where posible.
 		self.flags = ImmutableKeyObj(
 			# Do we intend to log local speech?
 			logLocal=False,
@@ -107,16 +70,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Tracks whether we are actively logging remote speech
 			remoteActive=False,
 			# Has the NVDA Remote speech capturing callback been registered?
-			callbackRegistered=False
+			callbackRegistered=False,
+			# Should we rotate logs on startup?
+			rotate=False
 		)
-		self.files = ImmutableKeyObj(local=LOCAL_LOG, remote=REMOTE_LOG)
+		#: Filenames are obtained from NVDA configuration, and setup in applyUserConfig().
+		self.files = ImmutableKeyObj(local=None, remote=None)
 		# We can't handle getting our callback into NVDA Remote during __init__,
 		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
 		#: Holds an initially empty reference to NVDA Remote
 		self.remotePlugin = None
-		# Establish the add-on's NVDA config
+		# Establish the add-on's NVDA configuration panel and config options
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechLoggerSettings)
-		self.fileSetup()
+		# Read user config or defaults
+		self.applyUserConfig()
+		# If we are supposed to rotate logs, do that now.
+		if self.flags.rotate:
+			self.rotateLogs()
 		# Wrap speech.speech.speak, so we can get its output first
 		old_speak = speech.speech.speak
 		@wraps(speech.speech.speak)
@@ -125,7 +95,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				symbolLevel: Optional[int] = None,
 				priority: Spri = Spri.NORMAL
 		):
-			#deblog("In wrapped speak.")
 			self.captureSpeech(sequence, Origin.LOCAL)
 			return old_speak(sequence, symbolLevel, priority)
 		speech.speech.speak = new_speak
@@ -134,16 +103,36 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Remove the NVDA settings panel
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
 
-	def fileSetup(self):
-		"""Makes sure the paths exist, and the files can be written."""
-		deblog("In fileSetup.")
-		# If either filename is set to None, it means the user doesn't want logging for that type
-		if self.files.local is None:
+	def applyUserConfigIfNeeded(self):
+		"""If the user has changed any part of the configuration, reset our internals accordingly."""
+		if SpeechLoggerSettings.hasConfigChanges:
+			self.applyUserConfig()
+			SpeechLoggerSettings.hasConfigChanges = False
+
+	def applyUserConfig(self):
+		"""Configures internal variables according to those set in NVDA config."""
+		# Stage 1: directory
+		# We shouldn't be able to reach this point with a bad directory name, unless
+		# the user has been hand-editing nvda.ini. However, since that's possible, we must check.
+		if not os.path.exists(os.path.abspath(os.path.expandvars(config.conf['speechLogger']['folder']))):
+			# Notify the user
+			log.error(f"The folder given for log files does not exist ({config.conf['speechLogger']['folder']}).")
+			# Disable all logging
 			self.flags.logLocal = False
+			self.flags.logRemote = False
+			# Nothing else matters.
+			return
+		# Stage 2: files
+		# If either filename is empty, it means the user doesn't want logging for that type.
+		if config.conf['speechLogger']['local'] == "":
+			self.flags.logLocal = False
+			self.files.local = None
 		else:
 			self.flags.logLocal = True
-			# Regularize filename
-			self.files.local = os.path.abspath(os.path.expandvars(self.files.local))
+			self.files.local = os.path.join(
+				os.path.abspath(os.path.expandvars(config.conf['speechLogger']['folder'])),
+				os.path.basename(os.path.expandvars(config.conf['speechLogger']['local']))
+			)
 			# Test open
 			try:
 				with open(self.files.local, "a+", encoding="utf-8") as f:
@@ -152,12 +141,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				log.error(f"Couldn't open local log file {self.files.local} for appending. {e}")
 				self.files.local = None
 				self.flags.logLocal = False
-		if self.files.remote is None:
+		if config.conf['speechLogger']['remote'] == "":
 			self.flags.logRemote = False
+			self.files.remote = None
 		else:
 			self.flags.logRemote = True
-			# Regularize filename
-			self.files.remote = os.path.abspath(os.path.expandvars(self.files.remote))
+			self.files.remote = os.path.join(
+				os.path.abspath(os.path.expandvars(config.conf['speechLogger']['folder'])),
+				os.path.basename(os.path.expandvars(config.conf['speechLogger']['remote']))
+			)
 			# Test open
 			try:
 				with open(self.files.remote, "a+", encoding="utf-8") as test:
@@ -166,22 +158,43 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				log.error(f"Couldn't open remote log file {self.files.remote} for appending. {e}")
 				self.files.remote = None
 				self.flags.logRemote = False
-		deblog(f"fileSetup: {self.flags}\n{self.files}")
+		# Stage 3: file rotation
+		# This is handled by __init__() and rotateLogs(); we just update the flag.
+		self.flags.rotate = config.conf['speechLogger']['rotate']
+		# Stage 4: utterance separation
+		# For this one we may need the configured custom separator. However, it seems that
+		# some part of NVDA or Configobj, escapes escape chars such as \t. We must undo that.
+		unescapedCustomSeparator = config.conf['speechLogger']['customSeparator'].encode().decode("unicode_escape")
+		separators = {
+			"2spc": "  ",
+			"nl": "\n",
+			"comma": ", ",
+			"__": "__",
+			"custom": unescapedCustomSeparator
+		}
+		# In case the user has gone munging the config file, we must catch key errors.
+		try:
+			self.utteranceSeparator = separators[config.conf['speechLogger']['separator']]
+		except KeyError:
+			log.error(
+				f'Value "{config.conf["speechLogger"]["separator"]}", found in NVDA config, is '
+				'not a known separator. Using default of two spaces.'
+			)
+			self.utteranceSeparator = separators["2spc"]  # Use default
 
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
 		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
+		self.applyUserConfigIfNeeded()
 		file = None
 		if origin == Origin.LOCAL and self.flags.localActive:
 			file = self.files.local
 		elif origin == Origin.REMOTE and self.flags.remoteActive:
 			file = self.files.remote
 		if file is not None:
-			logToFile(sequence, file)
-		#deblog(f"In captureSpeech. Type is: {origin}, and file is: {file},\nFlags: {self.flags}.")
+			self.logToFile(sequence, file)
 
 	def _captureRemoteSpeech(self, *args, **kwargs):
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
-		deblog("In _captureRemoteSpeech.")
 		if 'sequence' in kwargs:
 			self.captureSpeech(kwargs.get('sequence'), Origin.REMOTE)
 
@@ -189,43 +202,34 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"""Gets us a reference to the NVDA Remote add-on, if available.
 		Returns True if we got (or had) one, False otherwise.
 		"""
-		deblog("In _obtainRemote.")
 		# If we already have it, we don't need to get it
 		if self.remotePlugin is not None:
-			deblog("_obtainRemote: already have it, returning true.")
 			return True
 		# Find out if NVDA Remote is running, and get a reference if so:
 		try:
 			for plugin in globalPluginHandler.runningPlugins:
 				if isinstance(plugin, globalPlugins.remoteClient.GlobalPlugin):
 					self.remotePlugin = plugin
-					deblog("_obtainRemote: found it, returning True.")
 					return True  # break
 		except AttributeError:  # NVDA Remote is not running
-			deblog("_obtainRemote: couldn't find it, returning False.")
 			return False
 
 	def _registerCallback(self) -> bool:
 		"""Adds our callback to NVDA Remote, if possible."""
-		deblog("In _registerCallback.")
 		# If we have a reference to the Remote plugin, register a handler for its speech:
 		if self.remotePlugin is not None:
 			# If we already registered a callback, we're done early.
 			# FixMe: should deregister the callback on session shutdown.
 			if self.flags.callbackRegistered:
 					return True
-			deblog("_registerCallback: attempting to assign the callback.")
 			try:
 				self.remotePlugin.master_session.transport.callback_manager.register_callback('msg_speak', self._captureRemoteSpeech)
 				self.flags.callbackRegistered = True
 				startedRemoteLogging = True
-				deblog("_registerCallback: success.")
 			except:  # Couldn't do, probably disconnected
 				startedRemoteLogging = False
-				deblog("_registerCallback: failed.")
 		else:
 			startedRemoteLogging = False
-			deblog("_registerCallback: didn't have a Remote plugin reference, couldn't try.")
 		return startedRemoteLogging
 
 	@script(
@@ -235,21 +239,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleLocalSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging local speech."""
-		deblog(f"In local toggle script. Capture was {self.flags.localActive}.")
 		if self.flags.localActive:  # Currently logging, stop
-			deblog("Local toggle script: stopping.")
 			self.flags.localActive = False
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging local speech."))
 		else:  # Currently not logging, start
-			deblog(f"Local toggle script: starting, Flags: {self.flags}.")
 			# Must check whether we can or should log
 			if self.flags.logLocal:
 				self.flags.localActive = True
 				# Translators: a message to tell the user that we are now logging.
 				ui.message(_("Started logging local speech."))
 			else:
-				deblog(f"Local toggle script: failed to start, Flags: {self.flags}.")
 				# Translators: a message to tell the user that we can't start this kind of logging
 				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
 
@@ -260,35 +260,38 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
-		deblog(f"In remote toggle script. Flags: {self.flags}.")
 		if self.flags.remoteActive:  # We were logging, stop
 			self.flags.remoteActive = False
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging remote speech."))
 		else:  # We weren't logging, start
-			deblog(f"Remote toggle script: starting, flags: {self.flags}.")
 			# Must check whether we can or should log
 			if self.flags.logRemote:
 				# If this is the first time we're trying to start capturing,
 				# we need to initialize our NVDA Remote interface.
-				deblog("Remote toggle script: attempting to start, checking for remote.")
 				if self._obtainRemote():
 					# We have obtained (or already had) a reference to NVDA Remote. Configure the callback.
-					deblog("Remote toggle script: setting up the callback.")
 					if self._registerCallback():
 						self.flags.remoteActive = True
-						deblog("Remote toggle script: success.")
 						# Translators: a message to tell the user that we are now logging.
 						ui.message(_("Started logging remote speech."))
 					else:
-						deblog("Remote toggle script:  failed to register the callback.")
 						# Translators: a message to tell the user that we can not start logging because remote may not be connected..
 						ui.message(_("Could not log remote speech, probably not connected."))
 				else:  # self._obtainRemote() returned False
-					deblog("Remote toggle script: _obtainRemote() failed.")
 					# Translators: a message telling the user that the Remote add-on is unavailable.
 					ui.message(_("Failed! Could not find the NVDA Remote add-on."))
 			else:
-				deblog(f"Remote toggle script: can't do that kind of logging. Flags: {self.flags}\nFiles: {self.files}.")
 				# Translators: a message to tell the user that we can't start this kind of logging
 				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
+
+	def logToFile(self, sequence: SpeechSequence, file: str):
+		"""Append text of the given speech sequence to the given file."""
+		with open(file, "a+", encoding="utf-8") as f:
+			f.write(self.utteranceSeparator.join(
+				toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
+			) + "\n")
+
+	def rotateLogs(self):
+		"""Not implemented."""
+		pass
