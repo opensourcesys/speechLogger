@@ -136,15 +136,45 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		self.customSeparatorControl.SetValue(config.conf['speechLogger']['customSeparator'])
 
 	def onSave(self):
-		config.conf['speechLogger']['folder'] = self.logDirectoryEdit.Value
-		config.conf['speechLogger']['local'] = self.localFNControl.Value
-		config.conf['speechLogger']['remote'] = self.remoteFNControl.Value
-		config.conf['speechLogger']['rotate'] = self.rotateLogsCB.Value
+		"""Save the settings to the Normal Configuration.
+		Because of a deficiency in the NVDA config module, this must be clunky to avoid accidental
+		saving in a config profile.
+		"""
+		# FixMe: there should be a better way than directly writing to profile zero.
+		config.conf.profiles[0]['speechLogger']['folder'] = self.logDirectoryEdit.Value
+		config.conf.profiles[0]['speechLogger']['local'] = self.localFNControl.Value
+		config.conf.profiles[0]['speechLogger']['remote'] = self.remoteFNControl.Value
+		config.conf.profiles[0]['speechLogger']['rotate'] = self.rotateLogsCB.Value
 		# Get the text of the selected separator
 		sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
-		config.conf['speechLogger']['separator'] = sepText
-		config.conf['speechLogger']['customSeparator'] = self.customSeparatorControl.Value
+		config.conf.profiles[0]['speechLogger']['separator'] = sepText
+		config.conf.profiles[0]['speechLogger']['customSeparator'] = self.customSeparatorControl.Value
+		# Lastly, restore the profile name, if it was munged by onPanelActivated().
+		config.conf.profiles[-1].name = self.originalProfileName
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
 		SpeechLoggerSettings.hasConfigChanges = True
+
+	def onPanelActivated(self):
+		"""When the panel activates, lie to it about what config we're using.
+		This is necessary, because otherwise the panel's title may tell the user that
+		a profile is being edited, when in fact we only edit the Normal Configuration.
+		Improvement is needed in NVDA core to remove the necessity for hackishness such as this.
+		"""
+		# Concept developed by Jose-Manuel Delecado.
+		self.originalProfileName = config.conf.profiles[-1].name
+		config.conf.profiles[-1].name = None
+		super().onPanelActivated()
+
+	def onPanelDeactivated(self):
+		"""Clean up any lies we might have told in onPanelActivated()."""
+		# Concept developed by Jose-Manuel Delecado.
+		config.conf.profiles[-1].name = self.originalProfileName
+		super().onPanelDeactivated()
+
+	def onDiscard(self):
+		"""Restore the profile name if necessary (munged by onPanelActivated())."""
+		# Concept developed by Jose-Manuel Delecado.
+		config.conf.profiles[-1].name = self.originalProfileName
+		super().onDiscard()
