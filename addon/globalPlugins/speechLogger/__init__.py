@@ -16,7 +16,7 @@ Lightly based on suggestions sent to the nvda-addons@groups.io mailing list by J
 
 This add-on must be configured before use. Configure it in NVDA Preferences -> Settings -> Speech Logger.
 
-You have to define your own toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
+You can change the logging toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
 Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
 The log files are opened and closed for each speech utterance, because the original mandate for this add-on
@@ -80,6 +80,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
 		#: Holds an initially empty reference to NVDA Remote
 		self.remotePlugin = None
+		#: Holds a text string used to separate speech. Assignable through user config.
+		self.utteranceSeparator = "  "
 		# Establish the add-on's NVDA configuration panel and config options
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechLoggerSettings)
 		# Read user config or defaults
@@ -114,9 +116,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Stage 1: directory
 		# We shouldn't be able to reach this point with a bad directory name, unless
 		# the user has been hand-editing nvda.ini. However, since that's possible, we must check.
-		if not os.path.exists(os.path.abspath(os.path.expandvars(config.conf['speechLogger']['folder']))):
+		if not os.path.exists(os.path.abspath(os.path.expandvars(config.conf.profiles[0]['speechLogger']['folder']))):
 			# Notify the user
-			log.error(f"The folder given for log files does not exist ({config.conf['speechLogger']['folder']}).")
+			log.error(f"The folder given for log files does not exist ({config.conf.profiles[0]['speechLogger']['folder']}).")
 			# Disable all logging
 			self.flags.logLocal = False
 			self.flags.logRemote = False
@@ -124,14 +126,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 		# Stage 2: files
 		# If either filename is empty, it means the user doesn't want logging for that type.
-		if config.conf['speechLogger']['local'] == "":
+		if config.conf.profiles[0]['speechLogger']['local'] == "":
 			self.flags.logLocal = False
 			self.files.local = None
 		else:
 			self.flags.logLocal = True
 			self.files.local = os.path.join(
-				os.path.abspath(os.path.expandvars(config.conf['speechLogger']['folder'])),
-				os.path.basename(os.path.expandvars(config.conf['speechLogger']['local']))
+				os.path.abspath(os.path.expandvars(config.conf.profiles[0]['speechLogger']['folder'])),
+				os.path.basename(os.path.expandvars(config.conf.profiles[0]['speechLogger']['local']))
 			)
 			# Test open
 			try:
@@ -141,14 +143,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				log.error(f"Couldn't open local log file {self.files.local} for appending. {e}")
 				self.files.local = None
 				self.flags.logLocal = False
-		if config.conf['speechLogger']['remote'] == "":
+		if config.conf.profiles[0]['speechLogger']['remote'] == "":
 			self.flags.logRemote = False
 			self.files.remote = None
 		else:
 			self.flags.logRemote = True
 			self.files.remote = os.path.join(
-				os.path.abspath(os.path.expandvars(config.conf['speechLogger']['folder'])),
-				os.path.basename(os.path.expandvars(config.conf['speechLogger']['remote']))
+				os.path.abspath(os.path.expandvars(config.conf.profiles[0]['speechLogger']['folder'])),
+				os.path.basename(os.path.expandvars(config.conf.profiles[0]['speechLogger']['remote']))
 			)
 			# Test open
 			try:
@@ -160,11 +162,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				self.flags.logRemote = False
 		# Stage 3: file rotation
 		# This is handled by __init__() and rotateLogs(); we just update the flag.
-		self.flags.rotate = config.conf['speechLogger']['rotate']
+		self.flags.rotate = config.conf.profiles[0]['speechLogger']['rotate']
 		# Stage 4: utterance separation
 		# For this one we may need the configured custom separator. However, it seems that
 		# some part of NVDA or Configobj, escapes escape chars such as \t. We must undo that.
-		unescapedCustomSeparator = config.conf['speechLogger']['customSeparator'].encode().decode("unicode_escape")
+		unescapedCustomSeparator = config.conf.profiles[0]['speechLogger']['customSeparator'].encode().decode("unicode_escape")
 		separators = {
 			"2spc": "  ",
 			"nl": "\n",
@@ -174,10 +176,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		}
 		# In case the user has gone munging the config file, we must catch key errors.
 		try:
-			self.utteranceSeparator = separators[config.conf['speechLogger']['separator']]
+			self.utteranceSeparator = separators[config.conf.profiles[0]['speechLogger']['separator']]
 		except KeyError:
 			log.error(
-				f'Value "{config.conf["speechLogger"]["separator"]}", found in NVDA config, is '
+				f'Value "{config.conf.profiles[0]["speechLogger"]["separator"]}", found in NVDA config, is '
 				'not a known separator. Using default of two spaces.'
 			)
 			self.utteranceSeparator = separators["2spc"]  # Use default
@@ -235,7 +237,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(
 		category="Tools",
 		# Translators: the description of an item in the input gestures tools category
-		description=_("Toggles logging of local speech")
+		description=_("Toggles logging of local speech"),
+		gesture="kb:NVDA+Alt+L"
 	)
 	def script_toggleLocalSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging local speech."""
@@ -251,12 +254,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				ui.message(_("Started logging local speech."))
 			else:
 				# Translators: a message to tell the user that we can't start this kind of logging
-				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
+				ui.message(_("Local speech logging has been disabled by an error or your NVDA configuration."))
 
 	@script(
 		category="Tools",
 		# Translators: the description of an item in the input gestures tools category
-		description=_("Toggles logging of remote speech")
+		description=_("Toggles logging of remote speech"),
+		gesture="kb:NVDA+Shift+Alt+L"
 	)
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
@@ -283,7 +287,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					ui.message(_("Failed! Could not find the NVDA Remote add-on."))
 			else:
 				# Translators: a message to tell the user that we can't start this kind of logging
-				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
+				ui.message(_("Remote speech logging has been disabled by an error or your NVDA configuration."))
 
 	def logToFile(self, sequence: SpeechSequence, file: str):
 		"""Append text of the given speech sequence to the given file."""
@@ -294,4 +298,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def rotateLogs(self):
 		"""Not implemented."""
+		# FixMe: coming in next version
 		pass

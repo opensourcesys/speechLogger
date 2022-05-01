@@ -31,7 +31,6 @@ config.conf.spec["speechLogger"] = {
 	"customSeparator": "string(default='')"
 }
 
-# Some past iteration of this was probably based on something by Joseph Lee.
 class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	"""NVDA configuration panel based configurator  for speechLogger."""
 
@@ -44,10 +43,18 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	panelDescription = _(
 		"Choose the log directory and filenames for the speech logs. "
 		"System variables such as %temp% are permitted.\n"
-		"You may also choose whether the logs grow continuously, or are rotated (renamed with \"-old\" "
-		"before the extension) when NVDA starts.\nFinally, you can alter the string used to separate multiple"
+		"You can also alter the string used to separate multiple"
 		" utterances from the same speech sequence."
 	)
+
+# Suspended description, awaiting the return of the rotation feature.
+#	panelDescription = _(
+#		"Choose the log directory and filenames for the speech logs. "
+#		"System variables such as %temp% are permitted.\n"
+#		"You may also choose whether the logs grow continuously, or are rotated (renamed with \"-old\" "
+#		"before the extension) when NVDA starts.\nFinally, you can alter the string used to separate multiple"
+#		" utterances from the same speech sequence."
+#	)
 
 	availableSeparators = (
 		# Translators: a separator option in the separators combobox
@@ -84,23 +91,24 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseText, dirChooserTitle)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
-		self.logDirectoryEdit.SetValue(config.conf['speechLogger']['folder'])
+		self.logDirectoryEdit.SetValue(config.conf.profiles[0]['speechLogger']['folder'])
 
 		self.localFNControl = fileGroupHelper.addLabeledControl(
 			# Translators: label of a text field to enter local speech log filename.
 			_("Local speech log filename: "), wx.TextCtrl
 		)
-		self.localFNControl.SetValue(config.conf['speechLogger']['local'])
+		self.localFNControl.SetValue(config.conf.profiles[0]['speechLogger']['local'])
 		self.remoteFNControl = fileGroupHelper.addLabeledControl(
 			# Translators: label of a text field to enter remote speech log filename.
 			_("Remote speech log filename: "), wx.TextCtrl
 		)
-		self.remoteFNControl.SetValue(config.conf['speechLogger']['remote'])
+		self.remoteFNControl.SetValue(config.conf.profiles[0]['speechLogger']['remote'])
 
+		# FixMe: log rotation is coming in the next version.
 		# Translators: Text of a checkbox to specify whether logs are exchanged on NVDA start.
-		rotateLogsText = _("&Rotate logs on NVDA startup")
-		self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
-		self.rotateLogsCB.SetValue(config.conf['speechLogger']['rotate'])
+		#rotateLogsText = _("&Rotate logs on NVDA startup")
+		#self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
+		#self.rotateLogsCB.SetValue(config.conf.profiles[0]['speechLogger']['rotate'])
 
 		# Grouping for separator options
 		sepGroupSizer = wx.StaticBoxSizer(
@@ -119,13 +127,13 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		)
 		# Iterate the combobox choices, and pick the one listed in config
 		for index, (setting, name) in enumerate(self.availableSeparators):
-			if setting == config.conf['speechLogger']['separator']:
+			if setting == config.conf.profiles[0]['speechLogger']['separator']:
 				self.separatorChoiceControl.SetSelection(index)
 				break
 		else:  # Unrecognized choice saved in configuration
 			log.debugWarning(
 				"Could not set separator combobox to the config derived option of"
-				f' "{config.conf["speechLogger"]["separator"]}". Using default.'
+				f' "{config.conf.profiles[0]["speechLogger"]["separator"]}". Using default.'
 			)
 			self.separatorChoiceControl.SetSelection(0)  # Use default
 
@@ -133,24 +141,26 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			# Translators: the label for a text field requesting an optional custom separator string
 			_(r"Custom utterance separator (can use escapes like \t): "), wx.TextCtrl
 		)
-		self.customSeparatorControl.SetValue(config.conf['speechLogger']['customSeparator'])
+		self.customSeparatorControl.SetValue(config.conf.profiles[0]['speechLogger']['customSeparator'])
 
 	def onSave(self):
 		"""Save the settings to the Normal Configuration.
 		Because of a deficiency in the NVDA config module, this must be clunky to avoid accidental
 		saving in a config profile.
 		"""
-		# FixMe: there should be a better way than directly writing to profile zero.
 		config.conf.profiles[0]['speechLogger']['folder'] = self.logDirectoryEdit.Value
 		config.conf.profiles[0]['speechLogger']['local'] = self.localFNControl.Value
 		config.conf.profiles[0]['speechLogger']['remote'] = self.remoteFNControl.Value
-		config.conf.profiles[0]['speechLogger']['rotate'] = self.rotateLogsCB.Value
+		# FixMe: log rotation is coming soon.
+		#config.conf.profiles[0]['speechLogger']['rotate'] = self.rotateLogsCB.Value
 		# Get the text of the selected separator
 		sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
 		config.conf.profiles[0]['speechLogger']['separator'] = sepText
 		config.conf.profiles[0]['speechLogger']['customSeparator'] = self.customSeparatorControl.Value
 		# Lastly, restore the profile name, if it was munged by onPanelActivated().
-		config.conf.profiles[-1].name = self.originalProfileName
+		if self.changedProfileName:
+			config.conf.profiles[-1].name = self.originalProfileName
+			self.changedProfileName = False
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
@@ -162,19 +172,27 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		a profile is being edited, when in fact we only edit the Normal Configuration.
 		Improvement is needed in NVDA core to remove the necessity for hackishness such as this.
 		"""
-		# Concept developed by Jose-Manuel Delecado.
-		self.originalProfileName = config.conf.profiles[-1].name
-		config.conf.profiles[-1].name = None
+		# Basic concept developed by Jose-Manuel Delecado.
+		if config.conf.profiles[-1].name is not None:
+			self.originalProfileName = config.conf.profiles[-1].name
+			config.conf.profiles[-1].name = None
+			self.changedProfileName = True
+		else:
+			self.changedProfileName = False
 		super().onPanelActivated()
 
 	def onPanelDeactivated(self):
 		"""Clean up any lies we might have told in onPanelActivated()."""
-		# Concept developed by Jose-Manuel Delecado.
-		config.conf.profiles[-1].name = self.originalProfileName
+		# Basic concept developed by Jose-Manuel Delecado.
+		if self.changedProfileName:
+			config.conf.profiles[-1].name = self.originalProfileName
+			self.changedProfileName = False
 		super().onPanelDeactivated()
 
 	def onDiscard(self):
 		"""Restore the profile name if necessary (munged by onPanelActivated())."""
-		# Concept developed by Jose-Manuel Delecado.
-		config.conf.profiles[-1].name = self.originalProfileName
+		# Basic concept developed by Jose-Manuel Delecado.
+		if self.changedProfileName:
+			config.conf.profiles[-1].name = self.originalProfileName
+			self.changedProfileName = False
 		super().onDiscard()
