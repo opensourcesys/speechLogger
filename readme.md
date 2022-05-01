@@ -1,6 +1,10 @@
 ### NVDA Speech Logger add-on
 
-This file and add-on are works in progress.
+Author: Luke Davis, with contributions by James Scholes
+
+An [NVDA](https://nvaccess.org/) add-on to log speech to a file or files.
+It can log speech generated on the local machine into a text file.
+It can also log speech from a remote machine received through the [NVDA Remote](https://nvdaremote.com/) add-on, either to the same or a different file.
 
 ### Configuration
 
@@ -8,8 +12,8 @@ To configure this add-on, open the NVDA menu, go to Preferences, then Settings, 
 
 The following settings are available:
 * The log directory. You can enter or browse for your desired destination directory, which must already exist. System variables such as %temp%, %userprofile%, etc., can be used in this field.
-* Local log filename. The created file will be placed in the above directory. This will contain speech logged while the local log mode is engaged.
-* Remote log filename. The created file will be placed in the above directory. This will contain speech logged while the remote log mode is engaged.
+* Local log filename. The created file will be placed in the above directory. This will contain speech logged while the local log mode is engaged. This can be the same as the remote log file. Leave blank to disable this kind of logging completely.
+* Remote log filename. The created file will be placed in the above directory. This will contain speech logged while the remote log mode is engaged. It can be the same as the local log file. Leave blank to disable this kind of logging completely.
 * Separator. This combobox lets you choose one of the available utterance separators. See below for more information.
 * Custom separator. This field lets you enter a custom utterance separator (see below), which is used if "custom" is chosen in the combobox.
 
@@ -27,15 +31,24 @@ If, for example, you wanted your utterance separator to be two dollar signs (`$$
 
 ### Starting and stopping logging
 
-This add-on has no gestures set by default.
-You have to define your own toggle gestures, under the NVDA Input Gestures Tools category.
+This add-on has two gestures set by default. You can change them in the NVDA Input Gestures Tools category.
 Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
+* NVDA+Alt+L: start/stop logging of local speech.
+* NVDA+Shift+Alt+L: start/stop logging of remote speech.
 
 ### A note on remote speech logging
 
 This add-on is intended to work with the NVDA Remote add-on, for logging of remote speech.
 
 It is important to know, that it is not possible to start logging for remote sessions until you actually start one.
-There is no way too, for example, start logging, and have it wait, on stand-by, until a remote session starts, and begin logging at that time.
+There is no way to, for example, start logging, and have it wait, on stand-by, until a remote session starts, and begin logging at that time.
 
-However it currently appears from limited testing, that once started, logging will continue across remote sessions.
+However, once started, logging will continue across remote sessions.
+
+### Feedback
+
+A log rotation feature will be released in the next version.
+
+If you would like to suggest a feature or report a bug, please send me an email.
+
+As always, I appreciate hearing that my add-ons are useful, and what people are using them for. Please email any kind of feedback you have!
