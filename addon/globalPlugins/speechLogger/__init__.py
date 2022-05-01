@@ -80,6 +80,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
 		#: Holds an initially empty reference to NVDA Remote
 		self.remotePlugin = None
+		#: Holds a text string used to separate speech. Assignable through user config.
+		self.utteranceSeparator = "  "
 		# Establish the add-on's NVDA configuration panel and config options
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechLoggerSettings)
 		# Read user config or defaults
