@@ -149,7 +149,6 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		Because of a deficiency in the NVDA config module, this must be clunky to avoid accidental
 		saving in a config profile.
 		"""
-		# FixMe: there should be a better way than directly writing to profile zero.
 		config.conf.profiles[0]['speechLogger']['folder'] = self.logDirectoryEdit.Value
 		config.conf.profiles[0]['speechLogger']['local'] = self.localFNControl.Value
 		config.conf.profiles[0]['speechLogger']['remote'] = self.remoteFNControl.Value
@@ -160,7 +159,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		config.conf.profiles[0]['speechLogger']['separator'] = sepText
 		config.conf.profiles[0]['speechLogger']['customSeparator'] = self.customSeparatorControl.Value
 		# Lastly, restore the profile name, if it was munged by onPanelActivated().
-		config.conf.profiles[-1].name = self.originalProfileName
+		#config.conf.profiles[-1].name = self.originalProfileName
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
@@ -172,19 +171,27 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		a profile is being edited, when in fact we only edit the Normal Configuration.
 		Improvement is needed in NVDA core to remove the necessity for hackishness such as this.
 		"""
-		# Concept developed by Jose-Manuel Delecado.
-		self.originalProfileName = config.conf.profiles[-1].name
-		config.conf.profiles[-1].name = None
+		# Basic concept developed by Jose-Manuel Delecado.
+		if config.conf.profiles[-1].name is not None:
+			self.originalProfileName = config.conf.profiles[-1].name
+			config.conf.profiles[-1].name = None
+			self.changedProfileName = True
+		else:
+			self.changedProfileName = False
 		super().onPanelActivated()
 
 	def onPanelDeactivated(self):
 		"""Clean up any lies we might have told in onPanelActivated()."""
-		# Concept developed by Jose-Manuel Delecado.
-		config.conf.profiles[-1].name = self.originalProfileName
+		# Basic concept developed by Jose-Manuel Delecado.
+		if self.changedProfileName:
+			config.conf.profiles[-1].name = self.originalProfileName
+			self.changedProfileName = False
 		super().onPanelDeactivated()
 
 	def onDiscard(self):
 		"""Restore the profile name if necessary (munged by onPanelActivated())."""
-		# Concept developed by Jose-Manuel Delecado.
-		config.conf.profiles[-1].name = self.originalProfileName
+		# Basic concept developed by Jose-Manuel Delecado.
+		if self.changedProfileName:
+			config.conf.profiles[-1].name = self.originalProfileName
+			self.changedProfileName = False
 		super().onDiscard()
