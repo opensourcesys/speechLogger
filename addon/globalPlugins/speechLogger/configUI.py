@@ -31,7 +31,6 @@ config.conf.spec["speechLogger"] = {
 	"customSeparator": "string(default='')"
 }
 
-# Some past iteration of this was probably based on something by Joseph Lee.
 class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	"""NVDA configuration panel based configurator  for speechLogger."""
 
@@ -159,10 +158,13 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		config.conf.profiles[0]['speechLogger']['separator'] = sepText
 		config.conf.profiles[0]['speechLogger']['customSeparator'] = self.customSeparatorControl.Value
 		# Lastly, restore the profile name, if it was munged by onPanelActivated().
-		#config.conf.profiles[-1].name = self.originalProfileName
+		if self.changedProfileName:
+			config.conf.profiles[-1].name = self.originalProfileName
+			self.changedProfileName = False
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
+		log.debug("###hasConfigChanges is being set to True.")
 		SpeechLoggerSettings.hasConfigChanges = True
 
 	def onPanelActivated(self):

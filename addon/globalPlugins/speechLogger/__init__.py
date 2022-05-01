@@ -111,6 +111,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def applyUserConfig(self):
 		"""Configures internal variables according to those set in NVDA config."""
+		log.debug(f"(Re)applying user config.\nOld config: {self.flags}\n{self.files}\n{self.utteranceSeparator}")
 		# Stage 1: directory
 		# We shouldn't be able to reach this point with a bad directory name, unless
 		# the user has been hand-editing nvda.ini. However, since that's possible, we must check.
@@ -181,6 +182,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				'not a known separator. Using default of two spaces.'
 			)
 			self.utteranceSeparator = separators["2spc"]  # Use default
+		log.debug(f"Applied user config.\nOld config: {self.flags}\n{self.files}\n{self.utteranceSeparator}")
 
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
 		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
