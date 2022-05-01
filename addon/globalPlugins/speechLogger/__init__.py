@@ -16,7 +16,7 @@ Lightly based on suggestions sent to the nvda-addons@groups.io mailing list by J
 
 This add-on must be configured before use. Configure it in NVDA Preferences -> Settings -> Speech Logger.
 
-You have to define your own toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
+You can change the logging toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
 Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
 The log files are opened and closed for each speech utterance, because the original mandate for this add-on
@@ -235,7 +235,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(
 		category="Tools",
 		# Translators: the description of an item in the input gestures tools category
-		description=_("Toggles logging of local speech")
+		description=_("Toggles logging of local speech"),
+		gesture="kb:NVDA+Alt+L"
 	)
 	def script_toggleLocalSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging local speech."""
@@ -256,7 +257,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(
 		category="Tools",
 		# Translators: the description of an item in the input gestures tools category
-		description=_("Toggles logging of remote speech")
+		description=_("Toggles logging of remote speech"),
+		gesture="kb:NVDA+Shift+Alt+L"
 	)
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
