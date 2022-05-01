@@ -252,7 +252,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				ui.message(_("Started logging local speech."))
 			else:
 				# Translators: a message to tell the user that we can't start this kind of logging
-				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
+				ui.message(_("Local speech logging has been disabled by an error or your NVDA configuration."))
 
 	@script(
 		category="Tools",
@@ -285,7 +285,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					ui.message(_("Failed! Could not find the NVDA Remote add-on."))
 			else:
 				# Translators: a message to tell the user that we can't start this kind of logging
-				ui.message(_("Unable to log local speech. Check NVDA log for more information."))
+				ui.message(_("Remote speech logging has been disabled by an error or your NVDA configuration."))
 
 	def logToFile(self, sequence: SpeechSequence, file: str):
 		"""Append text of the given speech sequence to the given file."""
