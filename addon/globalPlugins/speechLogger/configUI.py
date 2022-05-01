@@ -91,24 +91,24 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseText, dirChooserTitle)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
-		self.logDirectoryEdit.SetValue(config.conf['speechLogger']['folder'])
+		self.logDirectoryEdit.SetValue(config.conf.profiles[0]['speechLogger']['folder'])
 
 		self.localFNControl = fileGroupHelper.addLabeledControl(
 			# Translators: label of a text field to enter local speech log filename.
 			_("Local speech log filename: "), wx.TextCtrl
 		)
-		self.localFNControl.SetValue(config.conf['speechLogger']['local'])
+		self.localFNControl.SetValue(config.conf.profiles[0]['speechLogger']['local'])
 		self.remoteFNControl = fileGroupHelper.addLabeledControl(
 			# Translators: label of a text field to enter remote speech log filename.
 			_("Remote speech log filename: "), wx.TextCtrl
 		)
-		self.remoteFNControl.SetValue(config.conf['speechLogger']['remote'])
+		self.remoteFNControl.SetValue(config.conf.profiles[0]['speechLogger']['remote'])
 
 		# FixMe: log rotation is coming in the next version.
 		# Translators: Text of a checkbox to specify whether logs are exchanged on NVDA start.
 		#rotateLogsText = _("&Rotate logs on NVDA startup")
 		#self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
-		#self.rotateLogsCB.SetValue(config.conf['speechLogger']['rotate'])
+		#self.rotateLogsCB.SetValue(config.conf.profiles[0]['speechLogger']['rotate'])
 
 		# Grouping for separator options
 		sepGroupSizer = wx.StaticBoxSizer(
@@ -127,13 +127,13 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		)
 		# Iterate the combobox choices, and pick the one listed in config
 		for index, (setting, name) in enumerate(self.availableSeparators):
-			if setting == config.conf['speechLogger']['separator']:
+			if setting == config.conf.profiles[0]['speechLogger']['separator']:
 				self.separatorChoiceControl.SetSelection(index)
 				break
 		else:  # Unrecognized choice saved in configuration
 			log.debugWarning(
 				"Could not set separator combobox to the config derived option of"
-				f' "{config.conf["speechLogger"]["separator"]}". Using default.'
+				f' "{config.conf.profiles[0]["speechLogger"]["separator"]}". Using default.'
 			)
 			self.separatorChoiceControl.SetSelection(0)  # Use default
 
@@ -141,7 +141,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			# Translators: the label for a text field requesting an optional custom separator string
 			_(r"Custom utterance separator (can use escapes like \t): "), wx.TextCtrl
 		)
-		self.customSeparatorControl.SetValue(config.conf['speechLogger']['customSeparator'])
+		self.customSeparatorControl.SetValue(config.conf.profiles[0]['speechLogger']['customSeparator'])
 
 	def onSave(self):
 		"""Save the settings to the Normal Configuration.
@@ -164,7 +164,6 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
-		log.debug("###hasConfigChanges is being set to True.")
 		SpeechLoggerSettings.hasConfigChanges = True
 
 	def onPanelActivated(self):
