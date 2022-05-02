@@ -31,6 +31,7 @@ from enum import Enum, unique, auto, IntEnum
 import addonHandler
 import globalPluginHandler
 import globalPlugins
+import globalVars
 import ui
 import gui
 import config
@@ -82,8 +83,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.remotePlugin = None
 		#: Holds a text string used to separate speech. Assignable through user config.
 		self.utteranceSeparator = "  "
-		# Establish the add-on's NVDA configuration panel and config options
-		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechLoggerSettings)
+		# Establish the add-on's NVDA configuration panel and config options, unless in secure mode
+		if not globalVars.appArgs.secure:
+			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechLoggerSettings)
 		# Read user config or defaults
 		self.applyUserConfig()
 		# If we are supposed to rotate logs, do that now.
