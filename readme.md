@@ -8,7 +8,7 @@ It can also log speech from a remote machine received through the [NVDA Remote](
 
 ### Configuration
 
-To configure this add-on, open the NVDA menu, go to Preferences, then Settings, then Speech Logger (NVDA+N, P, S, S, S, on a default U.S. English keyboard).
+To configure this add-on, open the NVDA menu, go to Preferences, then Settings, then Speech Logger (NVDA+N, P, S, then press S until you get there, on a default U.S. English keyboard).
 
 The following settings are available:
 * The log directory. You can enter or browse for your desired destination directory, which must already exist. System variables such as %temp%, %userprofile%, etc., can be used in this field.
