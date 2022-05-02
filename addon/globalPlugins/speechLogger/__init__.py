@@ -105,7 +105,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def terminate(self):
 		# Remove the NVDA settings panel
-		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
+		if not globalVars.appArgs.secure:
+			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
 
 	def applyUserConfigIfNeeded(self):
 		"""If the user has changed any part of the configuration, reset our internals accordingly."""
