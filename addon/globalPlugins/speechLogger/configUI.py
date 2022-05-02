@@ -23,7 +23,7 @@ addonHandler.initTranslation()
 
 #: speechLogger Add-on config database
 config.conf.spec["speechLogger"] = {
-	"folder": "string(default='%temp%')",
+	"folder": "string(default='')",
 	"local": "string(default='NVDA-speech.log')",
 	"remote": "string(default='NVDA-speech-remote.log')",
 	"rotate": "boolean(default=False)",
