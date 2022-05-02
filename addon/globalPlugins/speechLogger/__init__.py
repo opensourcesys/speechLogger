@@ -1,4 +1,4 @@
-# NVDA Speech Logger add-on, V22.1
+# NVDA Speech Logger add-on, V22.2
 #
 #    Copyright (C) 2022 Luke Davis <XLTechie@newanswertech.com>, James Scholes
 #
