@@ -27,7 +27,7 @@ In the normal NVDA log at debug level, each individual utterance is separated wi
 
 Speech Logger allows you to separate utterances in the same way NVDA does (with two spaces), or by one of a few reasonable alternatives (a newline, a comma and a space, two underscores), or by a custom sequence of your own devising.
 
-If, for example, you wanted your utterance separator to be two dollar signs (`$$`), you would set the combobox to "custom", and enter "`$$`" (without the quotes), in the custom separator field.
+If, for example, you wanted your utterance separator to be two dollar signs (`$$`), you would set the combobox to "custom", and enter "`$$`" (without the quotes), in the custom separator field. If you wanted it to be a tab, you could enter "`\t`".
 
 ### Starting and stopping logging
 
