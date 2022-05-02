@@ -31,7 +31,7 @@ config.conf.spec["speechLogger"] = {
 	"customSeparator": "string(default='')"
 }
 
-def getConf(item: str) -> str:
+def getConf(item: str):
 	"""Accessor to return NVDA config items in a safe way.
 	Because of the profiles avoidance hack used here (borrowed from Update Channel Selector add-on),
 	it is possible for accesses of the config dictionary to fail, when the add-on is first installed,
@@ -46,6 +46,23 @@ def getConf(item: str) -> str:
 			return config.conf['speechLogger'][item]
 		except KeyError:  # Something strange is happening, maybe a coding error
 			raise
+
+def setConf(key: str, value):
+	"""Complement of getConf. Sets NVDA config items in a safe way.
+	Because of the profiles avoidance hack used here (borrowed from Update Channel Selector add-on),
+	it is possible for setting elements of the config dictionary to fail, when the add-on is first installed,
+	or has yet to be configured. This method protects each set attempt, by providing an alternate
+	mechanism for addressing the config item, that makes certain to use the version Configobj recognizes.
+	Returns value on success, like a normal assignment would.
+	"""
+	try:  # First, try to set the Normal Configuration version in profile zero
+		config.conf.profiles[0]['speechLogger'][key] = value
+	except KeyError:  # Second, try to set it using the main config
+		try:
+			config.conf['speechLogger'][key] = value
+		except KeyError:  # Something strange is happening, maybe a coding error
+			raise
+	return value
 
 
 class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
@@ -161,19 +178,16 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		self.customSeparatorControl.SetValue(getConf("customSeparator"))
 
 	def onSave(self):
-		"""Save the settings to the Normal Configuration.
-		Because of a deficiency in the NVDA config module, this must be clunky to avoid accidental
-		saving in a config profile.
-		"""
-		config.conf.profiles[0]['speechLogger']['folder'] = self.logDirectoryEdit.Value
-		config.conf.profiles[0]['speechLogger']['local'] = self.localFNControl.Value
-		config.conf.profiles[0]['speechLogger']['remote'] = self.remoteFNControl.Value
+		"""Save the settings to the Normal Configuration."""
+		setConf("folder", self.logDirectoryEdit.Value)
+		setConf("local", self.localFNControl.Value)
+		setConf("remote", self.remoteFNControl.Value)
 		# FixMe: log rotation is coming soon.
-		#config.conf.profiles[0]['speechLogger']['rotate'] = self.rotateLogsCB.Value
+		#setConf("rotate", self.rotateLogsCB.Value)
 		# Get the text of the selected separator
 		sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
-		config.conf.profiles[0]['speechLogger']['separator'] = sepText
-		config.conf.profiles[0]['speechLogger']['customSeparator'] = self.customSeparatorControl.Value
+		setConf("separator", sepText)
+		setConf("customSeparator", self.customSeparatorControl.Value)
 		# Lastly, restore the profile name, if it was munged by onPanelActivated().
 		if self.changedProfileName:
 			config.conf.profiles[-1].name = self.originalProfileName
