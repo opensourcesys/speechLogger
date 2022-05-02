@@ -31,6 +31,23 @@ config.conf.spec["speechLogger"] = {
 	"customSeparator": "string(default='')"
 }
 
+def getConf(item: str) -> str:
+	"""Accessor to return NVDA config items in a safe way.
+	Because of the profiles avoidance hack used here (borrowed from Update Channel Selector add-on),
+	it is possible for accesses of the config dictionary to fail, when the add-on is first installed,
+	or has yet to be configured. This method protects each access attempt, by providing an alternate
+	mechanism for returning the config item, that makes certain to get the version
+	initialized by config.conf.spec.
+	"""
+	try:  # First, try to get the Normal Configuration version from profile zero
+		return config.conf.profiles[0]['speechLogger'][item]
+	except KeyError:  # Second, try to get it from the main config
+		try:
+			return config.conf['speechLogger'][item]
+		except KeyError:  # Something strange is happening, maybe a coding error
+			raise
+
+
 class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	"""NVDA configuration panel based configurator  for speechLogger."""
 
@@ -91,24 +108,24 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseText, dirChooserTitle)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
-		self.logDirectoryEdit.SetValue(config.conf.profiles[0]['speechLogger']['folder'])
+		self.logDirectoryEdit.SetValue(getConf("folder"))
 
 		self.localFNControl = fileGroupHelper.addLabeledControl(
 			# Translators: label of a text field to enter local speech log filename.
 			_("Local speech log filename: "), wx.TextCtrl
 		)
-		self.localFNControl.SetValue(config.conf.profiles[0]['speechLogger']['local'])
+		self.localFNControl.SetValue(getConf("local"))
 		self.remoteFNControl = fileGroupHelper.addLabeledControl(
 			# Translators: label of a text field to enter remote speech log filename.
 			_("Remote speech log filename: "), wx.TextCtrl
 		)
-		self.remoteFNControl.SetValue(config.conf.profiles[0]['speechLogger']['remote'])
+		self.remoteFNControl.SetValue(getConf("remote"))
 
 		# FixMe: log rotation is coming in the next version.
 		# Translators: Text of a checkbox to specify whether logs are exchanged on NVDA start.
 		#rotateLogsText = _("&Rotate logs on NVDA startup")
 		#self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
-		#self.rotateLogsCB.SetValue(config.conf.profiles[0]['speechLogger']['rotate'])
+		#self.rotateLogsCB.SetValue(getConf("rotate"))
 
 		# Grouping for separator options
 		sepGroupSizer = wx.StaticBoxSizer(
@@ -127,13 +144,13 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		)
 		# Iterate the combobox choices, and pick the one listed in config
 		for index, (setting, name) in enumerate(self.availableSeparators):
-			if setting == config.conf.profiles[0]['speechLogger']['separator']:
+			if setting == getConf("separator"):
 				self.separatorChoiceControl.SetSelection(index)
 				break
 		else:  # Unrecognized choice saved in configuration
 			log.debugWarning(
 				"Could not set separator combobox to the config derived option of"
-				f' "{config.conf.profiles[0]["speechLogger"]["separator"]}". Using default.'
+				f' "{getConf("separator")}". Using default.'
 			)
 			self.separatorChoiceControl.SetSelection(0)  # Use default
 
@@ -141,7 +158,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			# Translators: the label for a text field requesting an optional custom separator string
 			_(r"Custom utterance separator (can use escapes like \t): "), wx.TextCtrl
 		)
-		self.customSeparatorControl.SetValue(config.conf.profiles[0]['speechLogger']['customSeparator'])
+		self.customSeparatorControl.SetValue(getConf("customSeparator"))
 
 	def onSave(self):
 		"""Save the settings to the Normal Configuration.
