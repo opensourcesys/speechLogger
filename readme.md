@@ -8,7 +8,7 @@ It can also log speech from a remote machine received through the [NVDA Remote](
 
 ### Configuration
 
-To configure this add-on, open the NVDA menu, go to Preferences, then Settings, then Speech Logger (NVDA+N, P, S, S, S, on a default U.S. English keyboard).
+To configure this add-on, open the NVDA menu, go to Preferences, then Settings, then Speech Logger (NVDA+N, P, S, then press S until you get there, on a default U.S. English keyboard).
 
 The following settings are available:
 * The log directory. You can enter or browse for your desired destination directory, which must already exist. System variables such as %temp%, %userprofile%, etc., can be used in this field.
@@ -27,7 +27,7 @@ In the normal NVDA log at debug level, each individual utterance is separated wi
 
 Speech Logger allows you to separate utterances in the same way NVDA does (with two spaces), or by one of a few reasonable alternatives (a newline, a comma and a space, two underscores), or by a custom sequence of your own devising.
 
-If, for example, you wanted your utterance separator to be two dollar signs (`$$`), you would set the combobox to "custom", and enter "`$$`" (without the quotes), in the custom separator field.
+If, for example, you wanted your utterance separator to be two dollar signs (`$$`), you would set the combobox to "custom", and enter "`$$`" (without the quotes), in the custom separator field. If you wanted it to be a tab, you could enter "`\t`".
 
 ### Starting and stopping logging
 
