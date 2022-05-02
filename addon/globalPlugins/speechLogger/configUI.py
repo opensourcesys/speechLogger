@@ -105,6 +105,10 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		"""Creates a settings panel."""
+		# Disable if in secure mode
+		if globalVars.appArgs.secure:
+			return
+
 		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		introItem = helper.addItem(wx.StaticText(self, label=self.panelDescription))
 		introItem.Wrap(self.scaleSize(PANEL_DESCRIPTION_WIDTH))
