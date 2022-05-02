@@ -114,6 +114,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def applyUserConfig(self):
 		"""Configures internal variables according to those set in NVDA config."""
 		# Stage 1: directory
+		# If the directory hasn't been set, we disable all logging.
+		if getConf("folder") == "":
+			log.info("No log directory set. Disabling.")
+			self.flags.logLocal = False
+			self.flags.logRemote = False
+			return
 		# We shouldn't be able to reach this point with a bad directory name, unless
 		# the user has been hand-editing nvda.ini. However, since that's possible, we must check.
 		if not os.path.exists(os.path.abspath(os.path.expandvars(getConf("folder")))):
