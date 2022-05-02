@@ -31,6 +31,7 @@ from enum import Enum, unique, auto, IntEnum
 import addonHandler
 import globalPluginHandler
 import globalPlugins
+import globalVars
 import ui
 import gui
 import config
