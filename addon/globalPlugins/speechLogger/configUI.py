@@ -92,7 +92,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		if globalVars.appArgs.secure:
 			return
 
-		if len(config.conf.profiles) == 1:
+		if config.conf.profiles[-1].name is None:
 			SpeechLoggerSettings.panelDescription = self.panelDescription_normalProfile
 		else:
 			SpeechLoggerSettings.panelDescription = self.panelDescription_otherProfile
@@ -100,6 +100,9 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		introItem = helper.addItem(wx.StaticText(self, label=self.panelDescription))
 		introItem.Wrap(self.scaleSize(PANEL_DESCRIPTION_WIDTH))
+
+		if config.conf.profiles[-1].name is not None:
+			return
 
 		# Grouping for path info
 		groupSizer = wx.StaticBoxSizer(
@@ -171,16 +174,18 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 	def onSave(self):
 		"""Save the settings to the Normal Configuration."""
-		setConf("folder", self.logDirectoryEdit.Value)
-		setConf("local", self.localFNControl.Value)
-		setConf("remote", self.remoteFNControl.Value)
-		# FixMe: log rotation is coming soon.
-		#setConf("rotate", self.rotateLogsCB.Value)
-		# Get the text of the selected separator
-		sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
-		setConf("separator", sepText)
-		setConf("customSeparator", self.customSeparatorControl.Value)
+		if config.conf.profiles[-1].name is None:
+			setConf("folder", self.logDirectoryEdit.Value)
+			setConf("local", self.localFNControl.Value)
+			setConf("remote", self.remoteFNControl.Value)
+			# FixMe: log rotation is coming soon.
+			#setConf("rotate", self.rotateLogsCB.Value)
+			# Get the text of the selected separator
+			sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
+			setConf("separator", sepText)
+			setConf("customSeparator", self.customSeparatorControl.Value)
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
-		SpeechLoggerSettings.hasConfigChanges = True
+		if config.conf.profiles[-1].name is None:
+			SpeechLoggerSettings.hasConfigChanges = True
