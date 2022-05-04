@@ -33,36 +33,12 @@ config.conf.spec["speechLogger"] = {
 }
 
 def getConf(item: str):
-	"""Accessor to return NVDA config items in a safe way.
-	Because of the profiles avoidance hack used here (borrowed from Update Channel Selector add-on),
-	it is possible for accesses of the config dictionary to fail, when the add-on is first installed,
-	or has yet to be configured. This method protects each access attempt, by providing an alternate
-	mechanism for returning the config item, that makes certain to get the version
-	initialized by config.conf.spec.
-	"""
-	try:  # First, try to get the Normal Configuration version from profile zero
-		return config.conf.profiles[0]['speechLogger'][item]
-	except KeyError:  # Second, try to get it from the main config
-		try:
-			return config.conf['speechLogger'][item]
-		except KeyError:  # Something strange is happening, maybe a coding error
-			raise
+	"""Accessor to return NVDA config items in a safe way."""
+	return config.conf['speechLogger'][item]
 
 def setConf(key: str, value):
-	"""Complement of getConf. Sets NVDA config items in a safe way.
-	Because of the profiles avoidance hack used here (borrowed from Update Channel Selector add-on),
-	it is possible for setting elements of the config dictionary to fail, when the add-on is first installed,
-	or has yet to be configured. This method protects each set attempt, by providing an alternate
-	mechanism for addressing the config item, that makes certain to use the version Configobj recognizes.
-	Returns value on success, like a normal assignment would.
-	"""
-	try:  # First, try to set the Normal Configuration version in profile zero
-		config.conf.profiles[0]['speechLogger'][key] = value
-	except KeyError:  # Second, try to set it using the main config
-		try:
-			config.conf['speechLogger'][key] = value
-		except KeyError:  # Something strange is happening, maybe a coding error
-			raise
+	"""Complement of getConf. Sets NVDA config items in a safe way."""
+	config.conf['speechLogger'][key] = value
 	return value
 
 
@@ -193,42 +169,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
 		setConf("separator", sepText)
 		setConf("customSeparator", self.customSeparatorControl.Value)
-		# Lastly, restore the profile name, if it was munged by onPanelActivated().
-		if self.changedProfileName:
-			config.conf.profiles[-1].name = self.originalProfileName
-			self.changedProfileName = False
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
 		SpeechLoggerSettings.hasConfigChanges = True
-
-	def onPanelActivated(self):
-		"""When the panel activates, lie to it about what config we're using.
-		This is necessary, because otherwise the panel's title may tell the user that
-		a profile is being edited, when in fact we only edit the Normal Configuration.
-		Improvement is needed in NVDA core to remove the necessity for hackishness such as this.
-		"""
-		# Basic concept developed by Jose-Manuel Delecado.
-		if config.conf.profiles[-1].name is not None:
-			self.originalProfileName = config.conf.profiles[-1].name
-			config.conf.profiles[-1].name = None
-			self.changedProfileName = True
-		else:
-			self.changedProfileName = False
-		super().onPanelActivated()
-
-	def onPanelDeactivated(self):
-		"""Clean up any lies we might have told in onPanelActivated()."""
-		# Basic concept developed by Jose-Manuel Delecado.
-		if self.changedProfileName:
-			config.conf.profiles[-1].name = self.originalProfileName
-			self.changedProfileName = False
-		super().onPanelDeactivated()
-
-	def onDiscard(self):
-		"""Restore the profile name if necessary (munged by onPanelActivated())."""
-		# Basic concept developed by Jose-Manuel Delecado.
-		if self.changedProfileName:
-			config.conf.profiles[-1].name = self.originalProfileName
-			self.changedProfileName = False
-		super().onDiscard()
