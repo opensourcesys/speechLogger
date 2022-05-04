@@ -95,7 +95,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		if globalVars.appArgs.secure:
 			return
 
-		if config.conf.profiles[-1].name is None:
+		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
 			SpeechLoggerSettings.panelDescription = self.panelDescription_normalProfile
 		else:
 			SpeechLoggerSettings.panelDescription = self.panelDescription_otherProfile
@@ -104,7 +104,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		introItem = helper.addItem(wx.StaticText(self, label=self.panelDescription))
 		introItem.Wrap(self.scaleSize(PANEL_DESCRIPTION_WIDTH))
 
-		if config.conf.profiles[-1].name is not None:
+		if config.conf.profiles[-1].name is not None or len(config.conf.profiles) != 1:
 			return
 
 		# Grouping for path info
@@ -177,7 +177,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 	def onSave(self):
 		"""Save the settings to the Normal Configuration."""
-		if config.conf.profiles[-1].name is None:
+		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
 			setConf("folder", self.logDirectoryEdit.Value)
 			setConf("local", self.localFNControl.Value)
 			setConf("remote", self.remoteFNControl.Value)
@@ -190,5 +190,5 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
-		if config.conf.profiles[-1].name is None:
+		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
 			SpeechLoggerSettings.hasConfigChanges = True
