@@ -86,7 +86,10 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	)
 
 	def makeSettings(self, settingsSizer):
-		"""Creates a settings panel."""
+		"""Creates a settings panel.
+		If an NVDA configuration profile other than "normal" is running, a panel with
+		no options and a notification to the user is created.
+		"""
 		# Disable if in secure mode.
 		# Can't use blockAction.when, because of compatibility with older versions.
 		if globalVars.appArgs.secure:
