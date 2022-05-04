@@ -50,12 +50,17 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	hasConfigChanges = True
 	# Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 	title = _("Speech Logger")
-	# Translators: the introductory text for the settings dialog
-	panelDescription = _(
+	# Translators: the primary introductory text for the settings dialog
+	panelDescription_normalProfile = _(
 		"Choose the log directory and filenames for the speech logs. "
 		"System variables such as %temp% are permitted.\n"
 		"You can also alter the string used to separate multiple"
 		" utterances from the same speech sequence."
+	)
+	# Translators: the alternative introductory text for the settings dialog
+	panelDescription_otherProfile = _(
+		"The Speech Logger add-on can only be configured from the Normal Configuration profile.\n"
+		"Please close this dialog, set your config profile to normal, and try again."
 	)
 
 # Suspended description, awaiting the return of the rotation feature.
@@ -82,9 +87,15 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		"""Creates a settings panel."""
-		# Disable if in secure mode
+		# Disable if in secure mode.
+		# Can't use blockAction.when, because of compatibility with older versions.
 		if globalVars.appArgs.secure:
 			return
+
+		if len(config.conf.profiles) == 1:
+			SpeechLoggerSettings.panelDescription = self.panelDescription_normalProfile
+		else:
+			SpeechLoggerSettings.panelDescription = self.panelDescription_otherProfile
 
 		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		introItem = helper.addItem(wx.StaticText(self, label=self.panelDescription))
