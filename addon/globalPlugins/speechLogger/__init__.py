@@ -146,8 +146,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			)
 			# Test open
 			try:
-				with open(self.files.local, "a+", encoding="utf-8") as f:
-					pass
+				open(self.files.local, "a+", encoding="utf-8").close()
 			except Exception as e:
 				log.error(f"Couldn't open local log file {self.files.local} for appending. {e}")
 				self.files.local = None
@@ -163,8 +162,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			)
 			# Test open
 			try:
-				with open(self.files.remote, "a+", encoding="utf-8") as test:
-					pass
+				open(self.files.remote, "a+", encoding="utf-8").close()
 			except Exception as e:
 				log.error(f"Couldn't open remote log file {self.files.remote} for appending. {e}")
 				self.files.remote = None
