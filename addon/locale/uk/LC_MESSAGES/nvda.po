@@ -1,0 +1,187 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the 'speechLogger' package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'speechLogger' '22.2.1'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2022-11-01 12:48+0200\n"
+"PO-Revision-Date: 2022-11-09 19:50+0200\n"
+"Last-Translator: Ukrainian NVDA Community <vp88.mobile@gmail.com>\n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2\n"
+
+#. Translators: the description of an item in the input gestures tools category
+#: addon\globalPlugins\speechLogger\__init__.py:249
+msgid "Toggles logging of local speech"
+msgstr "Перемикає журнал локального мовлення"
+
+#. Translators: message to tell the user that we are no longer logging.
+#: addon\globalPlugins\speechLogger\__init__.py:257
+msgid "Stopped logging local speech."
+msgstr "Журналювання локального мовлення зупинено."
+
+#. Translators: a message to tell the user that we are now logging.
+#: addon\globalPlugins\speechLogger\__init__.py:263
+msgid "Started logging local speech."
+msgstr "Журналювання локального мовлення розпочато."
+
+#. Translators: a message to tell the user that we can't start this kind of logging
+#: addon\globalPlugins\speechLogger\__init__.py:266
+msgid ""
+"Local speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr ""
+"Локальне ведення журналу мовлення вимкнено через помилку або вашу "
+"конфігурацію NVDA."
+
+#. Translators: the description of an item in the input gestures tools category
+#: addon\globalPlugins\speechLogger\__init__.py:271
+msgid "Toggles logging of remote speech"
+msgstr "Перемикає журнал віддаленого мовлення"
+
+#. Translators: message to tell the user that we are no longer logging.
+#: addon\globalPlugins\speechLogger\__init__.py:279
+msgid "Stopped logging remote speech."
+msgstr "Журналювання віддаленого мовлення зупинено."
+
+#. Translators: a message to tell the user that we are now logging.
+#: addon\globalPlugins\speechLogger\__init__.py:290
+msgid "Started logging remote speech."
+msgstr "Журналювання віддаленого мовлення розпочато."
+
+#. Translators: a message to tell the user that we can not start logging because remote may not be connected..
+#: addon\globalPlugins\speechLogger\__init__.py:293
+msgid "Could not log remote speech, probably not connected."
+msgstr "Не вдалося записати віддалене мовлення, можливо, немає підключення."
+
+#. self._obtainRemote() returned False
+#. Translators: a message telling the user that the Remote add-on is unavailable.
+#: addon\globalPlugins\speechLogger\__init__.py:296
+msgid "Failed! Could not find the NVDA Remote add-on."
+msgstr "Помилка! Не вдалося знайти додаток NVDA Remote."
+
+#. Translators: a message to tell the user that we can't start this kind of logging
+#: addon\globalPlugins\speechLogger\__init__.py:299
+msgid ""
+"Remote speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr ""
+"Віддалене ведення журналу мовлення вимкнено через помилку або вашу "
+"конфігурацію NVDA."
+
+#. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+#: addon\globalPlugins\speechLogger\configUI.py:52 buildVars.py:23
+msgid "Speech Logger"
+msgstr "Записувач мовлення"
+
+#: addon\globalPlugins\speechLogger\configUI.py:55
+msgid ""
+"Choose the log directory and filenames for the speech logs. System variables "
+"such as %temp% are permitted.\n"
+"You can also alter the string used to separate multiple utterances from the "
+"same speech sequence."
+msgstr ""
+"Виберіть каталог журналу та імена файлів для журналів мовлення. Допускається "
+"використання системних змінних, таких як %temp%.\n"
+"Ви також можете змінити рядок, який використовується для відокремлення "
+"кількох висловлювань з однієї мовної послідовності."
+
+#: addon\globalPlugins\speechLogger\configUI.py:62
+msgid ""
+"The Speech Logger add-on can only be configured from the Normal "
+"Configuration profile.\n"
+"Please close this dialog, set your config profile to normal, and try again."
+msgstr ""
+"Додаток «Записувач мовлення» може бути налаштований тільки з профілю "
+"(нормальна конфігурація).\n"
+"Будь ласка, закрийте цей діалог, встановіть нормальний профіль конфігурації "
+"та спробуйте ще раз."
+
+#. Translators: a separator option in the separators combobox
+#: addon\globalPlugins\speechLogger\configUI.py:77
+msgid "Two spaces (NVDA log style)"
+msgstr "Два пробіли (стиль журналу NVDA)"
+
+#. Translators: a separator option in the separators combobox
+#: addon\globalPlugins\speechLogger\configUI.py:79
+msgid "Newline"
+msgstr "Новий рядок"
+
+#. Translators: a separator option in the separators combobox
+#: addon\globalPlugins\speechLogger\configUI.py:81
+msgid "A comma and space"
+msgstr "Кома і пробіл"
+
+#. Translators: a separator option in the separators combobox
+#: addon\globalPlugins\speechLogger\configUI.py:83
+msgid "Two underscores"
+msgstr "Два підкреслення"
+
+#. Translators: a separator option in the separators combobox
+#: addon\globalPlugins\speechLogger\configUI.py:85
+msgid "Custom"
+msgstr "Нестандартний"
+
+#. Translators: label of the log files location grouping.
+#: addon\globalPlugins\speechLogger\configUI.py:114
+msgid "Log &Directory: "
+msgstr "&Каталог журналу: "
+
+#. Translators: The label of a button to browse for a directory.
+#: addon\globalPlugins\speechLogger\configUI.py:120
+msgid "Browse..."
+msgstr "Огляд..."
+
+#. Translators: The title of the dialog presented when browsing for the log directory.
+#: addon\globalPlugins\speechLogger\configUI.py:122
+msgid "Select log  directory"
+msgstr "Виберіть каталог журналу"
+
+#. Translators: label of a text field to enter local speech log filename.
+#: addon\globalPlugins\speechLogger\configUI.py:130
+msgid "Local speech log filename: "
+msgstr "Ім'я файлу журналу локального мовлення: "
+
+#. Translators: label of a text field to enter remote speech log filename.
+#: addon\globalPlugins\speechLogger\configUI.py:135
+msgid "Remote speech log filename: "
+msgstr "Ім'я файлу журналу віддаленого мовлення: "
+
+#. Translators: label of the separator options grouping.
+#: addon\globalPlugins\speechLogger\configUI.py:149
+msgid "&Separator Options"
+msgstr "&Параметри роздільника"
+
+#. Translators: this is the label for a combobox providing possible separator values
+#: addon\globalPlugins\speechLogger\configUI.py:155
+msgid "Utterance separator"
+msgstr "Роздільник мовлення"
+
+#. Translators: the label for a text field requesting an optional custom separator string
+#: addon\globalPlugins\speechLogger\configUI.py:174
+msgid "Custom utterance separator (can use escapes like \\t): "
+msgstr ""
+"Нестандартний роздільник мовлення (може використовувати екранування, "
+"наприклад \\t): "
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:26
+msgid ""
+"Logs speech utterances to a file. Can also log NVDA remote session speech "
+"from the NVDA Remote add-on, to the same or another file."
+msgstr ""
+"Записує мовні висловлювання у файл. Також може записувати мовлення "
+"віддаленого сеансу NVDA з додатка NVDA Remote у той самий або інший файл."
