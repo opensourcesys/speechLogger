@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="tr_TR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="generator" content="MarkdownForever" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>NVDA Konuşma Kaydedici eklentisi</title>
+	</head>
+	<body>
+		<header id="header-block"><h1 class="title">NVDA Konuşma Kaydedici eklentisi</h1>
+<p class="subtitle"></p></header>
+		<main id="main-content"><h3 id="nvda-konusma-kaydedici-eklentisi">
+ NVDA Konuşma Kaydedici eklentisi
+</h3>
+<p>
+ Yazar: Luke Davis, James Scholes'in katkılarıyla.
+</p>
+<p>
+ Konuşmayı bir dosyaya veya dosyalara kaydetmek için bir
+ <a href="https://nvaccess.org/">
+  NVDA
+ </a>
+ eklentisi.
+ <br/>
+ Yerel makinede oluşturulan konuşmayı bir metin dosyasına kaydedebilir.
+ <br/>
+ Ayrıca
+ <a href="https://nvdaremote.com/">
+  NVDA Remote
+ </a>
+ eklentisi aracılığıyla alınan uzak bir makineden gelen konuşmayı aynı veya farklı bir dosyaya kaydedebilir.
+</p>
+<h3 id="yaplandrma">
+ Yapılandırma
+</h3>
+<p>
+ Bu eklentiyi yapılandırmak için NVDA menüsünü açın, Tercihler'e, ardından Ayarlar'a, ardından Konuşma Kaydedici'ye gidin.
+ <br/>
+ (NVDA+N, T, L ve Konuşma kaydediciye erişene kadar K'ye basın.)
+</p>
+<p>
+ Not: Eklenti yalnızca NVDA'nın Normal profilindeyken yapılandırılabilir. Eklentide, diğer profiller desteklenmiyor. Farklı profillerde farklı şekilde çalışmasını gerektiren bir kullanım durumu düşünürseniz, lütfen yazarla iletişime geçin veya
+ <a href="https://github.com/opensourcesys/speechLogger/issues/">
+  GitHub deposunda
+ </a>
+ bir sorun bildirin.
+</p>
+<p>
+ Aşağıdaki ayarlar mevcuttur:
+* Günlük dizini. Halihazırda var olması gereken, istediğiniz hedef dizine girebilir veya göz atabilirsiniz. %temp%, %userprofile% vb. gibi sistem değişkenleri burada kullanılabilir.field.
+* Yerel günlük dosya adı. Oluşturulan dosya yukarıdaki dizine yerleştirilecektir. Bu, yerel günlük modu devredeyken kaydedilen konuşmayı içerecektir. Bu, uzak günlük dosyasıyla aynı olabilir. Bu tür günlüğe kaydetmeyi tamamen devre dışı bırakmak için boş bırakın.
+* Uzak günlük dosya adı. Oluşturulan dosya yukarıdaki dizine yerleştirilecektir. Bu, uzak günlük modu devredeyken kaydedilen konuşmayı içerecektir. Yerel günlük dosyasıyla aynı olabilir. Bu tür günlüğe kaydetmeyi tamamen devre dışı bırakmak için boş bırakın.
+* Ayırıcı. Bu birleşik giriş kutusu, mevcut ifade ayırıcılarından birini seçmenizi sağlar. Daha fazla bilgi için aşağıya bakın.
+* Özel ayırıcı. Bu alan, birleşik giriş kutusunda "özel" seçilmişse kullanılan özel bir ifade ayırıcı (aşağıya bakın) girmenizi sağlar.
+</p>
+<h4 id="soz-ayrc">
+ söz ayırıcı
+</h4>
+<p>
+ NVDA, masaüstünüzü okurken "
+ <code>
+  geri dönüşüm kutusu 1 / 55
+ </code>
+ " gibi bir şey söylediğinde, bu iki ayrı ifade olarak kabul edilir. İlki öğe adıdır (bu örnekte "'Geri dönüşüm kutusu'") ve ikincisi nesne konum bilgisidir (bu örnekte "'1 / 55'").
+</p>
+<p>
+ Ne okuduğunuza ve NVDA'yı nasıl yapılandırdığınıza bağlı olarak, tek bir konuşma sırasında meydana gelen birkaç ayrı ifade olabilir.
+</p>
+<p>
+ Hata ayıklama düzeyindeki normal NVDA günlüğünde, yukarıdaki örnekte yazıldığı gibi her bir bireysel ifade iki boşlukla ayrılır.
+</p>
+<p>
+ Konuşma Kaydedici, ifadeleri NVDA'nın yaptığı gibi (iki boşlukla) veya birkaç makul alternatiften biri (yeni satır, virgül ve boşluk, iki alt çizgi) veya kendi tasarladığınız özel bir sıra ile ayırmanıza olanak tanır. .
+</p>
+<p>
+ Örneğin, sözce ayırıcınızın iki dolar işareti (
+ <code>
+  $$
+ </code>
+ ) olmasını istiyorsanız, birleşik giriş kutusunu "özel" olarak ayarlar ve özel ayırıcıya ""$$
+ <code>
+  " (tırnak işaretleri olmadan) girersiniz. Tab. Sekme olmasını istiyorsanız, "
+ </code>
+ \t`" yazabilirsiniz.
+</p>
+<h3 id="gunluge-kaydetmeyi-baslatma-ve-durdurma">
+ Günlüğe kaydetmeyi başlatma ve durdurma
+</h3>
+<p>
+ Bu eklentinin varsayılan olarak ayarlanmış iki hareketi vardır. Bunları NVDA Girdi Hareketleri, Tools kategorisinde değiştirebilirsiniz.
+"Yerel konuşmanın günlüğe kaydedilmesini açar/kapatır" ve "Uzak konuşma günlüğünü açar/kapatır" öğelerine bakın.
+* NVDA+Alt+L: yerel konuşma kaydını başlat/durdur.
+* NVDA+Shift+Alt+L: uzak konuşma kaydını başlat/durdur.
+</p>
+<h3 id="uzaktan-konusma-kayd-hakknda-bir-not">
+ Uzaktan konuşma kaydı hakkında bir not
+</h3>
+<p>
+ Bu eklentinin, uzaktan konuşma kaydı için NVDA Remote eklentisi ile çalışması amaçlanmıştır.
+</p>
+<p>
+ Gerçekten bir bağlantı başlatana kadar uzak oturumlar için günlüğe kaydetmeye başlamanın mümkün olmadığını bilmek önemlidir.
+ <br/>
+ Örneğin, günlüğe kaydetmeye başlamanın ve uzak bir oturum başlayana kadar beklemede kalmasını ve o anda günlüğe kaydetmeye başlamasını sağlamanın bir yolu yoktur.
+</p>
+<p>
+ Ancak, bir kez başlatıldığında, günlük kaydı uzak oturumlarda devam eder.
+</p>
+<h3 id="geri-bildirim-ve-ozellik-istekleri">
+ Geri bildirim ve özellik istekleri
+</h3>
+<p>
+ Bir özellik önermek veya bir hata bildirmek isterseniz, lütfen e-posta ile ulaşın veya bir
+ <a href="https://github.com/opensourcesys/speechLogger/issues/">
+  sorun
+ </a>
+ bildirin.
+</p>
+<p>
+ Her zaman olduğu gibi, eklentilerimin yararlı olduğunu ve insanların bunları ne için kullandığını duymaktan mutlu olurum.
+</p>
+</main>
+	</body>
+</html>
