@@ -11,6 +11,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import wx
+from typing import Any
 
 import addonHandler
 import config
@@ -32,11 +33,11 @@ config.conf.spec["speechLogger"] = {
 	"customSeparator": "string(default='')"
 }
 
-def getConf(item: str):
+def getConf(item: str) -> str:
 	"""Accessor to return NVDA config items in a safe way."""
 	return config.conf['speechLogger'][item]
 
-def setConf(key: str, value):
+def setConf(key: str, value: Any) -> Any:
 	"""Complement of getConf. Sets NVDA config items in a safe way."""
 	config.conf['speechLogger'][key] = value
 	return value
@@ -47,24 +48,24 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 	#: Class variable to track whether the configuration has been changed in the panel, thus causing the
 	#: add-on to refresh its idea of the configuration.
-	hasConfigChanges = True
+	hasConfigChanges: bool = True
 	# Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
-	title = _("Speech Logger")
+	title: str = _("Speech Logger")
 	# Translators: the primary introductory text for the settings dialog
-	panelDescription_normalProfile = _(
+	panelDescription_normalProfile: str = _(
 		"Choose the log directory and filenames for the speech logs. "
 		"System variables such as %temp% are permitted.\n"
 		"You can also alter the string used to separate multiple"
 		" utterances from the same speech sequence."
 	)
 	# Translators: the alternative introductory text for the settings dialog
-	panelDescription_otherProfile = _(
+	panelDescription_otherProfile: str = _(
 		"The Speech Logger add-on can only be configured from the Normal Configuration profile.\n"
 		"Please close this dialog, set your config profile to normal, and try again."
 	)
 
 # Suspended description, awaiting the return of the rotation feature.
-#	panelDescription = _(
+#	panelDescription: str = _(
 #		"Choose the log directory and filenames for the speech logs. "
 #		"System variables such as %temp% are permitted.\n"
 #		"You may also choose whether the logs grow continuously, or are rotated (renamed with \"-old\" "
@@ -72,7 +73,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 #		" utterances from the same speech sequence."
 #	)
 
-	availableSeparators = (
+	availableSeparators: tuple = (
 		# Translators: a separator option in the separators combobox
 		("2spc", _("Two spaces (NVDA log style)")),
 		# Translators: a separator option in the separators combobox
@@ -85,7 +86,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		("custom", _("Custom"))
 	)
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, settingsSizer) -> None:
 		"""Creates a settings panel.
 		If an NVDA configuration profile other than "normal" is running, a panel with
 		no options and a notification to the user is created.
@@ -96,9 +97,9 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			return
 
 		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
-			SpeechLoggerSettings.panelDescription = self.panelDescription_normalProfile
+			SpeechLoggerSettings.panelDescription: str = self.panelDescription_normalProfile
 		else:
-			SpeechLoggerSettings.panelDescription = self.panelDescription_otherProfile
+			SpeechLoggerSettings.panelDescription: str = self.panelDescription_otherProfile
 
 		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		introItem = helper.addItem(wx.StaticText(self, label=self.panelDescription))
@@ -117,9 +118,9 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		fileGroupBox = groupSizer.GetStaticBox()
 
 		# Translators: The label of a button to browse for a directory.
-		browseText = _("Browse...")
+		browseText: str = _("Browse...")
 		# Translators: The title of the dialog presented when browsing for the log directory.
-		dirChooserTitle = _("Select log  directory")
+		dirChooserTitle: str = _("Select log  directory")
 		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseText, dirChooserTitle)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
@@ -136,9 +137,9 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		)
 		self.remoteFNControl.SetValue(getConf("remote"))
 
-		# FixMe: log rotation is coming in the next version.
-		# Translators: Text of a checkbox to specify whether logs are exchanged on NVDA start.
-		#rotateLogsText = _("&Rotate logs on NVDA startup")
+		# FixMe: log rotation is coming in a future version.
+		# Trans. Text of a checkbox to specify whether logs are exchanged on NVDA start.
+		#rotateLogsText: str = _("&Rotate logs on NVDA startup")
 		#self.rotateLogsCB = helper.addItem(wx.CheckBox(self, label=rotateLogsText))
 		#self.rotateLogsCB.SetValue(getConf("rotate"))
 
@@ -152,8 +153,8 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		sepGroupBox = sepGroupSizer.GetStaticBox()
 
 		# Translators: this is the label for a combobox providing possible separator values
-		separatorComboLabel = _("Utterance separator")
-		separatorDisplayChoices = [name for setting, name in self.availableSeparators]
+		separatorComboLabel: str = _("Utterance separator")
+		separatorDisplayChoices: list = [name for setting, name in self.availableSeparators]
 		self.separatorChoiceControl = sepGroupHelper.addLabeledControl(
 			separatorComboLabel, wx.Choice, choices=separatorDisplayChoices
 		)
@@ -184,7 +185,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			# FixMe: log rotation is coming soon.
 			#setConf("rotate", self.rotateLogsCB.Value)
 			# Get the text of the selected separator
-			sepText = self.availableSeparators[self.separatorChoiceControl.Selection][0]
+			sepText: str = self.availableSeparators[self.separatorChoiceControl.Selection][0]
 			setConf("separator", sepText)
 			setConf("customSeparator", self.customSeparatorControl.Value)
 

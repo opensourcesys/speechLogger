@@ -27,6 +27,7 @@ Be warned that means lots of disk activity.
 import os
 from functools import wraps
 from enum import Enum, unique, auto, IntEnum
+from typing import Optional, Dict
 
 import addonHandler
 import globalPluginHandler
@@ -61,7 +62,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Runtime vars and their sane defaults:
 		# Because our runtime flags and variables are many and confusing,
 		# We try to prevent some errors by using Immutable Key Objects to hold them where posible.
-		self.flags = ImmutableKeyObj(
+		self.flags: ImmutableKeyObj = ImmutableKeyObj(
 			# Do we intend to log local speech?
 			logLocal=False,
 			# Tracks whether we are actively logging local speech
@@ -76,13 +77,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			rotate=False
 		)
 		#: Filenames are obtained from NVDA configuration, and setup in applyUserConfig().
-		self.files = ImmutableKeyObj(local=None, remote=None)
+		self.files: ImmutableKeyObj = ImmutableKeyObj(local=None, remote=None)
 		# We can't handle getting our callback into NVDA Remote during __init__,
 		# because remoteClient doesn't show up in globalPlugins yet. We will do it in the script instead.
 		#: Holds an initially empty reference to NVDA Remote
-		self.remotePlugin = None
+		self.remotePlugin: Optional[globalPlugins.remoteClient.GlobalPlugin] = None
 		#: Holds a text string used to separate speech. Assignable through user config.
-		self.utteranceSeparator = "  "
+		self.utteranceSeparator: str = "  "
 		# Establish the add-on's NVDA configuration panel and config options, unless in secure mode
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechLoggerSettings)
@@ -108,13 +109,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
 
-	def applyUserConfigIfNeeded(self):
+	def applyUserConfigIfNeeded(self) -> None:
 		"""If the user has changed any part of the configuration, reset our internals accordingly."""
 		if SpeechLoggerSettings.hasConfigChanges:
 			self.applyUserConfig()
 			SpeechLoggerSettings.hasConfigChanges = False
 
-	def applyUserConfig(self):
+	def applyUserConfig(self) -> None:
 		"""Configures internal variables according to those set in NVDA config."""
 		# Stage 1: directory
 		# If the directory hasn't been set, we disable all logging.
@@ -173,8 +174,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Stage 4: utterance separation
 		# For this one we may need the configured custom separator. However, it seems that
 		# some part of NVDA or Configobj, escapes escape chars such as \t. We must undo that.
-		unescapedCustomSeparator = getConf("customSeparator").encode().decode("unicode_escape")
-		separators = {
+		unescapedCustomSeparator: str = getConf("customSeparator").encode().decode("unicode_escape")
+		separators: Dict[str, str] = {
 			"2spc": "  ",
 			"nl": "\n",
 			"comma": ", ",
@@ -183,18 +184,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		}
 		# In case the user has gone munging the config file, we must catch key errors.
 		try:
-			self.utteranceSeparator = separators[getConf("separator")]
+			self.utteranceSeparator: str = separators[getConf("separator")]
 		except KeyError:
 			log.error(
 				f'Value "{getConf("separator")}", found in NVDA config, is '
 				'not a known separator. Using default of two spaces.'
 			)
-			self.utteranceSeparator = separators["2spc"]  # Use default
+			self.utteranceSeparator: str = separators["2spc"]  # Use default
 
-	def captureSpeech(self, sequence: SpeechSequence, origin: Origin):
+	def captureSpeech(self, sequence: SpeechSequence, origin: Origin) -> None:
 		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
 		self.applyUserConfigIfNeeded()
-		file = None
+		file: Optional[str] = None
 		if origin == Origin.LOCAL and self.flags.localActive:
 			file = self.files.local
 		elif origin == Origin.REMOTE and self.flags.remoteActive:
@@ -202,7 +203,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if file is not None:
 			self.logToFile(sequence, file)
 
-	def _captureRemoteSpeech(self, *args, **kwargs):
+	def _captureRemoteSpeech(self, *args, **kwargs) -> None:
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
 		if 'sequence' in kwargs:
 			self.captureSpeech(kwargs.get('sequence'), Origin.REMOTE)
@@ -296,14 +297,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Translators: a message to tell the user that we can't start this kind of logging
 				ui.message(_("Remote speech logging has been disabled by an error or your NVDA configuration."))
 
-	def logToFile(self, sequence: SpeechSequence, file: str):
+	def logToFile(self, sequence: SpeechSequence, file: str) -> None:
 		"""Append text of the given speech sequence to the given file."""
 		with open(file, "a+", encoding="utf-8") as f:
 			f.write(self.utteranceSeparator.join(
 				toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
 			) + "\n")
 
-	def rotateLogs(self):
+	def rotateLogs(self) -> None:
 		"""Not implemented."""
-		# FixMe: coming in next version
+		# FixMe: coming in a future version
 		pass
