@@ -104,7 +104,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return old_speak(sequence, symbolLevel, priority)
 		speech.speech.speak = new_speak
 
-	def terminate(self):
+	def terminate(self) -> None:
+		super().terminate()
 		# Remove the NVDA settings panel
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
