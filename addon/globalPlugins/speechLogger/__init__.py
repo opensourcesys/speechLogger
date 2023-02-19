@@ -37,10 +37,11 @@ import ui
 import gui
 import config
 import speech
-from speech.types import SpeechSequence, Optional
+from speech.types import SpeechSequence
 from speech.priorities import Spri
 from scriptHandler import script
 from logHandler import log
+from globalCommands import SCRCAT_TOOLS
 
 from .configUI import SpeechLoggerSettings, getConf
 from .immutableKeyObj import ImmutableKeyObj
@@ -244,7 +245,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		return startedRemoteLogging
 
 	@script(
-		category="Tools",
+		category=SCRCAT_TOOLS,
 		# Translators: the description of an item in the input gestures tools category
 		description=_("Toggles logging of local speech"),
 		gesture="kb:NVDA+Alt+L"
@@ -266,7 +267,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				ui.message(_("Local speech logging has been disabled by an error or your NVDA configuration."))
 
 	@script(
-		category="Tools",
+		category=SCRCAT_TOOLS,
 		# Translators: the description of an item in the input gestures tools category
 		description=_("Toggles logging of remote speech"),
 		gesture="kb:NVDA+Shift+Alt+L"
