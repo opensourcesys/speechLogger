@@ -26,7 +26,7 @@ Be warned that means lots of disk activity.
 
 import os
 from functools import wraps
-from enum import Enum, unique, auto, IntEnum
+from enum import Enum, unique, auto
 from typing import Optional, Dict
 
 import addonHandler
