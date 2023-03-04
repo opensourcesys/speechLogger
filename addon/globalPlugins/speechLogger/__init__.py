@@ -39,6 +39,7 @@ import config
 import speech
 from speech.types import SpeechSequence
 from speech.priorities import Spri
+from gui.message import messageBox
 from scriptHandler import script
 from logHandler import log
 from globalCommands import SCRCAT_TOOLS
@@ -216,7 +217,41 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif origin == Origin.REMOTE and self.flags.remoteActive:
 			file = self.files.remote
 		if file is not None:
-			self.logToFile(sequence, file)
+			try:
+				self.logToFile(sequence, file)
+			except IOError:  # Could not write to the file for some reason; already logged by logToFile
+				self.emergencyStop(showMessage=True, origin=origin)
+
+	def emergencyStop(self, *, origin: Origin, showMessage: bool = False) -> None:
+		"""Stops capturing a particular type of speech because of an error.
+		@param showMessage: If True, alerts the user with a dialog.
+		@param origin: The type of speech to stop logging.
+		"""
+		if origin is Origin.LOCAL:
+			# Translators: The word "local", as in "local speech".
+			translatedType = _("local")
+		else:
+			# Translators: The word "remote", as in "remote speech".
+			translatedType = _("remote")
+		# Translators: A message shown to the user when speech logging stopped unexpectedly.
+		msg = _(
+			"Logging of {type} speech has stopped unexpectedly.\n"
+			"This is usually because Speech Logger could not write to its output file.\n"
+			"More information may be found in the NVDA log.\n"
+			"No further attempts will be made to log {type} speech during this NVDA session."
+		).format(type=translatedType)
+		# First, stop logging
+		if origin is Origin.LOCAL:
+			self.flags.logLocal = False
+		else:
+			self.flags.logRemote = False
+		log.info(f"Terminated {origin.name} speech logging because of error.")
+		if message:
+			messageBox(
+				msg,
+				# Translators: A title indicating an error with the Speech Logger add-on
+				_("Speech Logger Error")
+			)
 
 	def _captureRemoteSpeech(self, *args, **kwargs) -> None:
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""

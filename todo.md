@@ -4,7 +4,8 @@
 
 * Add tab as a pre-configured separator option. (2/20/2023)
 * Write dates to the files when logging starts and stops. (2/20/2023)
-* Stop creating files before they need to be written to the first time. (2/20/2023)
+* Stop creating files before they need to be written to the first time. (2/20/2023) (maybe finished: 3/3/2023)
+* Stop using gui.message.messageBox in the emergencyStop method.
 
 #### Priority 2:
 
