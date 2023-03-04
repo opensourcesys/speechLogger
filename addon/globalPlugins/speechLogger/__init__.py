@@ -1,4 +1,4 @@
-# NVDA Speech Logger add-on, V22.2
+# NVDA Speech Logger add-on, V23.0
 #
 #    Copyright (C) 2022-2023 Luke Davis <XLTechie@newanswertech.com>, James Scholes
 #
@@ -120,7 +120,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def applyUserConfig(self) -> None:
 		"""Configures internal variables according to those set in NVDA config."""
 		# Stage 1: directory
-		# If the directory hasn't been set, we disable all logging.
+		# If the directory hasn't been set, we disable all speech logging.
 		if getConf("folder") == "":
 			log.info("No log directory set. Disabling.")
 			self.flags.logLocal = False
@@ -128,10 +128,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 		# We shouldn't be able to reach this point with a bad directory name, unless
 		# the user has been hand-editing nvda.ini. However, since that's possible, we must check.
-		if not os.path.exists(os.path.abspath(os.path.expandvars(getConf("folder")))):
+		logFileFolder = os.path.abspath(os.path.expandvars(getConf("folder")))
+		if not os.path.exists(logFileFolder):
 			# Notify the user
-			log.error(f'The folder given for log files does not exist ({getConf("folder")}).')
-			# Disable all logging
+			log.error(f'The folder given for log files does not exist. Folder: ({getConf("folder")}).')
+			# Disable all speech logging
+			self.flags.logLocal = False
+			self.flags.logRemote = False
+			# Nothing else matters.
+			return
+		if not os.access(logFileFolder, os.W_OK | os.X_OK):
+			# Notify the user
+			log.error(f'The folder given for log files can not be written by this user. Folder: ({getConf("folder")}).')
+			# Disable all speech logging
 			self.flags.logLocal = False
 			self.flags.logRemote = False
 			# Nothing else matters.
@@ -144,32 +153,36 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			self.flags.logLocal = True
 			self.files.local = os.path.join(
-				os.path.abspath(os.path.expandvars(getConf("folder"))),
+				logFileFolder,
 				os.path.basename(os.path.expandvars(getConf("local")))
 			)
-			# Test open
+			# Test open. Code suspended--we test folder access above as of 23.1.
+			"""
 			try:
 				open(self.files.local, "a+", encoding="utf-8").close()
 			except Exception as e:
 				log.error(f"Couldn't open local log file {self.files.local} for appending. {e}")
 				self.files.local = None
 				self.flags.logLocal = False
+			"""
 		if getConf("remote") == "":
 			self.flags.logRemote = False
 			self.files.remote = None
 		else:
 			self.flags.logRemote = True
 			self.files.remote = os.path.join(
-				os.path.abspath(os.path.expandvars(getConf("folder"))),
+				logFileFolder,
 				os.path.basename(os.path.expandvars(getConf("remote")))
 			)
-			# Test open
+			# Test open. Code suspended--we test folder access above as of 23.1.
+			"""
 			try:
 				open(self.files.remote, "a+", encoding="utf-8").close()
 			except Exception as e:
 				log.error(f"Couldn't open remote log file {self.files.remote} for appending. {e}")
 				self.files.remote = None
 				self.flags.logRemote = False
+			"""
 		# Stage 3: file rotation
 		# This is handled by __init__() and rotateLogs(); we just update the flag.
 		self.flags.rotate = getConf("rotate")
