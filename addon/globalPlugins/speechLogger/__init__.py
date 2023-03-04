@@ -314,10 +314,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def logToFile(self, sequence: SpeechSequence, file: str) -> None:
 		"""Append text of the given speech sequence to the given file."""
-		with open(file, "a+", encoding="utf-8") as f:
-			f.write(self.utteranceSeparator.join(
-				toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
-			) + "\n")
+		try:
+			with open(file, "a+", encoding="utf-8") as f:
+				f.write(self.utteranceSeparator.join(
+					toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
+				) + "\n")
+		except IOError:
+			log.error(f'Could not write to file: "{file}".', exc_info=True)
+			raise
 
 	def rotateLogs(self) -> None:
 		"""Not implemented."""
