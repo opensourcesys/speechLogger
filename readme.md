@@ -52,3 +52,10 @@ However, once started, logging will continue across remote sessions.
 If you would like to suggest a feature or report a bug, please reach out by email, or file an [issue](https://github.com/opensourcesys/speechLogger/issues/).
 
 As always, I appreciate hearing that my add-ons are useful, and what people are using them for.
+
+### Changelog:
+
+* 23.0 series:
+    + NVDA 2023.1 compatible. Turkish translation. Code improvements. Ditched Appveyor in favor of GitHub Actions. (23.0.0)
+    + Ukrainian translation. (23.0.1)
+    + Internal - prep for NVDA add-on store. (23.0.2)
