@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout
+      uses: actions/checkout@v3
     - name: check for files known to cause problems
       run: find  . -type f | grep -vP "^./.git" | xargs file | grep -iP "bom|extended|iso"
     - name: 
