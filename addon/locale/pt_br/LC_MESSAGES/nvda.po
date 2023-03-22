@@ -1,0 +1,63 @@
+# Portuguese translations for PACKAGE package.
+# Copyright (C) 2023 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# U-DESKTOP-EI2LNIE\edu_home <diaseduardo139@gmail.com[1;5d>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-22 00:17-0300\n"
+"PO-Revision-Date: 2023-03-22 00:19-0300\n"
+"Last-Translator: U-DESKTOP-EI2LNIE\\edu_home <diaseduardo139@gmail."
+"com[1;5d>\n"
+"Language-Team: Brazilian Portuguese\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: __init__.py:250
+msgid "Toggles logging of local speech"
+msgstr "Alterna o registro de fala local"
+
+#: __init__.py:258
+msgid "Stopped logging local speech."
+msgstr "Fim da gravação do log local."
+
+#: __init__.py:264
+msgid "Started logging local speech."
+msgstr "Iniciando a gravação de log local."
+
+#: __init__.py:267
+msgid ""
+"Local speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr "O registro de fala local foi desabilitado por um erro de configuração ou pelo NVDA"
+
+#: __init__.py:272
+msgid "Toggles logging of remote speech"
+msgstr "Alterna o registro de fala remota"
+
+#: __init__.py:280
+msgid "Stopped logging remote speech."
+msgstr "Parando a gravação de fala remota."
+
+#: __init__.py:291
+msgid "Started logging remote speech."
+msgstr "Iniciando a gravação de fala remota."
+
+#: __init__.py:294
+msgid "Could not log remote speech, probably not connected."
+msgstr "Não foi possível gravar o log da fala remota, provavelmente você não está conectado."
+
+#: __init__.py:297
+msgid "Failed! Could not find the NVDA Remote add-on."
+msgstr "Falha! Não foi possível encontrar o complemento NVDA Remote instalado no seu NVDA."
+
+#: __init__.py:300
+msgid ""
+"Remote speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr "O registro de fala remota foi desabilitado por um erro de configuração ou do nvda."
