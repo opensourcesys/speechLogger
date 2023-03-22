@@ -1,6 +1,8 @@
 ### NVDA Speech Logger add-on
 
-Author: Luke Davis, with contributions by James Scholes
+* Author: Luke Davis, with contributions by James Scholes
+* Download [stable version][1]
+* NVDA compatibility: 2019.3.1 and later
 
 An [NVDA](https://nvaccess.org/) add-on to log speech to a file or files.
 It can log speech generated on the local machine into a text file.
@@ -52,3 +54,5 @@ However, once started, logging will continue across remote sessions.
 If you would like to suggest a feature or report a bug, please reach out by email, or file an [issue](https://github.com/opensourcesys/speechLogger/issues/).
 
 As always, I appreciate hearing that my add-ons are useful, and what people are using them for.
+
+[1]: https://addons.nvda-project.org/files/get.php?file=speechLogger
