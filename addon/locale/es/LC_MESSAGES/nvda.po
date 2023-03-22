@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: speechLogger 22.2.1\n"
+"POT-Creation-Date: 2022-07-29 15:49+0200\n"
+"PO-Revision-Date: 2022-07-29 16:00+0200\n"
+"Last-Translator: \n"
+"Language-Team: Sergio Gómez\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: globalPlugins/speechLogger/__init__.py:249
+msgid "Toggles logging of local speech"
+msgstr "Alterna el registro de voz local"
+
+#: globalPlugins/speechLogger/__init__.py:257
+msgid "Stopped logging local speech."
+msgstr "Registro de voz local detenido"
+
+#: globalPlugins/speechLogger/__init__.py:263
+msgid "Started logging local speech."
+msgstr "Registro de voz local iniciado"
+
+#: globalPlugins/speechLogger/__init__.py:266
+msgid ""
+"Local speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr ""
+"El registro de voz local ha sido deshabilitado por un error o por tu "
+"configuración de NVDA."
+
+#: globalPlugins/speechLogger/__init__.py:271
+msgid "Toggles logging of remote speech"
+msgstr "Alterna el registro de voz remota"
+
+#: globalPlugins/speechLogger/__init__.py:279
+msgid "Stopped logging remote speech."
+msgstr "Registro de voz remota detenido"
+
+#: globalPlugins/speechLogger/__init__.py:290
+msgid "Started logging remote speech."
+msgstr "Registro de voz remota iniciado"
+
+#: globalPlugins/speechLogger/__init__.py:293
+msgid "Could not log remote speech, probably not connected."
+msgstr "No se pudo registrar el habla remota, probablemente no esté conectado."
+
+#: globalPlugins/speechLogger/__init__.py:296
+msgid "Failed! Could not find the NVDA Remote add-on."
+msgstr "¡Ha fallado! No se pudo encontrar el complemento NVDA Remote."
+
+#: globalPlugins/speechLogger/__init__.py:299
+msgid ""
+"Remote speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr ""
+"El registro de voz remota ha sido deshabilitado por un error o por tu "
+"configuración de NVDA."
+
+#: globalPlugins/speechLogger/configUI.py:52
+msgid "Speech Logger"
+msgstr "Speech Logger"
+
+#: globalPlugins/speechLogger/configUI.py:55
+msgid ""
+"Choose the log directory and filenames for the speech logs. System variables "
+"such as %temp% are permitted.\n"
+"You can also alter the string used to separate multiple utterances from the "
+"same speech sequence."
+msgstr ""
+"Elija el directorio de registro y los nombres de archivo para los registros "
+"de voz. Se permiten variables del sistema como %temp%.\\n\n"
+"También puede modificar la cadena utilizada para separar varias expresiones "
+"de la misma secuencia de voz."
+
+#: globalPlugins/speechLogger/configUI.py:62
+msgid ""
+"The Speech Logger add-on can only be configured from the Normal "
+"Configuration profile.\n"
+"Please close this dialog, set your config profile to normal, and try again."
+msgstr ""
+"El complemento Speech Logger solo se puede configurar desde el perfil de "
+"configuración normal. Cierre este cuadro de diálogo, establezca su perfil de "
+"configuración en normal e intente"
+
+#: globalPlugins/speechLogger/configUI.py:77
+msgid "Two spaces (NVDA log style)"
+msgstr "Dos espacios (estilo de registro de NVDA)"
+
+#: globalPlugins/speechLogger/configUI.py:79
+msgid "Newline"
+msgstr "Nueva línea"
+
+#: globalPlugins/speechLogger/configUI.py:81
+msgid "A comma and space"
+msgstr "Una coma y un espacio"
+
+#: globalPlugins/speechLogger/configUI.py:83
+msgid "Two underscores"
+msgstr "Dos guiones bajos"
+
+#: globalPlugins/speechLogger/configUI.py:85
+msgid "Custom"
+msgstr "Personalizado"
+
+#: globalPlugins/speechLogger/configUI.py:114
+msgid "Log &Directory: "
+msgstr "Registro y directorio:"
+
+#: globalPlugins/speechLogger/configUI.py:120
+msgid "Browse..."
+msgstr "Buscar..."
+
+#: globalPlugins/speechLogger/configUI.py:122
+msgid "Select log  directory"
+msgstr "Seleccione el directorio de registro"
+
+#: globalPlugins/speechLogger/configUI.py:130
+msgid "Local speech log filename: "
+msgstr "Nombre de archivo de registro de voz local:"
+
+#: globalPlugins/speechLogger/configUI.py:135
+msgid "Remote speech log filename: "
+msgstr "Nombre de archivo de registro de voz remota:"
+
+#: globalPlugins/speechLogger/configUI.py:149
+msgid "&Separator Options"
+msgstr "Opciones de separador"
+
+#: globalPlugins/speechLogger/configUI.py:155
+msgid "Utterance separator"
+msgstr "Separador de expresiones"
+
+#: globalPlugins/speechLogger/configUI.py:174
+msgid "Custom utterance separator (can use escapes like \\t): "
+msgstr "Separador de expresiones personalizado (puede usar escapes como \\t):"
