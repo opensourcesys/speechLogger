@@ -5,74 +5,74 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: speechLogger 23.0.2\n"
+"Project-Id-Version: speechLogger\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-10 19:30+0000\n"
-"PO-Revision-Date: 2023-03-11 10:36+0100\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: es\n"
+"PO-Revision-Date: 2023-03-11 13:00+0200\n"
+"Last-Translator: Jani Kinnunen <janikinnunen340@gmail.com>\n"
+"Language-Team: fi_FI <janikinnunen340@gmail.com>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: the description of an item in the input gestures tools category
 msgid "Toggles logging of local speech"
-msgstr "Conmuta el registro de la voz local"
+msgstr ""
+"Ottaa käyttöön paikallisen puheen tallennuksen tai poistaa sen käytöstä"
 
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging local speech."
-msgstr "Registro de la voz local detenido."
+msgstr "Paikallisen puheen tallennus lopetettu."
 
 #. Translators: a message to tell the user that we are now logging.
 msgid "Started logging local speech."
-msgstr "Registro de la voz local iniciado."
+msgstr "Paikallisen puheen tallennus aloitettu."
 
 #. Translators: a message to tell the user that we can't start this kind of logging
 msgid ""
 "Local speech logging has been disabled by an error or your NVDA "
 "configuration."
 msgstr ""
-"El registro de voz local se ha deshabilitado por un error o tu configuración "
-"de NVDA."
+"Paikallisen puheen tallennus on poistettu käytöstä virheen tai NVDA:n "
+"asetusten takia."
 
 #. Translators: the description of an item in the input gestures tools category
 msgid "Toggles logging of remote speech"
-msgstr "Conmuta el registro de la voz remota"
+msgstr "Ottaa etäpuheen tallennuksen käyttöön tai poistaa sen käytöstä"
 
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging remote speech."
-msgstr "Registro de voz remota detenido."
+msgstr "Etäpuheen tallennus lopetettu."
 
 #. Translators: a message to tell the user that we are now logging.
 msgid "Started logging remote speech."
-msgstr "Registro de voz remota iniciado."
+msgstr "Etäpuheen tallennus aloitettu."
 
 #. Translators: a message to tell the user that we can not start logging because remote may not be connected..
 msgid "Could not log remote speech, probably not connected."
-msgstr ""
-"No se ha podido registrar la voz remota, probablemente no estás conectado."
+msgstr "Etäpuhetta ei voitu tallentaa, koska yhteyttä ei ehkä ole muodostettu."
 
 #. self._obtainRemote() returned False
 #. Translators: a message telling the user that the Remote add-on is unavailable.
 msgid "Failed! Could not find the NVDA Remote add-on."
-msgstr "¡Error! No se ha podido encontrar el complemento NVDA Remote."
+msgstr "NVDA-etäkäyttö-lisäosaa ei löytynyt."
 
 #. Translators: a message to tell the user that we can't start this kind of logging
 msgid ""
 "Remote speech logging has been disabled by an error or your NVDA "
 "configuration."
 msgstr ""
-"El registro de voz remota se ha deshabilitado por un error o tu "
-"configuración de NVDA."
+"Etäpuheen tallennus poistettu käytöstä virheen tai NVDA:n asetusten takia."
 
 #. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on
 #. to be shown on installation and add-on information found in Add-ons Manager.
 msgid "Speech Logger"
-msgstr "Speech Logger"
+msgstr "Puheen tallennin"
 
 msgid ""
 "Choose the log directory and filenames for the speech logs. System variables "
@@ -80,74 +80,72 @@ msgid ""
 "You can also alter the string used to separate multiple utterances from the "
 "same speech sequence."
 msgstr ""
-"Elige la carpeta y los nombres de archivo de los registros de voz. Se "
-"permiten variables del sistema, como %temp%.\n"
-"También puedes modificar la cadena usada para separar varios mensajes de la "
-"secuencia de habla actual."
+"Valitse puhelokien hakemisto ja tiedostonimet. Järjestelmämuuttujia, kuten "
+"%temp% voidaan käyttää.\n"
+"Voit myös muuttaa merkkijonoa, jota käytetään erottamaan useita katkelmia "
+"samasta puhesekvenssistä."
 
 msgid ""
 "The Speech Logger add-on can only be configured from the Normal "
 "Configuration profile.\n"
 "Please close this dialog, set your config profile to normal, and try again."
 msgstr ""
-"El complemento Speech Logger sólo se puede configurar desde el perfil de "
-"configuración normal.\n"
-"Cierra este diálogo, activa el perfil de configuración normal e inténtalo de "
-"nuevo."
+"Puheen tallennin -lisäosan asetukset voidaan määrittää vain normaalit "
+"asetukset -profiilista.\n"
+"Sulje tämä valintaikkuna, valitse asetusprofiiliksi \"(normaalit "
+"asetukset)\" ja yritä uudelleen."
 
 #. Translators: a separator option in the separators combobox
 msgid "Two spaces (NVDA log style)"
-msgstr "Dos espacios (estilo de registro de NVDA)"
+msgstr "Kaksi välilyöntiä (NVDA:n lokityyli)"
 
 #. Translators: a separator option in the separators combobox
 msgid "Newline"
-msgstr "Línea en blanco"
+msgstr "Rivinvaihto"
 
 #. Translators: a separator option in the separators combobox
 msgid "A comma and space"
-msgstr "Una coma y un espacio"
+msgstr "Pilkku ja välilyönti"
 
 #. Translators: a separator option in the separators combobox
 msgid "Two underscores"
-msgstr "Dos guiones bajos"
+msgstr "Kaksi alaviivaa"
 
 #. Translators: a separator option in the separators combobox
 msgid "Custom"
-msgstr "Personalizado"
+msgstr "Mukautettu"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
-msgstr "Carpeta del &registro: "
+msgstr "Loki&hakemisto: "
 
 #. Translators: The label of a button to browse for a directory.
 msgid "Browse..."
-msgstr "Examinar..."
+msgstr "Selaa..."
 
 #. Translators: The title of the dialog presented when browsing for the log directory.
 msgid "Select log  directory"
-msgstr "Selecciona la carpeta del registro"
+msgstr "Valitse lokihakemisto"
 
 #. Translators: label of a text field to enter local speech log filename.
 msgid "Local speech log filename: "
-msgstr "Nombre del archivo de registro de la voz local: "
+msgstr "Paikallisen puheen lokitiedoston nimi: "
 
 #. Translators: label of a text field to enter remote speech log filename.
 msgid "Remote speech log filename: "
-msgstr "Nombre del archivo de registro de la voz remota: "
+msgstr "Etäpuheen lokitiedoston nimi: "
 
 #. Translators: label of the separator options grouping.
 msgid "&Separator Options"
-msgstr "Opciones de &separador"
+msgstr "E&rottimen asetukset"
 
 #. Translators: this is the label for a combobox providing possible separator values
 msgid "Utterance separator"
-msgstr "Separador de mensajes"
+msgstr "Katkelmaerotin"
 
 #. Translators: the label for a text field requesting an optional custom separator string
 msgid "Custom utterance separator (can use escapes like \\t): "
-msgstr ""
-"Separador personalizado de mensajes (puede usar secuencias de escape como "
-"\\t): "
+msgstr "Mukautettu katkelmaerotin (koodeja, kuten \\t voidaan käyttää): "
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
@@ -155,5 +153,5 @@ msgid ""
 "Logs speech utterances to a file. Can also log NVDA remote session speech "
 "from the NVDA Remote add-on, to the same or another file."
 msgstr ""
-"Registra mensajes de voz en un archivo. También puede registrar la voz de "
-"una sesión remota del complemento NVDA Remote al mismo o a otro archivo."
+"Tallentaa puhekatkelmat tiedostoon. Voi tallentaa myös NVDA:n etäistunnon "
+"puheen NVDA-etäkäyttö-lisäosasta samaan tai eri tiedostoon."
