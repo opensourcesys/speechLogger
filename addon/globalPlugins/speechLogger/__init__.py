@@ -57,6 +57,22 @@ class Origin(Enum):
 	REMOTE = auto()
 
 
+def resolveOrMakeDirectory(dir: str) -> str:
+	"""Resolves or makes the directory given, which may include Windows variable and time parameters.
+	@param dir: The directory, maybe including Windows %v% & strftime %X variables, to (make and) return.
+	@returns str: The fully qualified path.
+	@raises osError: If the directory needed to be created but couldn't be, maybe because a file existed there.
+	"""
+	# First, we process the dir through expandvars, to explode any Windows variables.
+	# Since expandvars leaves alone anything it doesn't understand, we can then
+		# process through strftime, to handle the date/time replacements.
+	# The opposite order will not work. Lastly, we make it an absolute path.
+	expandedDir = os.path.abspath(strftime(os.path.expandvars(dir)))
+	# We try to create the directory(ies), and silently fail if it already exists
+	os.makedirs(expandedDir, exist_ok=True)
+	return expandedDir
+
+
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
