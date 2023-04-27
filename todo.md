@@ -5,6 +5,7 @@
 * [ ] Add tab as a pre-configured separator option. (2/20/2023)
 * [ ] Write dates to the files when logging starts and stops. (2/20/2023)
 * [ ] Stop creating files before they need to be written to the first time. (2/20/2023)
+* [ ] Add the possibility of strftime variables in filenames, per issue #4 (4/26/2023)
 
 #### Priority 2:
 
