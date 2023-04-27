@@ -1,4 +1,4 @@
-# NVDA Speech Logger add-on, V22.2
+# NVDA Speech Logger add-on, V23.1
 #
 #    Copyright (C) 2022-2023 Luke Davis <XLTechie@newanswertech.com>, James Scholes
 #
@@ -25,9 +25,10 @@ Be warned that means lots of disk activity.
 """
 
 import os
+from time import strftime
+from typing import Optional, Dict
 from functools import wraps
 from enum import Enum, unique, auto, IntEnum
-from typing import Optional, Dict
 
 import addonHandler
 import globalPluginHandler
@@ -68,14 +69,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			logLocal=False,
 			# Tracks whether we are actively logging local speech
 			localActive=False,
+			# Have we already logged any local speech during this log session?
+			startedLocalLog=False,
 			# Do we intend to log remote speech?
 			logRemote=False,
 			# Tracks whether we are actively logging remote speech
 			remoteActive=False,
+			# Have we already logged any remote speech during this log session?
+			startedRemoteLog=False,
 			# Has the NVDA Remote speech capturing callback been registered?
 			callbackRegistered=False,
 			# Should we rotate logs on startup?
-			rotate=False
+			rotate=False,
+			# Should we log the timestamp when we start/stop a log session?
+			startStopTimestamps=True
 		)
 		#: Filenames are obtained from NVDA configuration, and setup in applyUserConfig().
 		self.files: ImmutableKeyObj = ImmutableKeyObj(local=None, remote=None)
@@ -106,10 +113,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		speech.speech.speak = new_speak
 
 	def terminate(self) -> None:
-		super().terminate()
 		# Remove the NVDA settings panel
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
+		super().terminate()
 
 	def applyUserConfigIfNeeded(self) -> None:
 		"""If the user has changed any part of the configuration, reset our internals accordingly."""
@@ -194,16 +201,61 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			)
 			self.utteranceSeparator: str = separators["2spc"]  # Use default
 
+	def _createDynamicLogStateText(self, started: bool = True) -> str:
+		"""Returns translated text that can be inserted in the log, indicating that a log session started/ended.
+		If the proper flag is set, it will include the date and time.
+		Intended to be called from properties.
+		@param started: If True, returns a "log started" style message. If False, a "log ended" style message.
+		"""
+		# Translators: Text inserted in the log indicating logging has started.
+		startText: str = _("Log started")
+		# Translators: Text inserted in the log indicating logging has ended.
+		stopText: str = _("Log ended")
+		# Translators: Series of punctuations that appear around unspoken log started/stopped messages.
+		edgeTag: str = _("###")
+		# Translators: This word appears between log stopped/started messages, and the date and time it happened.
+		timestampSep: str = _("on")
+		# Translators: A string that separates a date from a time. Should include space(s).
+		dateTimeSep: str = _(" at ")
+		date: str = strftime("%x")
+		time: str = strftime("%X")
+		if self.flags.startStopTimestamps:
+			return edgeTag + (f" {startText}" if started else f" {stopText}") \
+			+ f" {timestampSep} {date}{dateTimeSep}{time} " + (edgeTag if started else f"{edgeTag}\n")
+		else:
+			return edgeTag + (f" {startText} {edgeTag}" if started else f" {stopText} {edgeTag}\n")
+
+	@property
+	def dynamicLogStartedText(self) -> str:
+		"""Returns translated text that can be inserted in the log indicating that a new log session has started.
+		If the proper flag is set, it will include the date and time.
+		"""
+		return self._createDynamicLogStateText()
+
+	@property
+	def dynamicLogStoppedText(self) -> str:
+		"""Returns translated text that can be inserted in the log indicating that the current log session has ended.
+		If the proper flag is set, it will include the date and time.
+		"""
+		return self._createDynamicLogStateText(False)
+
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin) -> None:
 		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
 		self.applyUserConfigIfNeeded()
 		file: Optional[str] = None
+		initialText: Optional[str] = None
 		if origin == Origin.LOCAL and self.flags.localActive:
 			file = self.files.local
+			if not self.flags.startedLocalLog:
+				initialText = self.dynamicLogStartedText
+				self.flags.startedLocalLog = True
 		elif origin == Origin.REMOTE and self.flags.remoteActive:
 			file = self.files.remote
+			if not self.flags.startedRemoteLog:
+				initialText = self.dynamicLogStartedText
+				self.flags.startedRemoteLog = True
 		if file is not None:
-			self.logToFile(sequence, file)
+			self.logToFile(file, sequence, initialText)
 
 	def _captureRemoteSpeech(self, *args, **kwargs) -> None:
 		"""Register this as a callback to the NVDA Remote add-on's speech system, to obtain what it speaks."""
@@ -253,7 +305,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_toggleLocalSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging local speech."""
 		if self.flags.localActive:  # Currently logging, stop
+			# Write a message to the log stating that we are no longer logging
+			self.logToFile(self.files.local, None, self.dynamicLogStoppedText)
 			self.flags.localActive = False
+			self.flags.startedLocalLog = False
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging local speech."))
 		else:  # Currently not logging, start
@@ -275,7 +330,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
 		if self.flags.remoteActive:  # We were logging, stop
+			# Write a message to the log stating that we have stopped logging
+			self.logToFile(self.files.remote, None, self.dynamicLogStoppedText)
 			self.flags.remoteActive = False
+			self.flags.startedRemoteLog = False
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging remote speech."))
 		else:  # We weren't logging, start
@@ -299,12 +357,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Translators: a message to tell the user that we can't start this kind of logging
 				ui.message(_("Remote speech logging has been disabled by an error or your NVDA configuration."))
 
-	def logToFile(self, sequence: SpeechSequence, file: str) -> None:
-		"""Append text of the given speech sequence to the given file."""
+	def logToFile(self, file: str, sequence: Optional[SpeechSequence], initialText: Optional[str]) -> None:
+		"""Append text of the given speech sequence to the given file.
+		If an initialText is given, it appears on its own line before the logged text.
+		"""
 		with open(file, "a+", encoding="utf-8") as f:
-			f.write(self.utteranceSeparator.join(
-				toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
-			) + "\n")
+			if initialText is not None:
+				f.write(f"{initialText}\n")
+			if sequence is not None:
+				f.write(self.utteranceSeparator.join(
+					toSpeak for toSpeak in sequence if isinstance(toSpeak, str)
+				) + "\n")
 
 	def rotateLogs(self) -> None:
 		"""Not implemented."""
