@@ -1,8 +1,10 @@
 Checkout new branch named version.
-If a dev branch, update buildVars with version and -dev0.
+Update buildVars with new version.
+Update copyright date if necessary, in source files.
+Update version in source files.
 Commit a message like "Started work on version.".
 Do work.
-Push to repo.
-In final commit, remove the "-devN" from the version in buildVars.
+In final commit, remove the "-devN" from the version in buildVars, if necessary.
+Clean up history.
 Checkout master
-merge --no-ff version
+merge --ff-only version
