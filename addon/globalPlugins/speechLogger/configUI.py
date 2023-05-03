@@ -165,8 +165,8 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 				break
 		else:  # Unrecognized choice saved in configuration
 			log.debugWarning(
-				"Could not set separator combobox to the config derived option of"
-				f' "{getConf("separator")}". Using default.'
+				'Could not set separator combobox to the config derived option of "' \
+				+ getConf("separator") + '". Using default.'
 			)
 			self.separatorChoiceControl.SetSelection(0)  # Use default
 
