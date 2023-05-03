@@ -3,11 +3,8 @@ name: build addon
 on:
   push:
     tags: ["*"]
-    # To build on main/master branch, uncomment the following line:
     branches-ignore:
-      - main
-      - master
-      - prime
+      [ "*" ]
 
   pull_request:
     branches:
