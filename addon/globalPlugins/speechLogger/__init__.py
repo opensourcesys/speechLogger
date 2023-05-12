@@ -196,13 +196,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Stage 3: file rotation
 		# This is handled by __init__() and rotateLogs(); we just update the flag.
 		self.flags.rotate = getConf("rotate")
-		# Stage 4: utterance separation
+		# Stage 4: misc/other settings
+		# Timestamps can be off, on, or per-sequence.
+		# In the config, tsMode will be 0 for off, higher for the other two options.
+		self.flags.startStopTimestamps = True if getConf("tsMode") > 0 else False
+		# Stage 5: utterance separation
 		# For this one we may need the configured custom separator. However, it seems that
 		# some part of NVDA or Configobj, escapes escape chars such as \t. We must undo that.
 		unescapedCustomSeparator: str = getConf("customSeparator").encode().decode("unicode_escape")
 		separators: Dict[str, str] = {
 			"2spc": "  ",
 			"nl": "\n",
+			"tab": "\t",
 			"comma": ", ",
 			"__": "__",
 			"custom": unescapedCustomSeparator

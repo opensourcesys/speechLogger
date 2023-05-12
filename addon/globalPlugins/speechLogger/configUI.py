@@ -23,6 +23,11 @@ from logHandler import log
 
 addonHandler.initTranslation()
 
+#: Default separator, when an invalid one has been set
+DEFAULT_SEPARATOR = 0
+#: Default timestamp mode, when an invalid one has been set
+DEFAULT_TS_MODE = 1
+
 #: speechLogger Add-on config database
 config.conf.spec["speechLogger"] = {
 	"folder": "string(default='')",
@@ -30,7 +35,8 @@ config.conf.spec["speechLogger"] = {
 	"remote": "string(default='NVDA-speech-remote.log')",
 	"rotate": "boolean(default=False)",
 	"separator": "string(default='2spc')",
-	"customSeparator": "string(default='')"
+	"customSeparator": "string(default='')",
+	"tsMode": "integer(min=0,default=1,max=1)"
 }
 
 def getConf(item: str) -> str:
@@ -56,7 +62,8 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		"Choose the log directory and filenames for the speech logs. "
 		"System variables such as %temp% are permitted.\n"
 		"You can also alter the string used to separate multiple"
-		" utterances from the same speech sequence."
+		" utterances from the same speech sequence, "
+		"and control how or whether timestamps are used."
 	)
 	# Translators: the alternative introductory text for the settings dialog
 	panelDescription_otherProfile: str = _(
@@ -73,11 +80,14 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 #		" utterances from the same speech sequence."
 #	)
 
+	#: Possible values for the separator combobox
 	availableSeparators: tuple = (
 		# Translators: a separator option in the separators combobox
 		("2spc", _("Two spaces (NVDA log style)")),
 		# Translators: a separator option in the separators combobox
 		("nl", _("Newline")),
+		# Translators: a separator option in the separators combobox
+		("tab", _("Tab")),
 		# Translators: a separator option in the separators combobox
 		("comma", _("A comma and space")),
 		# Translators: a separator option in the separators combobox
@@ -85,6 +95,14 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		# Translators: a separator option in the separators combobox
 		("custom", _("Custom"))
 	)
+	#: Possible values for the timestamp configuration combobox
+	tsModeDisplayChoices: list = [
+		# Translators: A timestamp mode option in the timestamps mode combobox
+		_("Off, no timestamps"),
+		# Translators: A timestamp mode option in the timestamps mode combobox
+		_("When a log begins or ends")
+	]
+	
 
 	def makeSettings(self, settingsSizer) -> None:
 		"""Creates a settings panel.
@@ -168,7 +186,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 				'Could not set separator combobox to the config derived option of "' \
 				+ getConf("separator") + '". Using default.'
 			)
-			self.separatorChoiceControl.SetSelection(0)  # Use default
+			self.separatorChoiceControl.SetSelection(DEFAULT_SEPARATOR)  # Use default
 
 		self.customSeparatorControl = sepGroupHelper.addLabeledControl(
 			# Translators: the label for a text field requesting an optional custom separator string
@@ -176,20 +194,49 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		)
 		self.customSeparatorControl.SetValue(getConf("customSeparator"))
 
+		# Grouping for miscellaneous options
+		miscGroupSizer = wx.StaticBoxSizer(
+			wx.VERTICAL, self,
+			# Translators: label of the Other options grouping.
+			label=_("&Other Options")
+		)
+		miscGroupHelper = helper.addItem(gui.guiHelper.BoxSizerHelper(self, sizer=miscGroupSizer))
+		miscGroupBox = miscGroupSizer.GetStaticBox()
+
+		# Translators: this is the label for a combobox providing possible timestamp mode values.
+		tsModeComboLabel: str = _("Timestamp Mode")
+		self.tsModeChoiceControl = miscGroupHelper.addLabeledControl(
+			tsModeComboLabel, wx.Choice, choices=self.tsModeDisplayChoices
+		)
+		# Iterate the combobox choices, and pick the one listed in config
+		for index, name in enumerate(self.tsModeDisplayChoices):
+			if index == getConf("tsMode"):
+				self.tsModeChoiceControl.SetSelection(index)
+				break
+		else:  # Unrecognized choice saved in configuration
+			log.debugWarning(
+				'Could not set timestamp mode to the config derived option of "' \
+				+ getConf("tsMode") + '". Using default.'
+			)
+			self.tsModeChoiceControl.SetSelection(DEFAULT_TS_MODE)  # Use default
+
 	def onSave(self):
 		"""Save the settings to the Normal Configuration."""
+		# Make sure we're operating in the "normal" profile
 		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
 			setConf("folder", self.logDirectoryEdit.Value)
 			setConf("local", self.localFNControl.Value)
 			setConf("remote", self.remoteFNControl.Value)
-			# FixMe: log rotation is coming soon.
+			# FixMe: log rotation may be coming eventually.
 			#setConf("rotate", self.rotateLogsCB.Value)
 			# Get the text of the selected separator
 			sepText: str = self.availableSeparators[self.separatorChoiceControl.Selection][0]
 			setConf("separator", sepText)
 			setConf("customSeparator", self.customSeparatorControl.Value)
+			setConf("tsMode", self.tsModeChoiceControl.Selection)
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
+		# Make sure we're operating in the "normal" profile
 		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
 			SpeechLoggerSettings.hasConfigChanges = True

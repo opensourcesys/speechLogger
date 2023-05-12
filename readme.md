@@ -12,7 +12,7 @@ It can also log speech from a remote machine received through the [NVDA Remote](
 
 To configure this add-on, open the NVDA menu, go to Preferences, then Settings, then Speech Logger (NVDA+N, P, S, then press S until you get there, on a default U.S. English keyboard).
 
-Note: the add-on can only be configured while in the Normal Configuration profile of NVDA. The add-on is not profile-aware. If you can think of some use case that requires it to operate differently in different profiles, please contact the author or file an issue on the [GitHub repo](https://github.com/opensourcesys/speechLogger/issues/).
+Note: the add-on can only be configured while in the Normal Configuration profile of NVDA. The add-on is not profile-aware. If you can think of some use case that requires it to operate differently in different profiles, please contact the author or file an issue on the [GitHub repo][2].
 
 The following settings are available:
 * The log directory. You can enter or browse for your desired destination directory, which must already exist. System variables such as %temp%, %userprofile%, etc., can be used in this field.
@@ -51,8 +51,10 @@ However, once started, logging will continue across remote sessions.
 
 ### Feedback and feature requests
 
-If you would like to suggest a feature or report a bug, please reach out by email, or file an [issue](https://github.com/opensourcesys/speechLogger/issues/).
+If you would like to suggest a feature or report a bug, please reach out by email, or file an [issue][2].
 
 As always, I appreciate hearing that my add-ons are useful, and what people are using them for.
 
 [1]: https://addons.nvda-project.org/files/get.php?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/
