@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Konuşma Kaydedici 22.2.1\n"
-"POT-Creation-Date: 2022-05-12 19:29+0300\n"
-"PO-Revision-Date: 2022-05-12 19:53+0300\n"
+"Project-Id-Version: Konuşma Kaydedici 23.1.0\n"
+"POT-Creation-Date: 2023-05-13 16:08+0300\n"
+"PO-Revision-Date: 2023-05-13 16:14+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -10,23 +10,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ../../../globalPlugins\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: speechLogger/__init__.py:249
+#: speechLogger/__init__.py:232
+msgid "Log started"
+msgstr "Kayıt başladı"
+
+#: speechLogger/__init__.py:234
+msgid "Log ended"
+msgstr "Kayıt sona erdirildi"
+
+#: speechLogger/__init__.py:236
+msgid "###"
+msgstr "###"
+
+#: speechLogger/__init__.py:238
+msgid "on"
+msgstr "açık"
+
+#: speechLogger/__init__.py:240
+msgid " at "
+msgstr " tire "
+
+#: speechLogger/__init__.py:323
 msgid "Toggles logging of local speech"
 msgstr "Yerel konuşmanın günlüğe kaydedilmesini açar/kapatır"
 
-#: speechLogger/__init__.py:257
+#: speechLogger/__init__.py:334
 msgid "Stopped logging local speech."
 msgstr "Yerel konuşma kaydı durduruldu."
 
-#: speechLogger/__init__.py:263
+#: speechLogger/__init__.py:340
 msgid "Started logging local speech."
 msgstr "Yerel konuşma kaydı başlatıldı."
 
-#: speechLogger/__init__.py:266
+#: speechLogger/__init__.py:343
 msgid ""
 "Local speech logging has been disabled by an error or your NVDA "
 "configuration."
@@ -34,27 +54,27 @@ msgstr ""
 "Yerel konuşma kaydı, bir hata veya NVDA yapılandırmanız nedeniyle devre dışı "
 "bırakıldı."
 
-#: speechLogger/__init__.py:271
+#: speechLogger/__init__.py:348
 msgid "Toggles logging of remote speech"
 msgstr "Uzak konuşmanın günlüğe kaydedilmesini açar/kapatır"
 
-#: speechLogger/__init__.py:279
+#: speechLogger/__init__.py:359
 msgid "Stopped logging remote speech."
 msgstr "Uzak konuşma kaydı durduruldu."
 
-#: speechLogger/__init__.py:290
+#: speechLogger/__init__.py:370
 msgid "Started logging remote speech."
 msgstr "Uzak konuşma kaydı başlatıldı."
 
-#: speechLogger/__init__.py:293
+#: speechLogger/__init__.py:373
 msgid "Could not log remote speech, probably not connected."
 msgstr "Uzak konuşma kaydedilemedi, muhtemelen bağlı değil."
 
-#: speechLogger/__init__.py:296
+#: speechLogger/__init__.py:376
 msgid "Failed! Could not find the NVDA Remote add-on."
 msgstr "Uyarı! NVDA Remote eklentisi bulunamadı."
 
-#: speechLogger/__init__.py:299
+#: speechLogger/__init__.py:379
 msgid ""
 "Remote speech logging has been disabled by an error or your NVDA "
 "configuration."
@@ -62,23 +82,29 @@ msgstr ""
 "Uzaktan konuşma kaydı, bir hata veya NVDA yapılandırmanız nedeniyle devre "
 "dışı bırakıldı."
 
-#: speechLogger/configUI.py:52
+#: speechLogger/configUI.py:59
 msgid "Speech Logger"
 msgstr "Konuşma Kaydedici"
 
-#: speechLogger/configUI.py:55
+#: speechLogger/configUI.py:62
+#| msgid ""
+#| "Choose the log directory and filenames for the speech logs. System "
+#| "variables such as %temp% are permitted.\n"
+#| "You can also alter the string used to separate multiple utterances from "
+#| "the same speech sequence."
 msgid ""
 "Choose the log directory and filenames for the speech logs. System variables "
 "such as %temp% are permitted.\n"
 "You can also alter the string used to separate multiple utterances from the "
-"same speech sequence."
+"same speech sequence, and control how or whether timestamps are used."
 msgstr ""
-"Konuşma kayıtları için günlük dizinini ve dosya adlarını seçin. %temp% gibi "
+"Konuşma kayıtları için kayıt dizinini ve dosya adlarını seçin. %temp% gibi "
 "sistem değişkenlerine izin verilir.\n"
-"Aynı konuşma dizisinde birden fazl sözcüyü ayırmak için kullanılan ayırıcıyı "
-"da değiştirebilirsiniz."
+"Aynı konuşma dizisinden birden çok ifadeyi ayırmak için kullanılan dizeyi de "
+"değiştirebilir ve zaman damgalarının nasıl kullanılacağını veya kullanılıp "
+"kullanılmayacağını denetleyebilirsiniz."
 
-#: speechLogger/configUI.py:62
+#: speechLogger/configUI.py:70
 msgid ""
 "The Speech Logger add-on can only be configured from the Normal "
 "Configuration profile.\n"
@@ -89,54 +115,75 @@ msgstr ""
 "Lütfen bu iletişim kutusunu kapatın, yapılandırma profilinizi normale "
 "ayarlayın ve tekrar deneyin."
 
-#: speechLogger/configUI.py:77
+#: speechLogger/configUI.py:86
 msgid "Two spaces (NVDA log style)"
 msgstr "İki boşluk (NVDA günlük stili)"
 
-#: speechLogger/configUI.py:79
+#: speechLogger/configUI.py:88
 msgid "Newline"
 msgstr "Yeni satır"
 
-#: speechLogger/configUI.py:81
+#: speechLogger/configUI.py:90
+msgid "Tab"
+msgstr "Sekme"
+
+#: speechLogger/configUI.py:92
 msgid "A comma and space"
 msgstr "virgül ve boşluk"
 
-#: speechLogger/configUI.py:83
+#: speechLogger/configUI.py:94
 msgid "Two underscores"
-msgstr "iki alt çizgi"
+msgstr "İki alt çizgi"
 
-#: speechLogger/configUI.py:85
+#: speechLogger/configUI.py:96
 msgid "Custom"
 msgstr "Özel"
 
-#: speechLogger/configUI.py:114
+#: speechLogger/configUI.py:101
+msgid "Off, no timestamps"
+msgstr "Kapalı, zaman damgası yok"
+
+#: speechLogger/configUI.py:103
+msgid "When a log begins or ends"
+msgstr "Bir kayıt başladığında veya bittiğinde"
+
+#: speechLogger/configUI.py:133
 msgid "Log &Directory: "
 msgstr "Günlük &Dizini: "
 
-#: speechLogger/configUI.py:120
+#: speechLogger/configUI.py:139
 msgid "Browse..."
 msgstr "Gözat..."
 
-#: speechLogger/configUI.py:122
+#: speechLogger/configUI.py:141
 msgid "Select log  directory"
 msgstr "Günlük dizini seçin"
 
-#: speechLogger/configUI.py:130
+#: speechLogger/configUI.py:149
 msgid "Local speech log filename: "
 msgstr "Yerel konuşma günlüğü dosya adı: "
 
-#: speechLogger/configUI.py:135
+#: speechLogger/configUI.py:154
 msgid "Remote speech log filename: "
 msgstr "Uzak konuşma günlüğü dosya adı: "
 
-#: speechLogger/configUI.py:149
+#: speechLogger/configUI.py:168
 msgid "&Separator Options"
 msgstr "Ayırıcı &Seçenekleri"
 
-#: speechLogger/configUI.py:155
-msgid "Utterance separator"
-msgstr "söz ayırıcı"
-
 #: speechLogger/configUI.py:174
+msgid "Utterance separator"
+msgstr "Söz ayırıcı"
+
+#: speechLogger/configUI.py:193
 msgid "Custom utterance separator (can use escapes like \\t): "
 msgstr "Özel ifade ayırıcı (\\t gibi kaçışlar kullanabilir): "
+
+#: speechLogger/configUI.py:201
+#| msgid "&Separator Options"
+msgid "&Other Options"
+msgstr "&Diğer seçenekler"
+
+#: speechLogger/configUI.py:207
+msgid "Timestamp Mode"
+msgstr "Zaman Damgası Modu"
