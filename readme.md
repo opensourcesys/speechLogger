@@ -62,6 +62,6 @@ If you would like to suggest a feature or report a bug, please reach out by emai
 
 As always, I appreciate hearing that my add-ons are useful, and what people are using them for.
 
-[1]: https://addons.nvda-project.org/files/get.php?file=speechLogger
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
 
 [2]: https://github.com/opensourcesys/speechLogger/issues/
