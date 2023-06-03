@@ -7,6 +7,10 @@ on:
       - main
       - prime
   pull_request:
+    branches:
+      - master
+      - main
+      - prime
 
 jobs:
   extendedAsciiAndBom:
