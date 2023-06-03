@@ -3,14 +3,11 @@ name: build addon
 on:
   push:
     tags: ["*"]
-    branches-ignore:
-      [ "*" ]
+    # To build on main/master branch, uncomment the following line:
+    #branches: [ main, master, prime ]
 
   pull_request:
-    branches:
-      - master
-      - main
-      - prime
+    branches: [ main, master, prime ]
 
   workflow_dispatch:
 
@@ -24,7 +21,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.9
+        python-version: 3.7
         cache: 'pip'
 
     - name: Install dependencies
@@ -38,12 +35,16 @@ jobs:
       run: export SKIP=no-commit-to-branch; pre-commit run --all
 
     - name: building addon
-      run: scons
+      run: |
+        scons
+        scons pot
 
     - uses: actions/upload-artifact@v3
       with:
         name: packaged_addon
-        path: ./*.nvda-addon
+        path: |
+          ./*.nvda-addon
+          ./*.pot
 
   upload_release:
     runs-on: ubuntu-latest
@@ -59,6 +60,8 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: packaged_addon/*.nvda-addon
+        files: |
+          packaged_addon/*.nvda-addon
+          packaged_addon/*.pot
         fail_on_unmatched_files: true
         prerelease: ${{ contains(github.ref, '-') }}

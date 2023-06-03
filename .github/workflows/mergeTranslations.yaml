@@ -6,14 +6,14 @@ on:
   workflow_dispatch:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '0 23 * * 5' # At 23:00 on Fridays (NV Access Translations update on Thursdays)
+    - cron:  '08 12 * * 5' # At 12:08 on Fridays (NV Access Translations update on Thursdays)
 
 jobs:
   update-translations:
     runs-on: windows-latest
     steps:
     - name: Checkout master
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Merge changes
       run: |
         git config --global user.name github-actions
@@ -21,7 +21,6 @@ jobs:
         git pull
         git remote add l10n https://github.com/nvdaaddons/speechLogger
         git fetch l10n
-        git merge --ff-only l10n/stable
-        git push
-        
+        git merge -q --ff -m "Translations automerge" l10n/stable
+        git push     
         
