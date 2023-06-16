@@ -1,26 +1,29 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the speechLogger package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Konuşma Kaydedici 23.1.0\n"
-"POT-Creation-Date: 2023-05-13 16:08+0300\n"
-"PO-Revision-Date: 2023-05-20 18:42+0300\n"
-"Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
-"Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
-"Language: tr_TR\n"
+"Project-Id-Version: speechLogger 23.0.4\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2023-03-31 19:30+0000\n"
+"PO-Revision-Date: 2023-05-21 23:04+0100\n"
+"Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
+"Language-Team: \n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.3.1\n"
-"X-Poedit-Basepath: ../../../globalPlugins\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #. Translators: Text inserted in the log indicating logging has started.
 msgid "Log started"
-msgstr "Kayıt başladı"
+msgstr "Registo iniciado"
 
 #. Translators: Text inserted in the log indicating logging has ended.
 msgid "Log ended"
-msgstr "Kayıt sona erdirildi"
+msgstr "Fim do registo"
 
 #. Translators: Series of punctuations that appear around unspoken log started/stopped messages.
 msgid "###"
@@ -28,67 +31,69 @@ msgstr "###"
 
 #. Translators: This word appears between log stopped/started messages, and the date and time it happened.
 msgid "on"
-msgstr "açık"
+msgstr "em"
 
 #. Translators: A string that separates a date from a time. Should include space(s).
 msgid " at "
-msgstr " tire "
+msgstr " a "
 
 #. Translators: the description of an item in the input gestures tools category
 msgid "Toggles logging of local speech"
-msgstr "Yerel konuşmanın günlüğe kaydedilmesini açar/kapatır"
+msgstr "Alterna o registo do discurso local"
 
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging local speech."
-msgstr "Yerel konuşma kaydı durduruldu."
+msgstr "Parou de registar o discurso local."
 
 #. Translators: a message to tell the user that we are now logging.
 msgid "Started logging local speech."
-msgstr "Yerel konuşma kaydı başlatıldı."
+msgstr "Começou a registar o discurso local."
 
 #. Translators: a message to tell the user that we can't start this kind of logging
 msgid ""
 "Local speech logging has been disabled by an error or your NVDA "
 "configuration."
 msgstr ""
-"Yerel konuşma kaydı, bir hata veya NVDA yapılandırmanız nedeniyle devre dışı "
-"bırakıldı."
+"O registo de voz local foi desactivado por um erro ou pela sua configuração "
+"no NVDA."
 
 #. Translators: the description of an item in the input gestures tools category
 msgid "Toggles logging of remote speech"
-msgstr "Uzak konuşmanın günlüğe kaydedilmesini açar/kapatır"
+msgstr "Alterna o registo da fala à distância"
 
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging remote speech."
-msgstr "Uzak konuşma kaydı durduruldu."
+msgstr "Parou o registo do discurso à distância."
 
 #. Translators: a message to tell the user that we are now logging.
 msgid "Started logging remote speech."
-msgstr "Uzak konuşma kaydı başlatıldı."
+msgstr "Silenciar voz do equipamento remoto."
 
 #. Translators: a message to tell the user that we can not start logging because remote may not be connected..
 msgid "Could not log remote speech, probably not connected."
-msgstr "Uzak konuşma kaydedilemedi, muhtemelen bağlı değil."
+msgstr ""
+"Não conseguiu registar o discurso à distância, provavelmente não estava "
+"ligado."
 
 #. self._obtainRemote() returned False
 #. Translators: a message telling the user that the Remote add-on is unavailable.
 msgid "Failed! Could not find the NVDA Remote add-on."
-msgstr "Uyarı! NVDA Remote eklentisi bulunamadı."
+msgstr "Falha! Não foi possível encontrar o add-on NVDA Remote."
 
 #. Translators: a message to tell the user that we can't start this kind of logging
 msgid ""
 "Remote speech logging has been disabled by an error or your NVDA "
 "configuration."
 msgstr ""
-"Uzaktan konuşma kaydı, bir hata veya NVDA yapılandırmanız nedeniyle devre "
-"dışı bırakıldı."
+"O registo remoto de voz foi desactivado por um erro ou pela sua configuração "
+"NVDA."
 
 #. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on
 #. to be shown on installation and add-on information found in Add-ons Manager.
 msgid "Speech Logger"
-msgstr "Konuşma Kaydedici"
+msgstr "Registador de Discursos"
 
 msgid ""
 "Choose the log directory and filenames for the speech logs. System variables "
@@ -96,93 +101,94 @@ msgid ""
 "You can also alter the string used to separate multiple utterances from the "
 "same speech sequence, and control how or whether timestamps are used."
 msgstr ""
-"Konuşma kayıtları için kayıt dizinini ve dosya adlarını seçin. %temp% gibi "
-"sistem değişkenlerine izin verilir.\n"
-"Aynı konuşma dizisinden birden çok ifadeyi ayırmak için kullanılan dizeyi de "
-"değiştirebilir ve zaman damgalarının nasıl kullanılacağını veya kullanılıp "
-"kullanılmayacağını denetleyebilirsiniz."
+"Escolha o directório de registo e os nomes dos ficheiros para os registos de "
+"voz. São permitidas variáveis de sistema como %temp%.\n"
+"Também pode alterar a cadeia utilizada para separar várias expressões da "
+"mesma sequência de discurso e controlar como ou se são utilizados carimbos "
+"de data/hora."
 
 msgid ""
 "The Speech Logger add-on can only be configured from the Normal "
 "Configuration profile.\n"
 "Please close this dialog, set your config profile to normal, and try again."
 msgstr ""
-"Konuşma Kaydedici eklentisi yalnızca Normal Yapılandırma profilinden "
-"yapılandırılabilir.\n"
-"Lütfen bu iletişim kutusunu kapatın, yapılandırma profilinizi normale "
-"ayarlayın ve tekrar deneyin."
+"O suplemento do Speech Logger só pode ser configurado a partir do perfil de "
+"Configuração Normal.\n"
+"Por favor, feche este diálogo, defina o seu perfil de configuração para "
+"normal, e tente novamente."
 
 #. Translators: a separator option in the separators combobox
 msgid "Two spaces (NVDA log style)"
-msgstr "İki boşluk (NVDA günlük stili)"
+msgstr "Dois espaços (estilo de registo do NVDA)"
 
 #. Translators: a separator option in the separators combobox
 msgid "Newline"
-msgstr "Yeni satır"
+msgstr "Newline"
 
 #. Translators: a separator option in the separators combobox
 msgid "Tab"
-msgstr "Sekme"
+msgstr "Tab"
 
 #. Translators: a separator option in the separators combobox
 msgid "A comma and space"
-msgstr "virgül ve boşluk"
+msgstr "Uma vírgula e espaço"
 
 #. Translators: a separator option in the separators combobox
 msgid "Two underscores"
-msgstr "İki alt çizgi"
+msgstr "Dois pontos em destaque"
 
 #. Translators: a separator option in the separators combobox
 msgid "Custom"
-msgstr "Özel"
+msgstr "Personalizado"
 
 #. Translators: A timestamp mode option in the timestamps mode combobox
 msgid "Off, no timestamps"
-msgstr "Kapalı, zaman damgası yok"
+msgstr "Desligado, sem carimbos de data/hora"
 
 #. Translators: A timestamp mode option in the timestamps mode combobox
 msgid "When a log begins or ends"
-msgstr "Bir kayıt başladığında veya bittiğinde"
+msgstr "Quando um registo começa ou termina"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
-msgstr "Günlük &Dizini: "
+msgstr "Log &Directory:"
 
 #. Translators: The label of a button to browse for a directory.
 msgid "Browse..."
-msgstr "Gözat..."
+msgstr "Localizar..."
 
 #. Translators: The title of the dialog presented when browsing for the log directory.
 msgid "Select log  directory"
-msgstr "Günlük dizini seçin"
+msgstr "Seleccionar directório de registo"
 
 #. Translators: label of a text field to enter local speech log filename.
 msgid "Local speech log filename: "
-msgstr "Yerel konuşma günlüğü dosya adı: "
+msgstr "Nome do ficheiro do registo local do discurso:"
 
 #. Translators: label of a text field to enter remote speech log filename.
 msgid "Remote speech log filename: "
-msgstr "Uzak konuşma günlüğü dosya adı: "
+msgstr "Nome do ficheiro do registo remoto do discurso:"
 
 #. Translators: label of the separator options grouping.
 msgid "&Separator Options"
-msgstr "Ayırıcı &Seçenekleri"
+msgstr "opções do &Separador"
 
 #. Translators: this is the label for a combobox providing possible separator values
 msgid "Utterance separator"
-msgstr "Söz ayırıcı"
+msgstr "Separador de expressão"
 
 #. Translators: the label for a text field requesting an optional custom separator string
 msgid "Custom utterance separator (can use escapes like \\t): "
-msgstr "Özel ifade ayırıcı (\\t gibi kaçışlar kullanabilir): "
+msgstr ""
+"Separador de declarações personalizadas (pode utilizar fugas como \\t): "
 
 #. Translators: label of the Other options grouping.
 msgid "&Other Options"
-msgstr "&Diğer seçenekler"
+msgstr "&Outras opções"
 
 #. Translators: this is the label for a combobox providing possible timestamp mode values.
 msgid "Timestamp Mode"
-msgstr "Zaman Damgası Modu"
+msgstr "Modo de carimbo de data/hora"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
@@ -190,6 +196,6 @@ msgid ""
 "Logs speech utterances to a file. Can also log NVDA remote session speech "
 "from the NVDA Remote add-on, to the same or another file."
 msgstr ""
-"Konuşma ifadelerini bir dosyaya kaydeder. Ayrıca, NVDA Remote eklentisindeki "
-"NVDA uzak oturum konuşmasını aynı dosyaya veya başka bir dosyaya "
-"kaydedebilir."
+"Registos de declarações de discurso a um ficheiro. Pode também registar o "
+"discurso de sessão remota NVDA a partir do suplemento NVDA Remote, para o "
+"mesmo ou outro ficheiro."

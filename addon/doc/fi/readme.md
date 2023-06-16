@@ -1,29 +1,28 @@
-# Puheen tallennin #
+# Puhelokin tallennin #
 
 * Tekijä: Luke Davis yhteistyössä James Scholesin kanssa
 * Lataa [vakaa versio][1]
 * Yhteensopivuus: NVDA 2019.3.1 ja uudemmat
 
-Tämä lisäosa tallentaa NVDA:n tuottaman puheen tiedostoon tai
-tiedostoihin. Se voi tallentaa joko samaan tai eri tiedostoon paikallisella
-koneella tai etäkoneessa tuotetun puheen, joka on vastaanotettu
+Tämä lisäosa tallentaa NVDA:n paikallisessa koneessa tuottaman puheen
+tekstitiedostoon tai -tiedostoihin. Se voi tallentaa myös joko samaan tai
+eri tiedostoon etäkoneessa tuotetun puheen, joka on vastaanotettu
 [NVDA-etäkäyttö](https://nvdaremote.com/)-lisäosan kautta.
 
 ### Asetusten määrittäminen
 
 Määritä tämän lisäosan asetukset avaamalla NVDA-valikko, menemällä
-Asetukset-alivalikkoon, valitsemalla Asetukset ja sitten Puheen tallennin
-(NVDA+N, A, A ja paina sitten P kunnes tulet tämän lisäosan kategorian
+Asetukset-alivalikkoon, valitsemalla Asetukset ja sitten Puhelokin tallennin
+(paina NVDA+N, A, A ja sitten P, kunnes tulet tämän lisäosan kategorian
 kohdalle).
 
 Huom: Tämä lisäosa voidaan määrittää vain NVDA:n normaalissa
 asetusprofiilissa. Lisäosa ei tue useita profiileita. Mikäli sinulla on
 mielessäsi jokin käyttötapaus, joka edellyttää lisäosan toimimista eri
 tavalla eri profiileissa, ota yhteyttä tekijään tai ilmoita ongelmasta
-[GitHub-koodiarkistossa]
-(https://github.com/opensourcesys/speechLogger/issues/).
+[GitHubin koodivarastossa][2].
 
-Seuraavat asetukset ovat käytettävissä:
+### Seuraavat asetukset ovat käytettävissä:
 
 * Lokihakemisto. Voit kirjoittaa tai etsiä haluamasi olemassa olevan
   hakemiston. Ympäristömuuttujia, kuten %temp%, %userprofile% jne., voidaan
@@ -43,12 +42,15 @@ Seuraavat asetukset ovat käytettävissä:
 * Mukautettu erotin. Tähän kenttään voit kirjoittaa haluamasi puhekatkelmien
   erottimen (katso alta), jota käytetään, jos yhdistelmäruudussa on
   valittuna "Mukautettu".
+* Aikaleimatila. Tästä yhdistelmäruudusta voit valita kahden vaihtoehdon
+  väliltä, jotka ovat "Ei käytössä" ja "Kun lokin tallennus alkaa tai
+  päättyy".
 
 #### Puhekatkelmien erotin
 
-Kun NVDA puhuu työpöytääsi lukiessaan jotain, kuten "Roskakori 1/55", sitä
+Kun NVDA puhuu työpöytääsi lukiessaan jotain, kuten "`Roskakori 1/55`", sitä
 pidetään kahtena erillisenä puhekatkelmana. Ensimmäinen on objektin nimi
-("Roskakori") ja toinen on objektin sijaintitiedot ("`1/55`").
+("`Roskakori`") ja toinen on objektin sijaintitiedot ("`1/55`").
 
 Riippuen siitä, mitä luet ja miten NVDA on määritetty, yksittäisen
 puhesekvenssin aikana voi olla useita erillisiä katkelmia.
@@ -57,44 +59,43 @@ Normaalin NVDA-lokin virheenkorjaustasolla jokainen yksittäinen katkelma
 erotetaan kahdella välilyönnillä, kuten yllä olevassa esimerkissä on
 kirjoitettu.
 
-Puheen tallentimen avulla voit erottaa katkelmat samalla tavalla kuin NVDA
-(kahdella välilyönnillä), jollakin muutamasta järkevästä vaihtoehdosta
-(rivinvaihto, pilkku ja välilyönti, kaksi alaviivaa) tai itse
-määrittämälläsi mukautetulla erottimella.
+Puhelokin tallentimen avulla voit erottaa katkelmat samalla tavalla kuin
+NVDA (kahdella välilyönnillä) tai jollakin muutamasta järkevästä
+vaihtoehdosta (rivinvaihto, pilkku ja välilyönti, sarkain, kaksi alaviivaa)
+tai itse määrittämälläsi mukautetulla erottimella.
 
 Jos esimerkiksi haluat katkelman erottimen olevan kaksi dollarimerkkiä
 (`$$`), valitse yhdistelmäruudusta "Mukautettu" ja kirjoita mukautetun
-erottimen kenttään "`$$`" (ilman lainausmerkkejä). Jos haluat erottimeksi
-sarkainmerkin, kirjoita "`\t`".
+erottimen kenttään "`$$`" ilman lainausmerkkejä. Jos haluat erottimeksi
+rivinvaihdon ja sarkainmerkin, kirjoita "`\n\t`".
 
-### Tallennuksen aloittaminen ja lopettaminen
+### Lokin tallennuksen aloittaminen ja lopettaminen
 
-Tällä lisäosalla on kaksi oletusarvoisesti määritettyä näppäinkomentoa. Voit
-muuttaa niitä NVDA:n Näppäinkomennot-valintaikkunan Työkalut-kategoriassa.
+Tällä lisäosalla on kaksi oletusarvoista määritettyä syötekomentoa. Voit
+muuttaa niitä NVDA:n Näppäinkomennot-valintaikkunan
+Työkalut-kategoriassa. Etsi kohtia "Ottaa käyttöön paikallisen puheen lokin
+tallennuksen tai poistaa sen käytöstä" ja "Ottaa käyttöön etäpuheen lokin
+tallennuksen tai poistaa sen käytöstä".
 
-Etsi kohtia "Ottaa käyttöön tai poistaa käytöstä paikallisen puheen
-tallennuksen" ja "Ottaa käyttöön tai poistaa käytöstä etäpuheen
-tallennuksen".
+* NVDA+Alt+L: aloita/lopeta paikallisen puheen lokin tallennus.
+* NVDA+Vaihto+Alt+L: aloita/lopeta etäpuheen lokin tallennus.
 
-* NVDA+Alt+L: aloita/lopeta paikallisen puheen tallennus.
-* NVDA+Vaihto+Alt+L: aloita/lopeta etäpuheen tallennus.
-
-### Huomautus etäpuheen tallennuksesta
+### Huomautus etäpuheen lokin tallennuksesta
 
 Tämä lisäosa on tarkoitettu toimimaan NVDA-etäkäyttö-lisäosan kanssa
-etäpuheen tallentamiseen.
+etäpuheen lokin tallentamiseen.
 
-Etäistuntojen tallentamista ei voi aloittaa ennen kuin aloitat sellaisen. Ei
-ole mahdollista esimerkiksi aloittaa tallennusta ja odottaa valmiustilassa,
-kunnes etäistunto alkaa, ja aloittaa tallennusta tuolloin.
+Etäistunnon lokin tallennusta ei voi aloittaa ennen kuin istunnon yhteys on
+muodostettu. Ei ole mahdollista esimerkiksi aloittaa lokin tallennusta ja
+odottaa valmiustilassa, kunnes etäistunto alkaa, ja aloittaa lokin
+tallennusta vasta sitten.
 
-Aloittamisen jälkeen tallennus kuitenkin jatkuu etäistuntojen välillä.
+Aloittamisen jälkeen lokin tallennus kuitenkin jatkuu etäistuntojen välillä.
 
 ### Palaute ja ominaisuuspyynnöt
 
 Jos haluat ehdottaa ominaisuutta tai ilmoittaa bugista, ota yhteyttä
-sähköpostitse tai tee
-[raportti](https://github.com/opensourcesys/speechLogger/issues/).
+sähköpostitse tai tee [ongelmaraportti][2].
 
 Kuten aina, arvostan kuullessani, että lisäosistani on hyötyä ja mihin niitä
 käytetään.
@@ -102,3 +103,5 @@ käytetään.
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/

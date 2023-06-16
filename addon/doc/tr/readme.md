@@ -1,55 +1,103 @@
-### NVDA Konuşma Kaydedici eklentisi
+# Konuşma Kaydedici #
 
-Yazar: Luke Davis, James Scholes'in katkılarıyla.  
+* Yazar: Luke Davis, James Scholes'un katkılarıyla
+* [Kararlı sürümü indirin][1]
+* NVDA uyumluluğu: 2019.3.1 ve sonrası
 
-Konuşmayı bir dosyaya veya dosyalara kaydetmek için bir [NVDA](https://nvaccess.org/) eklentisi.  
-Yerel makinede oluşturulan konuşmayı bir metin dosyasına kaydedebilir.  
-Ayrıca [NVDA Remote](https://nvdaremote.com/) eklentisi aracılığıyla alınan uzak bir makineden gelen konuşmayı aynı veya farklı bir dosyaya kaydedebilir.  
+Konuşmayı dosya veya dosyalara kaydetmek için bir
+[NVDA](https://nvaccess.org/) eklentisi. Yerel makinede oluşturulan
+konuşmayı bir metin dosyasına kaydedebilir. Ayrıca uzak bir makineden [NVDA
+Uzaktan Destek](https://nvdaremote.com/) eklentisi aracılığıyla alınan
+konuşmayı aynı veya farklı bir dosyaya kaydedebilir.
 
 ### Yapılandırma
 
-Bu eklentiyi yapılandırmak için NVDA menüsünü açın, Tercihler'e, ardından Ayarlar'a, ardından Konuşma Kaydedici'ye gidin.  
-(NVDA+N, T, L ve Konuşma kaydediciye erişene kadar K'ye basın.)  
+Bu eklentiyi yapılandırmak için NVDA menüsünü açın, Tercihler'e, ardından
+Ayarlar'a, ardından Konuşma Kaydedici'ye (NVDA+N, T, L, ardından varsayılan
+ABD İngilizcesi klavyede oraya gelene kadar K tuşuna basın) gidin.
 
-Not: Eklenti yalnızca NVDA'nın Normal profilindeyken yapılandırılabilir. Eklentide, diğer profiller desteklenmiyor. Farklı profillerde farklı şekilde çalışmasını gerektiren bir kullanım durumu düşünürseniz, lütfen yazarla iletişime geçin veya [GitHub deposunda](https://github.com/opensourcesys/speechLogger/issues/) bir sorun bildirin.  
+Not: eklenti yalnızca NVDA'nın Normal Yapılandırma profilindeyken
+yapılandırılabilir. Eklenti, profile duyarlı değildir. Farklı profillerde
+farklı şekilde çalışmasını gerektiren bir kullanım durumu düşünebilirseniz,
+lütfen yazarla iletişime geçin veya [GitHub deposunda][2] bir sorun
+bildirin.
 
-Aşağıdaki ayarlar mevcuttur:
-* Günlük dizini. Halihazırda var olması gereken, istediğiniz hedef dizine girebilir veya göz atabilirsiniz. %temp%, %userprofile% vb. gibi sistem değişkenleri burada kullanılabilir.field.
-* Yerel günlük dosya adı. Oluşturulan dosya yukarıdaki dizine yerleştirilecektir. Bu, yerel günlük modu devredeyken kaydedilen konuşmayı içerecektir. Bu, uzak günlük dosyasıyla aynı olabilir. Bu tür günlüğe kaydetmeyi tamamen devre dışı bırakmak için boş bırakın.
-* Uzak günlük dosya adı. Oluşturulan dosya yukarıdaki dizine yerleştirilecektir. Bu, uzak günlük modu devredeyken kaydedilen konuşmayı içerecektir. Yerel günlük dosyasıyla aynı olabilir. Bu tür günlüğe kaydetmeyi tamamen devre dışı bırakmak için boş bırakın.
-* Ayırıcı. Bu birleşik giriş kutusu, mevcut ifade ayırıcılarından birini seçmenizi sağlar. Daha fazla bilgi için aşağıya bakın.
-* Özel ayırıcı. Bu alan, birleşik giriş kutusunda "özel" seçilmişse kullanılan özel bir ifade ayırıcı (aşağıya bakın) girmenizi sağlar.
+### Aşağıdaki ayarlar mevcuttur:
 
-#### söz ayırıcı
+* Günlük dizini. Halihazırda var olması gereken, istediğiniz hedef dizini
+  girebilir veya bu dizine göz atabilirsiniz. Bu alanda %temp%,
+  %userprofile% gibi sistem değişkenleri kullanılabilir.
+* Yerel günlük dosya adı. Oluşturulan dosya yukarıdaki dizine
+  yerleştirilecektir. Bu, yerel günlük modu devredeyken günlüğe kaydedilen
+  konuşmayı içerecektir. Bu, uzak günlük dosyasıyla aynı olabilir. Bu tür
+  günlüğü tamamen devre dışı bırakmak için boş bırakın.
+* Uzak günlük dosya adı. Oluşturulan dosya yukarıdaki dizine
+  yerleştirilecektir. Bu, uzak günlük modu devredeyken günlüğe kaydedilen
+  konuşmayı içerecektir. Yerel günlük dosyasıyla aynı olabilir. Bu tür
+  günlüğü tamamen devre dışı bırakmak için boş bırakın.
+* Ayırıcı. Bu birleşik giriş kutusu, mevcut ifade ayırıcılardan birini
+  seçmenize izin verir. Daha fazla bilgi için aşağıya bakın.
+* Özel ayırıcı. Bu alan, açılan kutuda "özel" seçilirse kullanılan özel bir
+  deyim ayırıcı (aşağıya bakın) girmenizi sağlar.
+* Zaman damgası modu. Bu açılan kutu, zaman damgası olmaması ile her günlük
+  oturumunun başında ve sonunda bir zaman damgası arasında seçim yapmanızı
+  sağlar.
 
-NVDA, masaüstünüzü okurken "`geri dönüşüm kutusu 1 / 55`" gibi bir şey söylediğinde, bu iki ayrı ifade olarak kabul edilir. İlki öğe adıdır (bu örnekte "'Geri dönüşüm kutusu'") ve ikincisi nesne konum bilgisidir (bu örnekte "'1 / 55'").
+#### İfade ayırıcı
 
-Ne okuduğunuza ve NVDA'yı nasıl yapılandırdığınıza bağlı olarak, tek bir konuşma sırasında meydana gelen birkaç ayrı ifade olabilir.  
+NVDA masaüstünüzü okurken "`geri dönüşüm kutusu 1 tire 55 gibi bir şey
+söylediğinde, bu iki ayrı ifade olarak kabul edilir.  Birincisi öğe adı
+("`Geri dönüşüm kutusu`", bu örnekte), ikincisi ise nesne konum bilgisidir
+("`1 tire 55`, bu örnekte).
 
-Hata ayıklama düzeyindeki normal NVDA günlüğünde, yukarıdaki örnekte yazıldığı gibi her bir bireysel ifade iki boşlukla ayrılır.  
+Ne okuduğunuza ve NVDA'yı nasıl yapılandırdığınıza bağlı olarak, tek bir
+konuşma dizisi sırasında birden çok farklı ifade olabilir.
 
-Konuşma Kaydedici, ifadeleri NVDA'nın yaptığı gibi (iki boşlukla) veya birkaç makul alternatiften biri (yeni satır, virgül ve boşluk, iki alt çizgi) veya kendi tasarladığınız özel bir sıra ile ayırmanıza olanak tanır. .  
+Hata ayıklama seviyesindeki normal NVDA günlüğünde, yukarıdaki örnekte
+yazıldığı gibi her bir ifade iki boşlukla ayrılır.
 
-Örneğin, sözce ayırıcınızın iki dolar işareti (`$$`) olmasını istiyorsanız, birleşik giriş kutusunu "özel" olarak ayarlar ve özel ayırıcıya ""$$`" (tırnak işaretleri olmadan) girersiniz. Tab. Sekme olmasını istiyorsanız, "`\t`" yazabilirsiniz.  
+Konuşma Kaydedici, ifadeleri NVDA'nın yaptığı gibi (iki boşlukla) veya
+birkaç makul alternatiften biriyle (yeni satır, virgül ve boşluk, sekme, iki
+alt çizgi) veya özel bir sıra ile ayırmanıza olanak tanır. kendi tasarımın.
+
+Örneğin, ifade ayırıcınızın iki dolar işareti (`$$`) olmasını istiyorsanız,
+birleşik giriş kutusunu "özel" olarak ayarlar ve özel ayırıcıya "`$$`"
+(tırnak işaretleri olmadan) girersiniz. alan. Yeni bir satır ve ardından bir
+sekme olmasını istiyorsanız, "`\\n\\t`" girebilirsiniz.
 
 ### Günlüğe kaydetmeyi başlatma ve durdurma
 
-Bu eklentinin varsayılan olarak ayarlanmış iki hareketi vardır. Bunları NVDA Girdi Hareketleri, Tools kategorisinde değiştirebilirsiniz.
-"Yerel konuşmanın günlüğe kaydedilmesini açar/kapatır" ve "Uzak konuşma günlüğünü açar/kapatır" öğelerine bakın.
+Bu eklentinin varsayılan olarak ayarlanmış iki hareketi vardır. Bunları NVDA
+Girdi Hareketleri Araçları kategorisinde değiştirebilirsiniz. "Yerel
+konuşmanın günlüğe kaydedilmesini değiştirir" ve "Uzaktan konuşmanın günlüğe
+kaydedilmesini değiştirir" ifadelerine bakın.
+
 * NVDA+Alt+L: yerel konuşma kaydını başlat/durdur.
-* NVDA+Shift+Alt+L: uzak konuşma kaydını başlat/durdur.
+* NVDA+Shift+Alt+L: uzaktan konuşma kaydını başlat/durdur.
 
 ### Uzaktan konuşma kaydı hakkında bir not
 
-Bu eklentinin, uzaktan konuşma kaydı için NVDA Remote eklentisi ile çalışması amaçlanmıştır.  
+Bu eklenti, uzak konuşmanın günlüğe kaydedilmesi için NVDA Uzaktan Destek
+eklentisiyle çalışmak üzere tasarlanmıştır.
 
-Gerçekten bir bağlantı başlatana kadar uzak oturumlar için günlüğe kaydetmeye başlamanın mümkün olmadığını bilmek önemlidir.  
-Örneğin, günlüğe kaydetmeye başlamanın ve uzak bir oturum başlayana kadar beklemede kalmasını ve o anda günlüğe kaydetmeye başlamasını sağlamanın bir yolu yoktur.  
+Gerçekte bir tane başlatana kadar uzak oturumlar için günlüğe kaydetmeye
+başlamanın mümkün olmadığını bilmek önemlidir. Örneğin, günlüğe kaydetmeye
+başlamanın ve uzak bir oturum başlayana kadar bekleme modunda beklemesini
+sağlamanın ve o sırada günlüğe kaydetmeye başlamasının bir yolu yoktur.
 
-Ancak, bir kez başlatıldığında, günlük kaydı uzak oturumlarda devam eder.  
+Ancak, bir kez başlatıldıktan sonra günlük kaydı uzak oturumlarda devam
+edecektir.
 
 ### Geri bildirim ve özellik istekleri
 
-Bir özellik önermek veya bir hata bildirmek isterseniz, lütfen e-posta ile ulaşın veya bir [sorun](https://github.com/opensourcesys/speechLogger/issues/) bildirin.  
+Bir özellik önermek veya bir hata bildirmek istiyorsanız, lütfen e-posta ile
+iletişime geçin veya bir [sorun][2] gönderin.
 
-Her zaman olduğu gibi, eklentilerimin yararlı olduğunu ve insanların bunları ne için kullandığını duymaktan mutlu olurum.
+Her zaman olduğu gibi, eklentilerimin yararlı olduğunu ve insanların bunları
+ne için kullandığını duymaktan memnuniyet duyuyorum.
+
+[[!tag dev stable]]
+
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/

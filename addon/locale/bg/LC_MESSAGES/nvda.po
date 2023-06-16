@@ -8,14 +8,34 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-10 19:30+0000\n"
-"PO-Revision-Date: 2023-03-10 22:25+0200\n"
+"PO-Revision-Date: 2023-05-20 09:16+0300\n"
 "Last-Translator: Kostadin Kolev <k_kolev1985@mail.bg>\n"
 "Language-Team: \n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
+
+#. Translators: Text inserted in the log indicating logging has started.
+msgid "Log started"
+msgstr "Начало на протоколирането"
+
+#. Translators: Text inserted in the log indicating logging has ended.
+msgid "Log ended"
+msgstr "Край на протоколирането"
+
+#. Translators: Series of punctuations that appear around unspoken log started/stopped messages.
+msgid "###"
+msgstr "###"
+
+#. Translators: This word appears between log stopped/started messages, and the date and time it happened.
+msgid "on"
+msgstr "на"
+
+#. Translators: A string that separates a date from a time. Should include space(s).
+msgid " at "
+msgstr " в "
 
 #. Translators: the description of an item in the input gestures tools category
 msgid "Toggles logging of local speech"
@@ -78,12 +98,13 @@ msgid ""
 "Choose the log directory and filenames for the speech logs. System variables "
 "such as %temp% are permitted.\n"
 "You can also alter the string used to separate multiple utterances from the "
-"same speech sequence."
+"same speech sequence, and control how or whether timestamps are used."
 msgstr ""
 "Посочете директорията за протоколния файл и имената за протоколните файлове "
 "на речта. Системни променливи като %temp% са допустими.\n"
 "Можете също така да промените низа, използван за разделяне на множество "
-"фрази от една и съща речева последователност."
+"фрази от една и съща речева последователност, както и да контролирайте как и "
+"дали да се използват времеви клейма."
 
 msgid ""
 "The Speech Logger add-on can only be configured from the Normal "
@@ -104,6 +125,10 @@ msgid "Newline"
 msgstr "Нов ред"
 
 #. Translators: a separator option in the separators combobox
+msgid "Tab"
+msgstr "Табулация"
+
+#. Translators: a separator option in the separators combobox
 msgid "A comma and space"
 msgstr "Запетая и интервал"
 
@@ -114,6 +139,14 @@ msgstr "Две долни черти"
 #. Translators: a separator option in the separators combobox
 msgid "Custom"
 msgstr "По избор"
+
+#. Translators: A timestamp mode option in the timestamps mode combobox
+msgid "Off, no timestamps"
+msgstr "Изключено, без премеви клейма"
+
+#. Translators: A timestamp mode option in the timestamps mode combobox
+msgid "When a log begins or ends"
+msgstr "При начало или край на протоколирането"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
@@ -147,6 +180,14 @@ msgstr "Разделител за фразите"
 msgid "Custom utterance separator (can use escapes like \\t): "
 msgstr ""
 "Разделител по избор за фразите (поддържат се пропускащи команди като\\t): "
+
+#. Translators: label of the Other options grouping.
+msgid "&Other Options"
+msgstr "&Други опции"
+
+#. Translators: this is the label for a combobox providing possible timestamp mode values.
+msgid "Timestamp Mode"
+msgstr "Режим на времево клеймо"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

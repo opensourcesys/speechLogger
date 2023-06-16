@@ -4,11 +4,11 @@
 * Descargar [versión estable][1]
 * Compatibilidad con NVDA: de 2019.3.1 en adelante
 
-Un complemento de NVDA para registrar el habla en uno o varios
-archivos. Puede grabar la voz generada en el equipo local a un archivo de
-texto. También puede grabar la voz recibida desde un equipo remoto mediante
-el complemento [NVDA Remote](https://nvdaremote.com/) al mismo archivo o a
-uno distinto.
+Un complemento de [NVDA](https://nvaccess.org/) para registrar el habla en
+uno o varios archivos. Puede grabar la voz generada en el equipo local a un
+archivo de texto. También puede grabar la voz recibida desde un equipo
+remoto mediante el complemento [NVDA Remote](https://nvdaremote.com/) al
+mismo archivo o a uno distinto.
 
 ### Configuración
 
@@ -20,9 +20,9 @@ Nota: el complemento sólo se puede configurar con el perfil normal de
 NVDA. Este complemento no es sensible a perfiles. Si crees que hay un caso
 de uso en el que pueda operar de manera diferente en perfiles distintos,
 contacta con el autor o abre una incidencia en el [repositorio de
-GitHub](https://github.com/opensourcesys/speechLogger/issues/).
+GitHub][2].
 
-Se encuentran disponibles las siguientes opciones:
+### Se encuentran disponibles las siguientes opciones:
 
 * La carpeta de registro. Puedes introducirla a mano o examinar para buscar
   el directorio de destino deseado, que debe existir ya. Las variables del
@@ -40,6 +40,9 @@ Se encuentran disponibles las siguientes opciones:
 * Separador personalizado. Este campo permite introducir un separador de
   secuencias personalizado (lee más abajo), que se usa si se elige
   "personalizado" en el cuadro combinado.
+* Modo de sello de tiempo. Este cuadro combinado permite elegir entre no
+  usar marcas de tiempo, y una marca de tiempo al inicio y al final de cada
+  sesión de registro.
 
 #### SEPARADOR DE SECUENCIAS
 
@@ -58,22 +61,21 @@ ejemplo anterior.
 
 Speech Logger te permite separar las secuencias igual que lo hace NVDA (con
 dos espacios), o con una de las pocas alternativas razonables (un salto de
-línea, una coma y un espacio, dos guiones bajos), o con los caracteres que
-prefieras.
+línea, una coma y un espacio, un tabulador, dos guiones bajos), o con la
+secuencia de caracteres que prefieras.
 
 Si, por ejemplo, quisieras que tu separador de secuencias fuese dos signos
 de dólar (`$$`), configurarías el cuadro combinado en "personalizado", e
 introducirías "`$$`" (sin las comillas) en el campo de separador
-personalizado. Si quisieras un tabulador, podrías introducir "`\t`".
+personalizado. Si quisieras una línea en blanco seguida de un tabulador,
+podrías introducir "`\n\t`".
 
 ### Iniciar y detener el registro
 
 Este complemento tiene dos gestos configurados por defecto. Puedes
 cambiarlos en la categoría Herramientas del diálogo Gestos de entrada de
-NVDA.
-
-Busca "Conmuta el registro del habla local" y "Conmuta el registro del habla
-remota".
+NVDA. Busca "Conmuta el registro de la voz local" y "Conmuta el registro de
+la voz remota".
 
 * NVDA+alt+l: inicia o detiene el registro del habla local.
 * NVDA+shift+alt+l: inicia o detiene el registro del habla remota.
@@ -94,11 +96,12 @@ sesiones remotas.
 ### Comentarios y solicitud de características
 
 Si deseas sugerir una función o informar de un fallo, contacta por correo o
-abre una
-[incidencia](https://github.com/opensourcesys/speechLogger/issues/).
+abre una [incidencia][2].
 
 [[!tag dev stable]]
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/
