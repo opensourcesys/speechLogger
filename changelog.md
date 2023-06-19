@@ -1,3 +1,8 @@
+### 23.1.2
+
+* Fixed the patching of NVDA's speech.speech.speak, as it gained a new parameter in PR nvaccess/nvda#13483. Closes #5. This was causing many failures of navigation and other things.
+* Continuing translation updates.
+
 ### 23.1.0
 
 * Added tab as an optional utterance separator.
