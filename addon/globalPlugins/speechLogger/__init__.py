@@ -122,10 +122,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def new_speak(  # noqa: C901
 				sequence: SpeechSequence,
 				symbolLevel: Optional[int] = None,
-				priority: Spri = Spri.NORMAL
+				priority: Spri = Spri.NORMAL,
+				*args,
+				**kwargs
 		):
 			self.captureSpeech(sequence, Origin.LOCAL)
-			return old_speak(sequence, symbolLevel, priority)
+			return old_speak(sequence, symbolLevel, priority, *args, **kwargs)
 		speech.speech.speak = new_speak
 
 	def terminate(self) -> None:
