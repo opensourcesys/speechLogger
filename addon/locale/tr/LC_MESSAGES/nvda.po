@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Konuşma Kaydedici 23.1.0\n"
 "POT-Creation-Date: 2023-05-13 16:08+0300\n"
-"PO-Revision-Date: 2023-05-20 18:42+0300\n"
+"PO-Revision-Date: 2023-06-20 16:29+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -28,7 +28,7 @@ msgstr "###"
 
 #. Translators: This word appears between log stopped/started messages, and the date and time it happened.
 msgid "on"
-msgstr "açık"
+msgstr "etkinleştirme"
 
 #. Translators: A string that separates a date from a time. Should include space(s).
 msgid " at "
