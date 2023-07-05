@@ -101,7 +101,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Should we rotate logs on startup?
 			rotate=False,
 			# Should we log the timestamp when we start/stop a log session?
-			startStopTimestamps=True
+			startStopTimestamps=True,
+			# Should we log during Say All/Read To End?
+			logSayAll = True
 		)
 		#: Filenames are obtained from NVDA configuration, and setup in applyUserConfig().
 		self.files: ImmutableKeyObj = ImmutableKeyObj(local=None, remote=None)
@@ -144,7 +146,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				*args,
 				**kwargs
 		):
-			if sequence is not None:
+			if (
+				SpeechWithoutPauses._speechLogger_object.flags.logSayAll
+				and sequence is not None
+			):
 				self._speechLogger_object.captureSpeech(sequence, self._speechLogger_origin)
 			return self._speakWithoutPauses_orig(sequence, detectBreaks, *args, **kwargs)
 		SpeechWithoutPauses.speakWithoutPauses = speechLogger_speakWithoutPauses
@@ -221,6 +226,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Timestamps can be off, on, or per-sequence.
 		# In the config, tsMode will be 0 for off, higher for the other two options.
 		self.flags.startStopTimestamps = True if getConf("tsMode") > 0 else False
+		self.flags.logSayAll = bool(getConf("logSayAll"))
 		# Stage 5: utterance separation
 		# For this one we may need the configured custom separator. However, it seems that
 		# some part of NVDA or Configobj, escapes escape chars such as \t. We must undo that.

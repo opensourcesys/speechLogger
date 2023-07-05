@@ -221,6 +221,11 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			)
 			self.tsModeChoiceControl.SetSelection(DEFAULT_TS_MODE)  # Use default
 
+			# Translators: This is the label for a checkbox to turn Say All logging on or off.
+			logSayAllCBLabel = _("Log speech during Say-&All (read to end)")
+			self.logSayAllCB = miscGroupHelper.addItem(wx.CheckBox(self, label=logSayAllCBLabel))
+			self.logSayAllCB.SetValue(getConf("logSayAll"))
+
 	def onSave(self):
 		"""Save the settings to the Normal Configuration."""
 		# Make sure we're operating in the "normal" profile
@@ -235,6 +240,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			setConf("separator", sepText)
 			setConf("customSeparator", self.customSeparatorControl.Value)
 			setConf("tsMode", self.tsModeChoiceControl.Selection)
+			setConf("logSayAll", self.logSayAllCB.Value)
 
 	def postSave(self):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
