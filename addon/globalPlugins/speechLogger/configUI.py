@@ -36,7 +36,8 @@ config.conf.spec["speechLogger"] = {
 	"rotate": "boolean(default=False)",
 	"separator": "string(default='2spc')",
 	"customSeparator": "string(default='')",
-	"tsMode": "integer(min=0,default=1,max=1)"
+	"tsMode": "integer(min=0,default=1,max=1)",
+	"logSayAll": "boolean(default=true)"
 }
 
 def getConf(item: str) -> str:

@@ -1,6 +1,7 @@
-# NVDA Speech Logger add-on, V23.1
+# NVDA Speech Logger add-on, V23.2
 #
-#    Copyright (C) 2022-2023 Luke Davis <XLTechie@newanswertech.com>, James Scholes
+#    Copyright (C) 2022-2023 Luke Davis <XLTechie@newanswertech.com>
+# Initially based on code ideas suggested by James Scholes.
 #
 # This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
 # as published by    the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
@@ -25,6 +26,7 @@ Be warned that means lots of disk activity.
 """
 
 import os
+import types
 from time import strftime
 from typing import Optional, Dict
 from functools import wraps
@@ -38,6 +40,7 @@ import ui
 import gui
 import config
 import speech
+from speech.speechWithoutPauses import SpeechWithoutPauses
 from speech.types import SpeechSequence
 from speech.priorities import Spri
 from scriptHandler import script
@@ -129,6 +132,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.captureSpeech(sequence, Origin.LOCAL)
 			return old_speak(sequence, symbolLevel, priority, *args, **kwargs)
 		speech.speech.speak = new_speak
+		# Wrap speech.SpeechWithoutPauses.speechWithoutPauses.speakWithoutPauses, so we can get its output first
+		SpeechWithoutPauses._speakWithoutPauses_orig = SpeechWithoutPauses.speakWithoutPauses
+		SpeechWithoutPauses._speechLogger_object = self
+		SpeechWithoutPauses._speechLogger_origin = Origin.LOCAL
+		@wraps(SpeechWithoutPauses.speakWithoutPauses)
+		def speechLogger_speakWithoutPauses(  # noqa: C901
+				self,
+				sequence: Optional[SpeechSequence],
+				detectBreaks: bool = True,
+				*args,
+				**kwargs
+		):
+			if sequence is not None:
+				self._speechLogger_object.captureSpeech(sequence, self._speechLogger_origin)
+			return self._speakWithoutPauses_orig(sequence, detectBreaks, *args, **kwargs)
+		SpeechWithoutPauses.speakWithoutPauses = speechLogger_speakWithoutPauses
 
 	def terminate(self) -> None:
 		# Remove the NVDA settings panel
