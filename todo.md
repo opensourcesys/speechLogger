@@ -13,7 +13,7 @@
 
 * [ ] Replace the Any types in configUI.setConf, with more likely typings. (listed: 2/18/2023)
 * [ ] Make rotation work.
-* [ ] Disable the custom field, if custom isn't selected.
+* [X] Disable the custom field, if custom isn't selected. (Listed: ~5/15/2022, Completed: 7/7/2023)
 * Make timestamps configurable (Listed: 5/12/2023)
     + [X] Initially, a combobox to turn on/off (on default) the start/end timestamps. Use an int in configObj. (Completed: 5/15/2023)
     + [ ] Later, a combobox to choose between None, when starting or stopping, and every logged item.

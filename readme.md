@@ -24,6 +24,7 @@ If you can think of some use case that requires it to operate differently in dif
 * Separator. This combobox lets you choose one of the available utterance separators. See below for more information.
 * Custom separator. This field lets you enter a custom utterance separator (see below), which is used if "custom" is chosen in the combobox.
 * Timestamp mode. This combobox allows you to choose between no timestamps, and a timestamp at the start and end of each log session.
+* Log speech during say-all (read to end) mode. As of version 23.2, this add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you would rather not have this kind of narrative long reading logged, un-check this box.
 
 #### Utterance separator
 
@@ -63,5 +64,4 @@ If you would like to suggest a feature or report a bug, please reach out by emai
 As always, I appreciate hearing that my add-ons are useful, and what people are using them for.
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
-
-[2]: https://github.com/opensourcesys/speechLogger/issues/
+[2]: https://github.com/opensourcesys/speechLogger/issues/new
