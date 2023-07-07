@@ -42,6 +42,11 @@ bildirin.
 * Zaman damgası modu. Bu açılan kutu, zaman damgası olmaması ile her günlük
   oturumunun başında ve sonunda bir zaman damgası arasında seçim yapmanızı
   sağlar.
+* Tümünü söyle (sonuna kadar oku) modunda konuşmayı günlüğe kaydedin. 23.2
+  sürümünden itibaren bu eklenti, NVDA+Aşağı Ok (dizüstü bilgisayar
+  düzeninde NVDA+a) tuşlarına bastığınızda oluşturulan konuşmayı günlüğe
+  kaydeder. Bu tür uzun anlatıların günlüğe kaydedilmesini istemiyorsanız,
+  bu kutunun işaretini kaldırın.
 
 #### İfade ayırıcı
 
@@ -68,12 +73,11 @@ sekme olmasını istiyorsanız, "`\\n\\t`" girebilirsiniz.
 ### Günlüğe kaydetmeyi başlatma ve durdurma
 
 Bu eklentinin varsayılan olarak ayarlanmış iki hareketi vardır. Bunları NVDA
-Girdi Hareketleri Araçları kategorisinde değiştirebilirsiniz. "Yerel
-konuşmanın günlüğe kaydedilmesini değiştirir" ve "Uzaktan konuşmanın günlüğe
-kaydedilmesini değiştirir" ifadelerine bakın.
-
-* NVDA+Alt+L: yerel konuşma kaydını başlat/durdur.
-* NVDA+Shift+Alt+L: uzaktan konuşma kaydını başlat/durdur.
+Girdi Hareketleri iletişim kutusunda Araçlar kategorisinden
+değiştirebilirsiniz. "Yerel konuşmanın günlüğe kaydedilmesini açar/kapatır"
+ve "Uzaktan konuşmanın günlüğe kaydedilmesini açar/kapatır" ifadelerine
+bakın. * NVDA+Alt+L: yerel konuşma kaydını başlat/durdur. *
+NVDA+Shift+Alt+L: uzaktan konuşma kaydını başlat/durdur.
 
 ### Uzaktan konuşma kaydı hakkında bir not
 
@@ -98,6 +102,5 @@ ne için kullandığını duymaktan memnuniyet duyuyorum.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
-
-[2]: https://github.com/opensourcesys/speechLogger/issues/
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
+https://github.com/opensourcesys/speechLogger/issues/new

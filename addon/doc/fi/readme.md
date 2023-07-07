@@ -45,6 +45,11 @@ tavalla eri profiileissa, ota yhteyttä tekijään tai ilmoita ongelmasta
 * Aikaleimatila. Tästä yhdistelmäruudusta voit valita kahden vaihtoehdon
   väliltä, jotka ovat "Ei käytössä" ja "Kun lokin tallennus alkaa tai
   päättyy".
+* Tallenna puhelokia jatkuvan luvun (lue loppuun) tilassa. Versiosta 23.2
+  lähtien tämä lisäosa tallentaa lokiin puhetta, joka tuotetaan painettaessa
+  NVDA+Nuoli alas (kannettavien näppäinasettelussa NVDA+A). Jos et halua
+  tallentaa kaikkea jatkuvan luvun aikana puhuttua tekstiä, poista tämän
+  valintaruudun valinta.
 
 #### Puhekatkelmien erotin
 
@@ -75,10 +80,9 @@ Tällä lisäosalla on kaksi oletusarvoista määritettyä syötekomentoa. Voit
 muuttaa niitä NVDA:n Näppäinkomennot-valintaikkunan
 Työkalut-kategoriassa. Etsi kohtia "Ottaa käyttöön paikallisen puheen lokin
 tallennuksen tai poistaa sen käytöstä" ja "Ottaa käyttöön etäpuheen lokin
-tallennuksen tai poistaa sen käytöstä".
-
-* NVDA+Alt+L: aloita/lopeta paikallisen puheen lokin tallennus.
-* NVDA+Vaihto+Alt+L: aloita/lopeta etäpuheen lokin tallennus.
+tallennuksen tai poistaa sen käytöstä".  * NVDA+Alt+L: aloita/lopeta
+paikallisen puheen lokin tallennus.  * NVDA+Vaihto+Alt+L: aloita/lopeta
+etäpuheen lokin tallennus.
 
 ### Huomautus etäpuheen lokin tallennuksesta
 
@@ -102,6 +106,5 @@ käytetään.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
-
-[2]: https://github.com/opensourcesys/speechLogger/issues/
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
+https://github.com/opensourcesys/speechLogger/issues/new

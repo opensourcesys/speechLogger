@@ -1,8 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Konuşma Kaydedici 23.1.0\n"
-"POT-Creation-Date: 2023-05-13 16:08+0300\n"
-"PO-Revision-Date: 2023-06-20 16:29+0300\n"
+"Project-Id-Version: Konuşma Kaydedici 23.2.01\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2023-07-07 11:37+0000\n"
+"PO-Revision-Date: 2023-07-07 16:13+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -10,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Poedit-Basepath: ../../../globalPlugins\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -172,7 +173,8 @@ msgstr "Ayırıcı &Seçenekleri"
 msgid "Utterance separator"
 msgstr "Söz ayırıcı"
 
-#. Translators: the label for a text field requesting an optional custom separator string
+#. Translators: the label for a text field requesting an optional custom separator string.
+#. Note that this string is raw, so that \t is presented literally.
 msgid "Custom utterance separator (can use escapes like \\t): "
 msgstr "Özel ifade ayırıcı (\\t gibi kaçışlar kullanabilir): "
 
@@ -183,6 +185,11 @@ msgstr "&Diğer seçenekler"
 #. Translators: this is the label for a combobox providing possible timestamp mode values.
 msgid "Timestamp Mode"
 msgstr "Zaman Damgası Modu"
+
+#. Use default
+#. Translators: This is the label for a checkbox to turn Say All logging on or off.
+msgid "Log speech during Say-&All (read to end)"
+msgstr "Tümünü Oku sır&asında konuşmayı günlüğe kaydet (sonuna kadar oku)"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

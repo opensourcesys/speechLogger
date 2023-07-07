@@ -48,6 +48,10 @@ une incidence (issue) sur le [dépôt GitHub][2].
 * Mode d'horodatage. Cette liste déroulante vous permet de choisir entre
   aucun horodatage et un horodatage au début et à la fin de chaque session
   de journalisation.
+* Log speech during say-all (read to end) mode. As of version 23.2, this
+  add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in
+  laptop layout). If you would rather not have this kind of narrative long
+  reading logged, un-check this box.
 
 #### Séparateur de messages
 
@@ -78,14 +82,11 @@ suivie d'une tabulation, vous pouvez entrer "`\n\t`".
 
 ### Démarrage et arrêt de la journalisation
 
-Cette extension a deux gestes définis par défaut. Vous pouvez les modifier
-sous la catégorie Outils dans le dialogue Gestes de commandes de NVDA.
-Chercher dans "Bascule de journalisation de la parole locale" et "Bascule de
-journalisation de la parole distante".
-
-* NVDA+Alt+L : démarre / arrête la journalisation de la parole locale.
-* NVDA+Shift+Alt+L : démarre / arrête la journalisation de la parole
-  distante.
+This add-on has two gestures set by default.  You can change them in the
+NVDA Input Gestures Tools category.  Look for "Toggles logging of local
+speech" and "Toggles logging of remote speech".  * NVDA+Alt+L: start/stop
+logging of local speech.  * NVDA+Shift+Alt+L: start/stop logging of remote
+speech.
 
 ### Une note sur la journalisation de la parole distante
 
@@ -111,6 +112,5 @@ quoi les gens les utilisent.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
-
-[2]: https://github.com/opensourcesys/speechLogger/issues/
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
+https://github.com/opensourcesys/speechLogger/issues/new

@@ -50,6 +50,11 @@ den Autor oder melden Sie einen Fehler im [GitHub-Repository][2].
 * Zeitstempel-Modus. In diesem Kombinationsfeld können Sie wählen zwischen
   keinem Zeitstempel und einem Zeitstempel zu Beginn und am Ende jeder
   Protokollsitzung.
+* Aufzeichnung der Sprachausgabe während Alles Vorlesen (liest bis zum
+  Ende). Ab Version 23.2 protokolliert diese NVDA-Erweiterung die
+  Sprachausgabe, wenn Sie NVDA+Pfeiltaste nach unten im Desktop-Layout oder
+  NVDA+A im Laptop-Layout drücken. Wenn Sie dies nicht wünschen,
+  deaktivieren Sie ganz einfach dieses Kontrollkästchen.
 
 #### Trennzeichen für die Äußerungen
 
@@ -78,15 +83,13 @@ können Sie "\n\t" eingeben.
 
 ### Protokollierung starten und beenden
 
-In dieser NVDA-Erweiterung sind standardmäßig zwei Gesten eingestellt. Sie
-können sie in der Kategorie "Extras" in den Tastenbefehlen ändern. Suchen
-Sie nach "Schaltet die Aufzeichnung des Sprachausgabenverlaufs auf dem
-eigenen Computer um" und "Schaltet die Aufzeichnung des
-Sprachausgabenverlaufs auf dem Remote-Computer um".
-
+In dieser NVDA-Erweiterung sind standardmäßig zwei Tastenbefehle
+eingestellt. Sie können sie in der Kategorie Werkzeuge anpassen. Suchen Sie
+nach "Schaltet die Aufzeichnung der eigenen Sprachausgabe um" und "Schaltet
+die Aufzeichnung der Sprachausgabe auf dem Remote-Computer um".
 * NVDA+Alt+L: Startet/beendet die Aufzeichnung der eigenen Sprachausgabe.
-* NVDA+Umschalt+Alt+L: Startet/stoppt die Aufzeichnung der
-  Remote-Sprachausgabe.
+* NVDA+Umschalt+Alt+L: Startet/beendet die Aufzeichnung die Sprachausgabe
+auf dem Remote-Computer.
 
 ### Ein Hinweis zur Aufzeichnung der Remote-Sprachausgabe
 
@@ -112,6 +115,5 @@ sind und wofür sie verwendet werden.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
-
-[2]: https://github.com/opensourcesys/speechLogger/issues/
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
+https://github.com/opensourcesys/speechLogger/issues/new

@@ -43,6 +43,10 @@ GitHub][2].
 * Modo de sello de tiempo. Este cuadro combinado permite elegir entre no
   usar marcas de tiempo, y una marca de tiempo al inicio y al final de cada
   sesión de registro.
+* Log speech during say-all (read to end) mode. As of version 23.2, this
+  add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in
+  laptop layout). If you would rather not have this kind of narrative long
+  reading logged, un-check this box.
 
 #### SEPARADOR DE SECUENCIAS
 
@@ -72,13 +76,11 @@ podrías introducir "`\n\t`".
 
 ### Iniciar y detener el registro
 
-Este complemento tiene dos gestos configurados por defecto. Puedes
-cambiarlos en la categoría Herramientas del diálogo Gestos de entrada de
-NVDA. Busca "Conmuta el registro de la voz local" y "Conmuta el registro de
-la voz remota".
-
-* NVDA+alt+l: inicia o detiene el registro del habla local.
-* NVDA+shift+alt+l: inicia o detiene el registro del habla remota.
+This add-on has two gestures set by default.  You can change them in the
+NVDA Input Gestures Tools category.  Look for "Toggles logging of local
+speech" and "Toggles logging of remote speech".  * NVDA+Alt+L: start/stop
+logging of local speech.  * NVDA+Shift+Alt+L: start/stop logging of remote
+speech.
 
 ### Nota sobre el registro del habla remota
 
@@ -102,6 +104,5 @@ abre una [incidencia][2].
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
-
-[2]: https://github.com/opensourcesys/speechLogger/issues/
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
+https://github.com/opensourcesys/speechLogger/issues/new

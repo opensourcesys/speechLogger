@@ -45,6 +45,10 @@ please contact the author or file an issue on the [GitHub repo][2].
   na caixa combinada.
 * Timestamp mode. This combobox allows you to choose between no timestamps,
   and a timestamp at the start and end of each log session.
+* Log speech during say-all (read to end) mode. As of version 23.2, this
+  add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in
+  laptop layout). If you would rather not have this kind of narrative long
+  reading logged, un-check this box.
 
 #### separador de declaración
 
@@ -74,10 +78,9 @@ newline followed by a tab, you could enter "`\n\t`".
 
 This add-on has two gestures set by default.  You can change them in the
 NVDA Input Gestures Tools category.  Look for "Toggles logging of local
-speech" and "Toggles logging of remote speech".
-
-* NVDA+Alt+L: iniciar/deter rexistro de fala local.
-* NVDA+Shift+Alt+L: iniciar/deter rexistro de fala remota.
+speech" and "Toggles logging of remote speech".  * NVDA+Alt+L: start/stop
+logging of local speech.  * NVDA+Shift+Alt+L: start/stop logging of remote
+speech.
 
 ### Unha nota sobre o rexistro de fala remota
 
@@ -102,6 +105,5 @@ que os está a utilizar a xente.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
-
-[2]: https://github.com/opensourcesys/speechLogger/issues/
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
+https://github.com/opensourcesys/speechLogger/issues/new

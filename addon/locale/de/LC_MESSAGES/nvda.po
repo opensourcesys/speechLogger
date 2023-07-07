@@ -8,22 +8,22 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 19:30+0000\n"
-"PO-Revision-Date: 2023-05-26 10:11+0200\n"
+"PO-Revision-Date: 2023-07-07 19:15+0200\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #. Translators: Text inserted in the log indicating logging has started.
 msgid "Log started"
-msgstr "Aufzeichnung gestartet."
+msgstr "Aufzeichnung gestartet"
 
 #. Translators: Text inserted in the log indicating logging has ended.
 msgid "Log ended"
-msgstr "Aufzeichnung beendet."
+msgstr "Aufzeichnung beendet"
 
 #. Translators: Series of punctuations that appear around unspoken log started/stopped messages.
 msgid "###"
@@ -152,7 +152,7 @@ msgstr "Benutzerdefiniert"
 
 #. Translators: A timestamp mode option in the timestamps mode combobox
 msgid "Off, no timestamps"
-msgstr "ausgeschaltet, keine Zeitstempel"
+msgstr "Ausgeschaltet, keine Zeitstempel"
 
 #. Translators: A timestamp mode option in the timestamps mode combobox
 msgid "When a log begins or ends"
@@ -190,7 +190,8 @@ msgstr "&Trennzeichen-Optionen"
 msgid "Utterance separator"
 msgstr "Trennzeichen bei Äußerungen"
 
-#. Translators: the label for a text field requesting an optional custom separator string
+#. Translators: the label for a text field requesting an optional custom separator string.
+#. Note that this string is raw, so that \t is presented literally.
 msgid "Custom utterance separator (can use escapes like \\t): "
 msgstr ""
 "Benutzerdefiniertes Trennzeichen bei Äußerungen (es können Escape-Zeichen "
@@ -203,6 +204,11 @@ msgstr "Weitere &Optionen"
 #. Translators: this is the label for a combobox providing possible timestamp mode values.
 msgid "Timestamp Mode"
 msgstr "Art des Zeitstempels"
+
+#. Use default
+#. Translators: This is the label for a checkbox to turn Say All logging on or off.
+msgid "Log speech during Say-&All (read to end)"
+msgstr ""
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
