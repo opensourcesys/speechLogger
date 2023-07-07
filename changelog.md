@@ -1,8 +1,14 @@
+### 23.2.0
+
+* Added the ability to log speech during say all (continuous reading/read to end). Closes #6.
+    + Though enabled by default, this can be disabled by a checkbox in the add-on settings.
+
 ### 23.1.2
 
 * Fixed the patching of NVDA's speech.speech.speak, as it gained a new parameter in PR nvaccess/nvda#13483.
     + This was causing many failures of navigation and other things, when used with NVDA alphas.
     + Closes #5.
+    + The NVDA PR which caused this, was reverted in a later alpha; but nothing more needed to change on our end.
 * More translation updates.
 
 ### 23.1.0

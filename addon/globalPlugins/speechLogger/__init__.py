@@ -122,7 +122,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if self.flags.rotate:
 			self.rotateLogs()
 		# Wrap speech.speech.speak, so we can get its output first
-		old_speak = speech.speech.speak
+		self._speak_orig = speech.speech.speak
 		@wraps(speech.speech.speak)
 		def new_speak(  # noqa: C901
 				sequence: SpeechSequence,
@@ -132,7 +132,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				**kwargs
 		):
 			self.captureSpeech(sequence, Origin.LOCAL)
-			return old_speak(sequence, symbolLevel, priority, *args, **kwargs)
+			return self._speak_orig(sequence, symbolLevel, priority, *args, **kwargs)
 		speech.speech.speak = new_speak
 		# Wrap speech.SpeechWithoutPauses.speechWithoutPauses.speakWithoutPauses, so we can get its output first
 		SpeechWithoutPauses._speakWithoutPauses_orig = SpeechWithoutPauses.speakWithoutPauses
@@ -158,6 +158,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Remove the NVDA settings panel
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
+			# Unwrap/un-patch methods that we patched.
+			# Note that this may screw with add-ons that patched them after we did.
+			speech.speech.speak = self._speak_orig
+			SpeechWithoutPauses.speakWithoutPauses = SpeechWithoutPauses._speakWithoutPauses_orig
 		super().terminate()
 
 	def applyUserConfigIfNeeded(self) -> None:
