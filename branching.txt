@@ -7,4 +7,4 @@ Do work.
 In final commit, remove the "-devN" from the version in buildVars, if necessary.
 Clean up history.
 Checkout master
-merge --ff-only version
+merge no-ff versions
