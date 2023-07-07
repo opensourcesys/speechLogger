@@ -1,6 +1,6 @@
 # NVDA Speech Logger add-on: configuration and GUI module
 #
-#    Copyright (C) 2022-2023 Luke Davis <XLTechie@newanswertech.com>, James Scholes
+#    Copyright (C) 2022-2023 Luke Davis <XLTechie@newanswertech.com>
 #
 # This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
 # as published by    the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
@@ -20,6 +20,8 @@ import globalVars
 import gui
 from gui.settingsDialogs import PANEL_DESCRIPTION_WIDTH
 from logHandler import log
+
+from . import extensionPoint
 
 addonHandler.initTranslation()
 
@@ -53,9 +55,6 @@ def setConf(key: str, value: Any) -> Any:
 class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 	"""NVDA configuration panel based configurator  for speechLogger."""
 
-	#: Class variable to track whether the configuration has been changed in the panel, thus causing the
-	#: add-on to refresh its idea of the configuration.
-	hasConfigChanges: bool = True
 	# Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 	title: str = _("Speech Logger")
 	# Translators: the primary introductory text for the settings dialog
@@ -246,4 +245,4 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		"""After saving settings, set a flag to cause a config re-read by the add-on."""
 		# Make sure we're operating in the "normal" profile
 		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
-			SpeechLoggerSettings.hasConfigChanges = True
+			extensionPoint._configChanged.notify()

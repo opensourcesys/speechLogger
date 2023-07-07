@@ -49,6 +49,7 @@ from globalCommands import SCRCAT_TOOLS
 
 from .configUI import SpeechLoggerSettings, getConf
 from .immutableKeyObj import ImmutableKeyObj
+from . import extensionPoint
 
 addonHandler.initTranslation()
 	
@@ -116,8 +117,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Establish the add-on's NVDA configuration panel and config options, unless in secure mode
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechLoggerSettings)
-		# Read user config or defaults
-		self.applyUserConfig()
+		# Register to our private extensionPoint to notify our config reloads
+		extensionPoint._configChanged.register(self.applyUserConfig)
+		# Read user config the first time
+		self.applyUserConfig(False)
 		# If we are supposed to rotate logs, do that now.
 		if self.flags.rotate:
 			self.rotateLogs()
@@ -158,20 +161,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Remove the NVDA settings panel
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
-			# Unwrap/un-patch methods that we patched.
-			# Note that this may screw with add-ons that patched them after we did.
-			speech.speech.speak = self._speak_orig
-			SpeechWithoutPauses.speakWithoutPauses = SpeechWithoutPauses._speakWithoutPauses_orig
+		# Unwrap/un-patch methods that we patched.
+		# Note that this may screw with add-ons that patched them after we did.
+		speech.speech.speak = self._speak_orig
+		SpeechWithoutPauses.speakWithoutPauses = SpeechWithoutPauses._speakWithoutPauses_orig
+		# Unregister extensionPoints
+		extensionPoint._configChanged.unregister(self.applyUserConfig)
 		super().terminate()
 
-	def applyUserConfigIfNeeded(self) -> None:
-		"""If the user has changed any part of the configuration, reset our internals accordingly."""
-		if SpeechLoggerSettings.hasConfigChanges:
-			self.applyUserConfig()
-			SpeechLoggerSettings.hasConfigChanges = False
+	def applyUserConfig(self, triggeredByExtensionPoint: bool = True) -> None:
+		"""Configures internal variables according to those set in NVDA config.
 
-	def applyUserConfig(self) -> None:
-		"""Configures internal variables according to those set in NVDA config."""
+		@param triggeredByExtensionPoint: True (default) if triggered because of a config reload extensionPoint
+		"""
+		if triggeredByExtensionPoint:
+			log.debug("Applying user configuration triggered by extensionPoint.")
+		else:
+			log.debug("Applying user configuration triggered by internal process.")
 		# Stage 1: directory
 		# If the directory hasn't been set, we disable all logging.
 		if getConf("folder") == "":
@@ -293,7 +299,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin) -> None:
 		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
-		self.applyUserConfigIfNeeded()
 		file: Optional[str] = None
 		initialText: Optional[str] = None
 		if origin == Origin.LOCAL and self.flags.localActive:

@@ -2,6 +2,7 @@
 
 * Added the ability to log speech during say all (continuous reading/read to end). Closes #6.
     + Though enabled by default, this can be disabled by a checkbox in the add-on settings.
+* Use an extensionPoint internally to handle config change notifications and reloads.
 
 ### 23.1.2
 
