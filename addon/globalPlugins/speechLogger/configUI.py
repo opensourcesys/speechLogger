@@ -187,9 +187,11 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 				+ getConf("separator") + '". Using default.'
 			)
 			self.separatorChoiceControl.SetSelection(DEFAULT_SEPARATOR)  # Use default
+		self.separatorChoiceControl.Bind(wx.EVT_CHOICE, self.onSeparatorChoiceChange)
 
 		self.customSeparatorControl = sepGroupHelper.addLabeledControl(
-			# Translators: the label for a text field requesting an optional custom separator string
+			# Translators: the label for a text field requesting an optional custom separator string.
+			# Note that this string is raw, so that \t is presented literally.
 			_(r"Custom utterance separator (can use escapes like \t): "), wx.TextCtrl
 		)
 		self.customSeparatorControl.SetValue(getConf("customSeparator"))
@@ -246,3 +248,11 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		# Make sure we're operating in the "normal" profile
 		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
 			extensionPoint._configChanged.notify()
+
+	def onSeparatorChoiceChange(self, evt):
+		"""Called when the separator choice is changed, so the custom field can be (dis|en)abled."""
+		if self.availableSeparators[self.separatorChoiceControl.Selection][0] == "custom":
+			self.customSeparatorControl.Enable(True)
+		else:
+			self.customSeparatorControl.Enable(False)
+

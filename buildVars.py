@@ -25,7 +25,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description": _("""Logs speech utterances to a file. Can also log NVDA remote session speech from the NVDA Remote add-on, to the same or another file."""),
 	# version
-	"addon_version": "23.1.508",
+	"addon_version": "23.2.01",
 	# Author(s)
 	"addon_author": "Luke Davis <XLTechie@newanswertech.com>, James Scholes",
 	# URL for the add-on documentation support
@@ -41,7 +41,7 @@ addon_info = {
 	# Add-on update channel (default is None, denoting stable releases,
 	# and for development releases, use "dev".)
 	# Do not change unless you know what you are doing!
-	"addon_updateChannel": "dev",
+	"addon_updateChannel": None,
 	# Add-on license such as GPL 2
 	"addon_license": "GPL 2",
 	# URL for the license document the ad-on is licensed under

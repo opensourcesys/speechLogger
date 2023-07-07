@@ -2,6 +2,7 @@
 
 * Added the ability to log speech during say all (continuous reading/read to end). Closes #6.
     + Though enabled by default, this can be disabled by a checkbox in the add-on settings.
+* Custom separator field is now disabled in settings, unless "custom" is chosen as separator type.
 * Use an extensionPoint internally to handle config change notifications and reloads.
 
 ### 23.1.2
