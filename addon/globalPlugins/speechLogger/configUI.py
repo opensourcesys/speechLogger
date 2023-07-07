@@ -97,12 +97,12 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		("custom", _("Custom"))
 	)
 	#: Possible values for the timestamp configuration combobox
-	tsModeDisplayChoices: list = [
+	tsModeDisplayChoices: tuple = (
 		# Translators: A timestamp mode option in the timestamps mode combobox
 		_("Off, no timestamps"),
 		# Translators: A timestamp mode option in the timestamps mode combobox
 		_("When a log begins or ends")
-	]
+	)
 	
 
 	def makeSettings(self, settingsSizer) -> None:
@@ -137,10 +137,10 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		fileGroupBox = groupSizer.GetStaticBox()
 
 		# Translators: The label of a button to browse for a directory.
-		browseText: str = _("Browse...")
+		browseButtonLabel: str = _("Browse...")
 		# Translators: The title of the dialog presented when browsing for the log directory.
 		dirChooserTitle: str = _("Select log  directory")
-		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseText, dirChooserTitle)
+		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseButtonLabel, dirChooserTitle)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
 		self.logDirectoryEdit.SetValue(getConf("folder"))
@@ -221,10 +221,10 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			)
 			self.tsModeChoiceControl.SetSelection(DEFAULT_TS_MODE)  # Use default
 
-			# Translators: This is the label for a checkbox to turn Say All logging on or off.
-			logSayAllCBLabel = _("Log speech during Say-&All (read to end)")
-			self.logSayAllCB = miscGroupHelper.addItem(wx.CheckBox(self, label=logSayAllCBLabel))
-			self.logSayAllCB.SetValue(getConf("logSayAll"))
+		# Translators: This is the label for a checkbox to turn Say All logging on or off.
+		logSayAllCBLabel = _("Log speech during Say-&All (read to end)")
+		self.logSayAllCB = miscGroupHelper.addItem(wx.CheckBox(self, label=logSayAllCBLabel))
+		self.logSayAllCB.SetValue(getConf("logSayAll"))
 
 	def onSave(self):
 		"""Save the settings to the Normal Configuration."""
