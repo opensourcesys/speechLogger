@@ -189,10 +189,15 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			self.separatorChoiceControl.SetSelection(DEFAULT_SEPARATOR)  # Use default
 
 		self.customSeparatorControl = sepGroupHelper.addLabeledControl(
-			# Translators: the label for a text field requesting an optional custom separator string
+			# Translators: the label for a text field requesting an optional custom separator string.
+			# Note that this string is raw, so that \t is presented literally.
 			_(r"Custom utterance separator (can use escapes like \t): "), wx.TextCtrl
 		)
 		self.customSeparatorControl.SetValue(getConf("customSeparator"))
+		if getConf("separator") != "custom":
+			self.customSeparatorControl.Disable()
+		else:
+			self.customSeparatorControl.Enable()
 
 		# Grouping for miscellaneous options
 		miscGroupSizer = wx.StaticBoxSizer(
