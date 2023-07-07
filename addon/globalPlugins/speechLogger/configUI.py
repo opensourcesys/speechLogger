@@ -194,10 +194,10 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			_(r"Custom utterance separator (can use escapes like \t): "), wx.TextCtrl
 		)
 		self.customSeparatorControl.SetValue(getConf("customSeparator"))
-		if getConf("separator") != "custom":
-			self.customSeparatorControl.Disable()
-		else:
+		if self.availableSeparators[self.separatorChoiceControl.Selection][0] == "custom"
 			self.customSeparatorControl.Enable()
+		else:
+			self.customSeparatorControl.Disable()
 
 		# Grouping for miscellaneous options
 		miscGroupSizer = wx.StaticBoxSizer(
