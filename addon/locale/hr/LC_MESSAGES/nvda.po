@@ -1,0 +1,245 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the speechLogger package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: speechLogger 23.2.01\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2023-07-09 18:07+0200\n"
+"PO-Revision-Date: 2023-07-09 18:37+0200\n"
+"Last-Translator: \n"
+"Language-Team: Tarik Hadžirović <tarik.hadzirovic.official@gmail.com>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. Translators: Text inserted in the log indicating logging has started.
+#: addon/globalPlugins/speechLogger/__init__.py:269
+msgid "Log started"
+msgstr "Zapisivanje je pokrenuto"
+
+#. Translators: Text inserted in the log indicating logging has ended.
+#: addon/globalPlugins/speechLogger/__init__.py:271
+msgid "Log ended"
+msgstr "Zapisivanje je zaustavljeno"
+
+#. Translators: Series of punctuations that appear around unspoken log started/stopped messages.
+#: addon/globalPlugins/speechLogger/__init__.py:273
+msgid "###"
+msgstr "###"
+
+#. Translators: This word appears between log stopped/started messages, and the date and time it happened.
+#: addon/globalPlugins/speechLogger/__init__.py:275
+msgid "on"
+msgstr "Uključeno"
+
+#. Translators: A string that separates a date from a time. Should include space(s).
+#: addon/globalPlugins/speechLogger/__init__.py:277
+msgid " at "
+msgstr " na "
+
+#. Translators: the description of an item in the input gestures tools category
+#: addon/globalPlugins/speechLogger/__init__.py:359
+msgid "Toggles logging of local speech"
+msgstr "Uključuje i isključuje zapisivanje govora"
+
+#. Translators: message to tell the user that we are no longer logging.
+#: addon/globalPlugins/speechLogger/__init__.py:370
+msgid "Stopped logging local speech."
+msgstr "Zapisivanje govora je zaustavljeno"
+
+#. Translators: a message to tell the user that we are now logging.
+#: addon/globalPlugins/speechLogger/__init__.py:376
+msgid "Started logging local speech."
+msgstr "Zapisivanje govora je pokrenuto"
+
+#. Translators: a message to tell the user that we can't start this kind of logging
+#: addon/globalPlugins/speechLogger/__init__.py:379
+msgid ""
+"Local speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr ""
+"Zapisivanje govora je onemogućeno greškom ili vašom NVDA konfiguracijom."
+
+#. Translators: the description of an item in the input gestures tools category
+#: addon/globalPlugins/speechLogger/__init__.py:384
+msgid "Toggles logging of remote speech"
+msgstr "Uključuje i isključuje zapisivanje govora s udaljenog računala"
+
+#. Translators: message to tell the user that we are no longer logging.
+#: addon/globalPlugins/speechLogger/__init__.py:395
+msgid "Stopped logging remote speech."
+msgstr "Zapisivanje govora s udaljenog računala je isključeno"
+
+#. Translators: a message to tell the user that we are now logging.
+#: addon/globalPlugins/speechLogger/__init__.py:406
+msgid "Started logging remote speech."
+msgstr "Zapisivanje govora s udaljenog računala je uključeno"
+
+#. Translators: a message to tell the user that we can not start logging because remote may not be connected..
+#: addon/globalPlugins/speechLogger/__init__.py:409
+msgid "Could not log remote speech, probably not connected."
+msgstr ""
+"Zapisivanje govora s udaljenog računala nije moguće, vjerojatno nije "
+"povezano."
+
+#. self._obtainRemote() returned False
+#. Translators: a message telling the user that the Remote add-on is unavailable.
+#: addon/globalPlugins/speechLogger/__init__.py:412
+msgid "Failed! Could not find the NVDA Remote add-on."
+msgstr "Greška! Nije moguće pronaći dodatak Udaljena podrška."
+
+#. Translators: a message to tell the user that we can't start this kind of logging
+#: addon/globalPlugins/speechLogger/__init__.py:415
+msgid ""
+"Remote speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr ""
+"Zapisivanje govora s udaljenog računala je onemogućeno greškom ili vašom "
+"NVDA konfiguracijom."
+
+#. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+#: addon/globalPlugins/speechLogger/configUI.py:59 buildVars.py:23
+msgid "Speech Logger"
+msgstr "Zapisnik govora"
+
+#: addon/globalPlugins/speechLogger/configUI.py:62
+msgid ""
+"Choose the log directory and filenames for the speech logs. System variables "
+"such as %temp% are permitted.\n"
+"You can also alter the string used to separate multiple utterances from the "
+"same speech sequence, and control how or whether timestamps are used."
+msgstr ""
+"Odaberite direktorij zapisnika i nazive datoteka za zapisnike govora. "
+"Dopuštene su sistemske varijable kao što je %temp%.\\n\n"
+"Također možete promijeniti niz koji se koristi za odvajanje višestrukih "
+"izgovora iz iste govorne sekvence i kontrolirati kako ili hoće li se "
+"koristiti vremenske oznake."
+
+#: addon/globalPlugins/speechLogger/configUI.py:70
+msgid ""
+"The Speech Logger add-on can only be configured from the Normal "
+"Configuration profile.\n"
+"Please close this dialog, set your config profile to normal, and try again."
+msgstr ""
+"Dodatak Zapisnik govora može se konfigurirati samo iz profila standardne "
+"konfiguracije.\\n\n"
+"Zatvorite ovaj dijaloški okvir, postavite svoj konfiguracijski profil na "
+"standardni i pokušajte ponovno."
+
+#. Translators: a separator option in the separators combobox
+#: addon/globalPlugins/speechLogger/configUI.py:86
+msgid "Two spaces (NVDA log style)"
+msgstr "Dva razmaka (stil NVDA dnevnika)"
+
+#. Translators: a separator option in the separators combobox
+#: addon/globalPlugins/speechLogger/configUI.py:88
+msgid "Newline"
+msgstr "Novi redak"
+
+#. Translators: a separator option in the separators combobox
+#: addon/globalPlugins/speechLogger/configUI.py:90
+msgid "Tab"
+msgstr "Tabulator"
+
+#. Translators: a separator option in the separators combobox
+#: addon/globalPlugins/speechLogger/configUI.py:92
+msgid "A comma and space"
+msgstr "Zarez i razmak"
+
+#. Translators: a separator option in the separators combobox
+#: addon/globalPlugins/speechLogger/configUI.py:94
+msgid "Two underscores"
+msgstr "Dvije podvlake"
+
+#. Translators: a separator option in the separators combobox
+#: addon/globalPlugins/speechLogger/configUI.py:96
+msgid "Custom"
+msgstr "Prilagođeno"
+
+#. Translators: A timestamp mode option in the timestamps mode combobox
+#: addon/globalPlugins/speechLogger/configUI.py:101
+msgid "Off, no timestamps"
+msgstr "Isključeno, bez vremenskih oznaka"
+
+#. Translators: A timestamp mode option in the timestamps mode combobox
+#: addon/globalPlugins/speechLogger/configUI.py:103
+msgid "When a log begins or ends"
+msgstr "Kada dnevnik počinje ili završava"
+
+#. Translators: label of the log files location grouping.
+#: addon/globalPlugins/speechLogger/configUI.py:133
+msgid "Log &Directory: "
+msgstr "&Direktorij dnevnika:"
+
+#. Translators: The label of a button to browse for a directory.
+#: addon/globalPlugins/speechLogger/configUI.py:139
+msgid "Browse..."
+msgstr "Pregledaj..."
+
+#. Translators: The title of the dialog presented when browsing for the log directory.
+#: addon/globalPlugins/speechLogger/configUI.py:141
+msgid "Select log  directory"
+msgstr "Odaberite direktorij dnevnika"
+
+#. Translators: label of a text field to enter local speech log filename.
+#: addon/globalPlugins/speechLogger/configUI.py:149
+msgid "Local speech log filename: "
+msgstr "Naziv datoteke dnevnika govora:"
+
+#. Translators: label of a text field to enter remote speech log filename.
+#: addon/globalPlugins/speechLogger/configUI.py:154
+msgid "Remote speech log filename: "
+msgstr "Naziv datoteke dnevnika govora s udaljenog računala:"
+
+#. Translators: label of the separator options grouping.
+#: addon/globalPlugins/speechLogger/configUI.py:168
+msgid "&Separator Options"
+msgstr "&Opcije razdjelnika"
+
+#. Translators: this is the label for a combobox providing possible separator values
+#: addon/globalPlugins/speechLogger/configUI.py:174
+msgid "Utterance separator"
+msgstr "Razdjelnik izgovora"
+
+#. Translators: the label for a text field requesting an optional custom separator string.
+#. Note that this string is raw, so that \t is presented literally.
+#: addon/globalPlugins/speechLogger/configUI.py:195
+msgid "Custom utterance separator (can use escapes like \\t): "
+msgstr ""
+"Prilagođeni razdjelnik izgovora (može koristiti izlazne znakove poput \\\\t):"
+
+#. Translators: label of the Other options grouping.
+#: addon/globalPlugins/speechLogger/configUI.py:203
+msgid "&Other Options"
+msgstr "&Druge opcije"
+
+#. Translators: this is the label for a combobox providing possible timestamp mode values.
+#: addon/globalPlugins/speechLogger/configUI.py:209
+msgid "Timestamp Mode"
+msgstr "Način vremenske oznake"
+
+#. Use default
+#. Translators: This is the label for a checkbox to turn Say All logging on or off.
+#: addon/globalPlugins/speechLogger/configUI.py:226
+msgid "Log speech during Say-&All (read to end)"
+msgstr "Zapisuj govor u Izgovori sve (čita do kraja)"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:26
+msgid ""
+"Logs speech utterances to a file. Can also log NVDA remote session speech "
+"from the NVDA Remote add-on, to the same or another file."
+msgstr ""
+"Zapisuje govor u datoteku. Također može zapisati NVDA govor s udaljenog "
+"računala iz dodatka Udaljena podrška, u istu ili drugu datoteku."
