@@ -8,6 +8,8 @@
 * [ ] Stop creating files before they need to be written to the first time. (listed: 2/20/2023)
 * [ ] Add the possibility of strftime variables in file and directory names, per issue #4 (listed: 4/26/2023)
 * [ ] Add optional timestamping on every logged item. (Listed: 5/12/2023)
+* [ ] Add an unassigned gesture to open the add-on config. (Requested by email by tarik hadzirovic: 7/10/2023)
+* [ ] Add gestures to open the log files. (Requested by email by tarik hadzirovic: 7/10/2023)
 
 #### Priority 2:
 
