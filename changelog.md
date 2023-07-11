@@ -1,3 +1,8 @@
+### 23.2.03
+
+* Added an unassigned Input Gesture in the Configuration category, to open Speech Logger settings.
+* Included a manual Croatian translation contributed by a user.
+
 ### 23.2.0
 
 * Added the ability to log speech during say all (continuous reading/read to end). Closes #6.

@@ -26,7 +26,7 @@ Be warned that means lots of disk activity.
 """
 
 import os
-import types
+import wx
 from time import strftime
 from typing import Optional, Dict
 from functools import wraps
@@ -38,6 +38,7 @@ import globalPlugins
 import globalVars
 import ui
 import gui
+from gui.settingsDialogs import SettingsDialog, MultiCategorySettingsDialog
 import config
 import speech
 from speech.speechWithoutPauses import SpeechWithoutPauses
@@ -45,7 +46,7 @@ from speech.types import SpeechSequence
 from speech.priorities import Spri
 from scriptHandler import script
 from logHandler import log
-from globalCommands import SCRCAT_TOOLS
+from globalCommands import SCRCAT_TOOLS, SCRCAT_CONFIG
 
 from .configUI import SpeechLoggerSettings, getConf
 from .immutableKeyObj import ImmutableKeyObj
@@ -413,6 +414,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			else:
 				# Translators: a message to tell the user that we can't start this kind of logging
 				ui.message(_("Remote speech logging has been disabled by an error or your NVDA configuration."))
+
+	@script(
+		# Translators: Input help mode message for open Speech Logger settings command.
+		description=_("Opens the Speech Logger add-on's settings"),
+		category=SCRCAT_CONFIG
+	)
+	@gui.blockAction.when(gui.blockAction.Context.MODAL_DIALOG_OPEN)
+	def script_activateSpeechLoggerSettingsDialog(self, gesture):
+		wx.CallAfter(
+			gui.mainFrame._popupSettingsDialog,
+			gui.settingsDialogs.NVDASettingsDialog,
+			SpeechLoggerSettings
+		)
 
 	def logToFile(self, file: str, sequence: Optional[SpeechSequence], initialText: Optional[str]) -> None:
 		"""Append text of the given speech sequence to the given file.

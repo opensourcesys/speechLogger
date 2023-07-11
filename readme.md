@@ -11,7 +11,7 @@ It can also log speech from a remote machine received through the [NVDA Remote](
 ### Configuration
 
 To configure this add-on, open the NVDA menu, go to Preferences, then Settings, then Speech Logger (NVDA+N, P, S, then press S until you get there, on a default U.S. English keyboard).
-
+There is also an unassigned gesture in the Input Gestures "Configuration" category, which you can assign and use to quickly open the add-on's settings directly.
 Note: the add-on can only be configured while in the Normal Configuration profile of NVDA.
 The add-on is not profile-aware.
 If you can think of some use case that requires it to operate differently in different profiles, please contact the author or file an issue on the [GitHub repo][2].
