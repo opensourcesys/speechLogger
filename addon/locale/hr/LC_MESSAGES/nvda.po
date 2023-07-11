@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.2.01\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-07-09 18:07+0200\n"
-"PO-Revision-Date: 2023-07-09 18:37+0200\n"
+"PO-Revision-Date: 2023-07-10 19:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: Tarik Hadžirović <tarik.hadzirovic.official@gmail.com>\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #. Translators: Text inserted in the log indicating logging has started.
 #: addon/globalPlugins/speechLogger/__init__.py:269
@@ -37,27 +37,27 @@ msgstr "###"
 #. Translators: This word appears between log stopped/started messages, and the date and time it happened.
 #: addon/globalPlugins/speechLogger/__init__.py:275
 msgid "on"
-msgstr "Uključeno"
+msgstr "datuma"
 
 #. Translators: A string that separates a date from a time. Should include space(s).
 #: addon/globalPlugins/speechLogger/__init__.py:277
 msgid " at "
-msgstr " na "
+msgstr " u "
 
 #. Translators: the description of an item in the input gestures tools category
 #: addon/globalPlugins/speechLogger/__init__.py:359
 msgid "Toggles logging of local speech"
-msgstr "Uključuje i isključuje zapisivanje govora"
+msgstr "Pokreće i zaustavlja zapisivanje govora"
 
 #. Translators: message to tell the user that we are no longer logging.
 #: addon/globalPlugins/speechLogger/__init__.py:370
 msgid "Stopped logging local speech."
-msgstr "Zapisivanje govora je zaustavljeno"
+msgstr "Zapisivanje govora je zaustavljeno."
 
 #. Translators: a message to tell the user that we are now logging.
 #: addon/globalPlugins/speechLogger/__init__.py:376
 msgid "Started logging local speech."
-msgstr "Zapisivanje govora je pokrenuto"
+msgstr "Zapisivanje govora je pokrenuto."
 
 #. Translators: a message to tell the user that we can't start this kind of logging
 #: addon/globalPlugins/speechLogger/__init__.py:379
@@ -70,17 +70,17 @@ msgstr ""
 #. Translators: the description of an item in the input gestures tools category
 #: addon/globalPlugins/speechLogger/__init__.py:384
 msgid "Toggles logging of remote speech"
-msgstr "Uključuje i isključuje zapisivanje govora s udaljenog računala"
+msgstr "Pokreće i zaustavlja zapisivanje govora s udaljenog računala"
 
 #. Translators: message to tell the user that we are no longer logging.
 #: addon/globalPlugins/speechLogger/__init__.py:395
 msgid "Stopped logging remote speech."
-msgstr "Zapisivanje govora s udaljenog računala je isključeno"
+msgstr "Zapisivanje govora s udaljenog računala je zaustavljeno."
 
 #. Translators: a message to tell the user that we are now logging.
 #: addon/globalPlugins/speechLogger/__init__.py:406
 msgid "Started logging remote speech."
-msgstr "Zapisivanje govora s udaljenog računala je uključeno"
+msgstr "Zapisivanje govora s udaljenog računala je pokrenuto."
 
 #. Translators: a message to tell the user that we can not start logging because remote may not be connected..
 #: addon/globalPlugins/speechLogger/__init__.py:409
@@ -179,7 +179,7 @@ msgstr "Kada dnevnik počinje ili završava"
 #. Translators: label of the log files location grouping.
 #: addon/globalPlugins/speechLogger/configUI.py:133
 msgid "Log &Directory: "
-msgstr "&Direktorij dnevnika:"
+msgstr "&Direktorij dnevnika: "
 
 #. Translators: The label of a button to browse for a directory.
 #: addon/globalPlugins/speechLogger/configUI.py:139
@@ -194,12 +194,12 @@ msgstr "Odaberite direktorij dnevnika"
 #. Translators: label of a text field to enter local speech log filename.
 #: addon/globalPlugins/speechLogger/configUI.py:149
 msgid "Local speech log filename: "
-msgstr "Naziv datoteke dnevnika govora:"
+msgstr "Naziv datoteke dnevnika govora: "
 
 #. Translators: label of a text field to enter remote speech log filename.
 #: addon/globalPlugins/speechLogger/configUI.py:154
 msgid "Remote speech log filename: "
-msgstr "Naziv datoteke dnevnika govora s udaljenog računala:"
+msgstr "Naziv datoteke dnevnika govora s udaljenog računala: "
 
 #. Translators: label of the separator options grouping.
 #: addon/globalPlugins/speechLogger/configUI.py:168
@@ -216,7 +216,8 @@ msgstr "Razdjelnik izgovora"
 #: addon/globalPlugins/speechLogger/configUI.py:195
 msgid "Custom utterance separator (can use escapes like \\t): "
 msgstr ""
-"Prilagođeni razdjelnik izgovora (može koristiti izlazne znakove poput \\\\t):"
+"Prilagođeni razdjelnik izgovora (može koristiti izlazne znakove poput \\"
+"\\t): "
 
 #. Translators: label of the Other options grouping.
 #: addon/globalPlugins/speechLogger/configUI.py:203

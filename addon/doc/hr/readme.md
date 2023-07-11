@@ -44,7 +44,7 @@ Ako želite da to bude novi redak nakon kojeg slijedi tabulator, možete unijeti
 
 Ovaj dodatak ima dvije geste postavljene prema zadanim postavkama.
 Možete ih promijeniti u kategoriji ulaznih gesti u NVDA alatima.
-Potražite "Uključuje i isključuje zapisivanje govora" i "Uključuje i isključuje zapisivanje govora s udaljenog računala".
+Potražite "Pokreće i zaustavlja zapisivanje govora" i "Pokreće i zaustavlja zapisivanje govora s udaljenog računala".
 * NVDA+Alt+L: pokretanje/zaustavljanje zapisivanja govora.
 * NVDA+Shift+Alt+L: pokretanje/zaustavljanje zapisivanja govora s udaljenog računala.
 
