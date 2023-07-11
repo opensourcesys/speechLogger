@@ -26,7 +26,7 @@ Be warned that means lots of disk activity.
 """
 
 import os
-import types
+import wx
 from time import strftime
 from typing import Optional, Dict
 from functools import wraps
@@ -38,6 +38,7 @@ import globalPlugins
 import globalVars
 import ui
 import gui
+from gui.settingsDialogs import SettingsDialog, MultiCategorySettingsDialog
 import config
 import speech
 from speech.speechWithoutPauses import SpeechWithoutPauses
@@ -45,7 +46,7 @@ from speech.types import SpeechSequence
 from speech.priorities import Spri
 from scriptHandler import script
 from logHandler import log
-from globalCommands import SCRCAT_TOOLS
+from globalCommands import SCRCAT_TOOLS, SCRCAT_CONFIG
 
 from .configUI import SpeechLoggerSettings, getConf
 from .immutableKeyObj import ImmutableKeyObj
@@ -413,6 +414,30 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			else:
 				# Translators: a message to tell the user that we can't start this kind of logging
 				ui.message(_("Remote speech logging has been disabled by an error or your NVDA configuration."))
+
+	@script(
+		# Translators: Input help mode message for open Speech Logger settings command.
+		description=_("Opens the Speech Logger add-on's settings"),
+		category=SCRCAT_CONFIG
+	)
+	@gui.blockAction.when(gui.blockAction.Context.MODAL_DIALOG_OPEN)
+	def script_activateSpeechLoggerSettingsDialog(self, gesture):
+		wx.CallAfter(self.onSpeechLoggerSettingsCommand, None)
+
+	def onSpeechLoggerSettingsCommand(self, evt, *args, **kwargs):
+		gui.mainFrame.prePopup()
+		try:
+			SpeechLoggerSettings(gui.mainFrame, *args, **kwargs).Show()
+		except SettingsDialog.MultiInstanceErrorWithDialog as errorWithDialog:
+			errorWithDialog.dialog.SetFocus()
+		except MultiCategorySettingsDialog.CategoryUnavailableError:
+			# Translators: Message shown when trying to open an unavailable category of a multi category settings dialog
+			# (example: when trying to open touch interaction settings on an unsupported system).
+			gui.messageBox(
+				_("The settings panel you tried to open is unavailable on this system."),
+				_("Error"),style=wx.OK | wx.ICON_ERROR
+			)
+		gui.mainFrame.postPopup()
 
 	def logToFile(self, file: str, sequence: Optional[SpeechSequence], initialText: Optional[str]) -> None:
 		"""Append text of the given speech sequence to the given file.
