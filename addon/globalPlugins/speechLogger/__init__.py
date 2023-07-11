@@ -422,22 +422,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	@gui.blockAction.when(gui.blockAction.Context.MODAL_DIALOG_OPEN)
 	def script_activateSpeechLoggerSettingsDialog(self, gesture):
-		wx.CallAfter(self.onSpeechLoggerSettingsCommand, None)
-
-	def onSpeechLoggerSettingsCommand(self, evt, *args, **kwargs):
-		gui.mainFrame.prePopup()
-		try:
-			SpeechLoggerSettings(gui.mainFrame, *args, **kwargs).Show()
-		except SettingsDialog.MultiInstanceErrorWithDialog as errorWithDialog:
-			errorWithDialog.dialog.SetFocus()
-		except MultiCategorySettingsDialog.CategoryUnavailableError:
-			# Translators: Message shown when trying to open an unavailable category of a multi category settings dialog
-			# (example: when trying to open touch interaction settings on an unsupported system).
-			gui.messageBox(
-				_("The settings panel you tried to open is unavailable on this system."),
-				_("Error"),style=wx.OK | wx.ICON_ERROR
-			)
-		gui.mainFrame.postPopup()
+		wx.CallAfter(
+			gui.mainFrame._popupSettingsDialog,
+			gui.settingsDialogs.NVDASettingsDialog,
+			SpeechLoggerSettings
+		)
 
 	def logToFile(self, file: str, sequence: Optional[SpeechSequence], initialText: Optional[str]) -> None:
 		"""Append text of the given speech sequence to the given file.
