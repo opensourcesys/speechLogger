@@ -38,7 +38,6 @@ import globalPlugins
 import globalVars
 import ui
 import gui
-from gui.settingsDialogs import SettingsDialog, MultiCategorySettingsDialog
 import config
 import speech
 from speech.speechWithoutPauses import SpeechWithoutPauses
@@ -423,7 +422,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@gui.blockAction.when(gui.blockAction.Context.MODAL_DIALOG_OPEN)
 	def script_activateSpeechLoggerSettingsDialog(self, gesture):
 		wx.CallAfter(
-			gui.mainFrame._popupSettingsDialog,
+			# Maintain compatibility with pre-2023.2 versions of gui
+			getattr(gui.mainFrame, "popupSettingsDialog", gui.mainFrame._popupSettingsDialog),
 			gui.settingsDialogs.NVDASettingsDialog,
 			SpeechLoggerSettings
 		)
