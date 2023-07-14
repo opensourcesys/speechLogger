@@ -423,7 +423,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_activateSpeechLoggerSettingsDialog(self, gesture):
 		wx.CallAfter(
 			# Maintain compatibility with pre-2023.2 versions of gui
-			getattr(gui.mainFrame, "popupSettingsDialog", gui.mainFrame._popupSettingsDialog),
+			getattr(gui.mainFrame, "popupSettingsDialog" if hasattr(gui.mainFrame, "popupSettingsDialog") else "_popupSettingsDialog"),
 			gui.settingsDialogs.NVDASettingsDialog,
 			SpeechLoggerSettings
 		)
