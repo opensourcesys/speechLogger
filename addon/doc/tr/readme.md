@@ -76,8 +76,10 @@ Bu eklentinin varsayılan olarak ayarlanmış iki hareketi vardır. Bunları NVD
 Girdi Hareketleri iletişim kutusunda Araçlar kategorisinden
 değiştirebilirsiniz. "Yerel konuşmanın günlüğe kaydedilmesini açar/kapatır"
 ve "Uzaktan konuşmanın günlüğe kaydedilmesini açar/kapatır" ifadelerine
-bakın. * NVDA+Alt+L: yerel konuşma kaydını başlat/durdur. *
-NVDA+Shift+Alt+L: uzaktan konuşma kaydını başlat/durdur.
+bakın.
+
+* NVDA+Alt+L: yerel konuşma kaydını başlat/durdur.
+* NVDA+Shift+Alt+L: uzaktan konuşma kaydını başlat/durdur.
 
 ### Uzaktan konuşma kaydı hakkında bir not
 
@@ -102,5 +104,6 @@ ne için kullandığını duymaktan memnuniyet duyuyorum.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
-https://github.com/opensourcesys/speechLogger/issues/new
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/new

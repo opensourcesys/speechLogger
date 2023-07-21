@@ -88,6 +88,10 @@ msgstr ""
 "O rexistro de voz remota deshabilitouse por un erro ou pola túa "
 "configuración do NVDA."
 
+#. Translators: Input help mode message for open Speech Logger settings command.
+msgid "Opens the Speech Logger add-on's settings"
+msgstr ""
+
 #. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on

@@ -82,8 +82,9 @@ Logger").
 в категорията "Инструменти" в прозореца "Жестове на въвеждане" на
 NVDA. Потърсете "Превключва протоколирането на локална реч" и "Превключва
 протоколирането на отдалечена реч".
-  * NVDA+Alt+L: Превключва протоколирането на локална реч.
-  * NVDA+Shift+Alt+L: Превключва протоколирането на отдалечена реч.
+
+* NVDA+Alt+L: Стартиране/спиране на протоколирането на локална реч.
+* NVDA+Shift+Alt+L: Стартиране/спиране на протоколирането на отдалечена реч.
 
 ### Бележка относно отдалеченото протоколиране на реч
 
@@ -108,5 +109,6 @@ NVDA. Потърсете "Превключва протоколирането н
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
-https://github.com/opensourcesys/speechLogger/issues/new
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/new

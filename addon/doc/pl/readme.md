@@ -78,9 +78,10 @@ newline followed by a tab, you could enter "`\n\t`".
 
 This add-on has two gestures set by default.  You can change them in the
 NVDA Input Gestures Tools category.  Look for "Toggles logging of local
-speech" and "Toggles logging of remote speech".  * NVDA+Alt+L: start/stop
-logging of local speech.  * NVDA+Shift+Alt+L: start/stop logging of remote
-speech.
+speech" and "Toggles logging of remote speech".
+
+* NVDA+Alt+L: uruchamianie/zatrzymywanie rejestrowania mowy lokalnej.
+* NVDA+Shift+Alt+L: rejestrowanie mowy zdalnej uruchamiania/zatrzymywania.
 
 ### Uwaga dotycząca zdalnego rejestrowania mowy
 
@@ -104,5 +105,6 @@ używają.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
-https://github.com/opensourcesys/speechLogger/issues/new
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/new

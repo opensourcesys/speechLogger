@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 19:30+0000\n"
-"PO-Revision-Date: 2023-05-22 11:31+0200\n"
+"PO-Revision-Date: 2023-07-17 22:08+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -88,6 +88,10 @@ msgid ""
 msgstr ""
 "La journalisation de la parole distante a été désactivée par une erreur ou "
 "votre configuration NVDA."
+
+#. Translators: Input help mode message for open Speech Logger settings command.
+msgid "Opens the Speech Logger add-on's settings"
+msgstr "Ouvrir les paramètres de l'extension Speech Logger"
 
 #. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 #. Add-on summary, usually the user visible name of the addon.
@@ -197,7 +201,7 @@ msgstr "Mode d'horodatage"
 #. Use default
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
-msgstr ""
+msgstr "Journalisation de la parole pendant Dire &tout (lire jusqu'à la fin)"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: speechLogger\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-10 19:30+0000\n"
-"PO-Revision-Date: 2023-05-20 00:13+0200\n"
+"PO-Revision-Date: 2023-07-14 23:39+0200\n"
 "Last-Translator: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language-Team: fi_FI <janikinnunen340@gmail.com>\n"
 "Language: fi\n"
@@ -89,6 +89,10 @@ msgid ""
 msgstr ""
 "Etäpuheen lokin tallennus poistettu käytöstä virheen tai NVDA:n asetusten "
 "vuoksi."
+
+#. Translators: Input help mode message for open Speech Logger settings command.
+msgid "Opens the Speech Logger add-on's settings"
+msgstr "Avaa Puhelokin tallennin -lisäosan asetukset"
 
 #. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 #. Add-on summary, usually the user visible name of the addon.
@@ -195,7 +199,7 @@ msgstr "Aikaleimatila"
 #. Use default
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
-msgstr ""
+msgstr "Tallenna puhelokia &jatkuvaa lukua käytettäessä"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

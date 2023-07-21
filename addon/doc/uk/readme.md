@@ -42,10 +42,10 @@ GitHub][2].
 * Режим часової мітки. Цей комбінований список дозволяє вам вибрати між
   відсутністю часових міток і часовою міткою на початку і в кінці кожного
   сеансу ведення журналу.
-* Log speech during say-all (read to end) mode. As of version 23.2, this
-  add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in
-  laptop layout). If you would rather not have this kind of narrative long
-  reading logged, un-check this box.
+* Журналювати мовлення в режимі «Читати все» (читати до кінця). Починаючи з
+  версії 23.2, цей додаток журналює мовлення, згенероване після натискання
+  NVDA+стрілка вниз (NVDA+a в розкладці laptop). Якщо ви не бажаєте, щоб
+  подібні прочитані довгі розповіді журналювалися, зніміть цей прапорець.
 
 #### Роздільник фраз
 
@@ -72,11 +72,12 @@ GitHub][2].
 
 ### Запуск і зупинка запису
 
-This add-on has two gestures set by default.  You can change them in the
-NVDA Input Gestures Tools category.  Look for "Toggles logging of local
-speech" and "Toggles logging of remote speech".  * NVDA+Alt+L: start/stop
-logging of local speech.  * NVDA+Shift+Alt+L: start/stop logging of remote
-speech.
+Цей додаток має  два призначені жести. Їх можна змінити в категорії
+«Інструменти» жестів вводу NVDA. Шукайте «Перемикає журналювання локального
+мовлення» і «Перемикає журнал віддаленого мовлення».
+
+* NVDA+Alt+L: почати/зупинити запис локального мовлення.
+* NVDA+Shift+Alt+L: почати/зупинити запис віддаленого мовлення.
 
 ### Примітка щодо віддаленого запису мовлення
 
@@ -101,5 +102,6 @@ speech.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
-https://github.com/opensourcesys/speechLogger/issues/new
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/new

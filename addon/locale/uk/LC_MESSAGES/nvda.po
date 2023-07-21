@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 19:30+0000\n"
-"PO-Revision-Date: 2023-05-19 22:58+0300\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-07-18 23:19+0300\n"
+"Last-Translator: Heorhii <nvda.translation.uk@gmail.com>\n"
 "Language-Team: \n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #. Translators: Text inserted in the log indicating logging has started.
 msgid "Log started"
@@ -85,6 +85,10 @@ msgid ""
 msgstr ""
 "Віддалене ведення журналу мовлення вимкнено через помилку або вашу "
 "конфігурацію NVDA."
+
+#. Translators: Input help mode message for open Speech Logger settings command.
+msgid "Opens the Speech Logger add-on's settings"
+msgstr "Відкриває налаштування додатка Speech Logger"
 
 #. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 #. Add-on summary, usually the user visible name of the addon.
@@ -192,7 +196,7 @@ msgstr "Режим часової мітки"
 #. Use default
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
-msgstr ""
+msgstr "&Журналювати мовлення в режимі «Читати все» (читати до кінця)"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

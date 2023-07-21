@@ -84,12 +84,14 @@ können Sie "\n\t" eingeben.
 ### Protokollierung starten und beenden
 
 In dieser NVDA-Erweiterung sind standardmäßig zwei Tastenbefehle
-eingestellt. Sie können sie in der Kategorie Werkzeuge anpassen. Suchen Sie
-nach "Schaltet die Aufzeichnung der eigenen Sprachausgabe um" und "Schaltet
-die Aufzeichnung der Sprachausgabe auf dem Remote-Computer um".
+voreingestellt. Sie können sie in der Kategorie Werkzeuge in den
+Tastenbefehlen anpassen. Suchen Sie nach "Schaltet die Aufzeichnung der
+eigenen Sprachausgabe um" und "Schaltet die Aufzeichnung der Sprachausgabe
+auf dem Remote-Computer um".
+
 * NVDA+Alt+L: Startet/beendet die Aufzeichnung der eigenen Sprachausgabe.
-* NVDA+Umschalt+Alt+L: Startet/beendet die Aufzeichnung die Sprachausgabe
-auf dem Remote-Computer.
+* NVDA+Umschalt+Alt+L: Startet/stoppt die Aufzeichnung der
+  Remote-Sprachausgabe.
 
 ### Ein Hinweis zur Aufzeichnung der Remote-Sprachausgabe
 
@@ -115,5 +117,6 @@ sind und wofür sie verwendet werden.
 
 [[!tag dev stable]]
 
-[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger [2]:
-https://github.com/opensourcesys/speechLogger/issues/new
+[1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
+[2]: https://github.com/opensourcesys/speechLogger/issues/new

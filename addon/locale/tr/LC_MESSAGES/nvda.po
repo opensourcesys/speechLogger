@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Konuşma Kaydedici 23.2.01\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-07-07 11:37+0000\n"
-"PO-Revision-Date: 2023-07-07 16:13+0300\n"
+"PO-Revision-Date: 2023-07-15 15:12+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -83,6 +83,10 @@ msgid ""
 msgstr ""
 "Uzaktan konuşma kaydı, bir hata veya NVDA yapılandırmanız nedeniyle devre "
 "dışı bırakıldı."
+
+#. Translators: Input help mode message for open Speech Logger settings command.
+msgid "Opens the Speech Logger add-on's settings"
+msgstr "Konuşma Kaydedici Eklenti ayarlarını açar"
 
 #. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 #. Add-on summary, usually the user visible name of the addon.
