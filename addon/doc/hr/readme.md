@@ -1,67 +1,106 @@
-### NVDA dodatak Zapisnik govora
+[[!meta title=„Zapisnik govora (Speech Logger)"]]
 
-* Autor: Luke Davis, uz doprinos Jamesa Scholesa
-* Preuzmite [stabilnu verziju][1]
-* NVDA kompatibilnost: 2019.3.1 i kasnije
+* Autor: Luke Davis, doprinositelj James Scholes
+* Preuzmi [stabilnu verziju][1]
+* NVDA kompatibilnost: 2019.3 i novija izdanja
 
-[NVDA](https://nvaccess.org/) dodatak za zapisivanje govora u datoteku ili datoteke.
-Može zapisati govor generiran na računalu u tekstualnu datoteku.
-Također može zapisati govor s udaljenog računala primljen preko [NVDA Remote](https://nvdaremote.com/) dodatka, bilo u istu ili drugu datoteku.
+[NVDA](https://nvaccess.org/) dodatak za zapis govora u datoteku ili
+datoteke. Može zabilježiti govor generiran na lokalnom računalu u tekstualnu
+datoteku. Također može zabilježiti govor s udaljenog uređaja primljen putem
+dodatka [NVDA Remote](https://nvdaremote.com/), bilo u istu ili jednu drugu
+datoteku.
 
 ### Konfiguracija
 
-Za konfiguraciju ovog dodatka, otvorite NVDA izbornik, idite na Postavke, zatim Postavke, zatim Zapisnik govora (NVDA+N, P, P, zatim pritisnite Z dok ne dođete tamo, na zadanoj tipkovnici za hrvatski).
+To configure this add-on, open the NVDA menu, go to Preferences, then
+Settings, then Speech Logger (NVDA+N, P, S, then press S until you get
+there, on a default U.S. English keyboard).
 
-Napomena: dodatak se može konfigurirati samo dok je u profilu NVDA standardne konfiguracije.
-Dodatak nije svjestan profila.
-Ako se možete sjetiti nekog slučaja upotrebe koji zahtijeva različito funkcioniranje u različitim profilima, obratite se autoru ili prijavite problem na [GitHub repozitoriju][2].
+Note: the add-on can only be configured while in the Normal Configuration
+profile of NVDA.  The add-on is not profile-aware.  If you can think of some
+use case that requires it to operate differently in different profiles,
+please contact the author or file an issue on the [GitHub repo][2].
 
 ### Dostupne su sljedeće postavke:
 
-* Direktorij dnevnika. Možete unijeti ili pretraživati ​​željeni odredišni direktorij, koji već mora postojati. Varijable sustava kao što su %temp%, %userprofile%, itd., mogu se koristiti u ovom polju.
-* Naziv datoteke dnevnika govora. Stvorena datoteka bit će smještena u gornji direktorij. Ovo će sadržavati govor koji se zapisuje dok je uključeno zapisivanje govora. To može biti isto što i datoteka udaljenog dnevnika. Ostavite prazno kako biste potpuno onemogućili ovu vrstu zapisivanja.
-* Naziv datoteke dnevnika govora s udaljenog računala. Stvorena datoteka bit će smještena u gornji direktorij. Ovo će sadržavati zabilježeni govor dok je uključeno zapisivanje govora s udaljenog računala. Može biti ista kao lokalna datoteka dnevnika. Ostavite prazno kako biste potpuno onemogućili ovu vrstu zapisivanja.
-* Razdjelnik. Ovaj odabirni okvir omogućuje vam odabir jednog od dostupnih razdjelnika izgovora. Više informacija potražite u nastavku.
-* Prilagođeni razdjelnik. Ovo polje vam omogućuje da unesete prilagođeni razdjelnik izgovora (pogledajte dolje), koji se koristi ako je "Prilagođeno" odabrano u odabirnom okviru.
-* Način vremenske oznake. Ovaj odabirni okvir omogućuje vam odabir između bez vremenskih oznaka i vremenske oznake na početku i kraju svake sesije dnevnika.
-* Zapisuj govor u Izgovori sve (čita do kraja). Od verzije 23.2, ovaj dodatak zapisuje govor generiran kada pritisnete NVDA+Strelica dolje (NVDA+A u rasporedu prijenosnog računala). Ako radije ne biste da se ovo zapisuje, odznačite ovaj potvrdni okvir.
+* Direktorij zapisnika. Možeš upistai ili pretražiti željeni odredišni
+  direktorij koji već mora postojati. U ovom polju se mogu koristiti
+  varijable sustava kao što su %temp%, %userprofile%, itd.
+* Local log filename. The created file will be placed in the above
+  directory. This will contain speech logged while the local log mode is
+  engaged. This can be the same as the remote log file. Leave blank to
+  disable this kind of logging completely.
+* Remote log filename. The created file will be placed in the above
+  directory. This will contain speech logged while the remote log mode is
+  engaged. It can be the same as the local log file. Leave blank to disable
+  this kind of logging completely.
+* Separator. This combobox lets you choose one of the available utterance
+  separators. See below for more information.
+* Prilagođeni separator. Ovo polje omogućuje unos prilagođenog separatora
+  izgovora (pogledaj niže dolje), koji se koristi ako je u popisu odabrana
+  opcija „prilagođeno”.
+* Timestamp mode. This combobox allows you to choose between no timestamps,
+  and a timestamp at the start and end of each log session.
+* Log speech during say-all (read to end) mode. As of version 23.2, this
+  add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in
+  laptop layout). If you would rather not have this kind of narrative long
+  reading logged, un-check this box.
 
-#### Razdjelnik izgovora
+#### Separator izgovora
 
-Kada NVDA izgovori nešto poput "Koš za smeće  1 od 55" dok čita vašu radnu površinu, to se smatra kao dva odvojena izgovora.
-Prvi je naziv stavke ("Koš za smeće", u ovom primjeru), a drugi je informacija o položaju objekta ("1 od 55", u ovom primjeru).
+When NVDA speaks something such as "`recycle bin 1 of 55`" while it's
+reading your desktop, this is considered two separate utterances.  The first
+one is the item name ("`Recycle bin`", in this example), and the second is
+the object position information ("`1 of 55`", in this example).
 
-Ovisno o tome što čitate i kako ste konfigurirali NVDA, može postojati nekoliko zasebnih izgovora koji će se dogoditi tijekom jedne govorne sekvence.
+Ovisno o tome što čitaš i o konfiguriraciji NVDA čitača, može postojati
+nekoliko zasebnih izgovora tijekom jedne govorne sekvence.
 
-U standardnom NVDA dnevniku na razini otklanjanja pogrešaka, svaki pojedinačni izgovor odvojen je s dva razmaka, kao što je napisano u gornjem primjeru.
+In the normal NVDA log at debug level, each individual utterance is
+separated with two spaces, as it is written in the example above.
 
-Zapisnik govora vam omogućuje da odvojite izgovore na isti način na koji to radi NVDA (s dva razmaka), ili pomoću jedne od nekoliko razumnih alternativa (novi red, zarez i razmak, tabulator, dvije podvlake), ili prilagođenim nizom.
+Speech Logger allows you to separate utterances in the same way NVDA does
+(with two spaces), or by one of a few reasonable alternatives (a newline, a
+comma and a space, a tab, two underscores), or by a custom sequence of your
+own devising.
 
-Ako, na primjer, želite da vaš razdjelnik izgovora bude dva znaka dolara ($$), postavili biste kombinirani okvir na "Prilagođeno" i unijeli "$$" (bez navodnika) u polje za unos prilagođenog razdjelnika.
-Ako želite da to bude novi redak nakon kojeg slijedi tabulator, možete unijeti "\n\t".
+If, for example, you wanted your utterance separator to be two dollar signs
+(`$$`), you would set the combobox to "custom", and enter "`$$`" (without
+the quotes), in the custom separator field.  If you wanted it to be a
+newline followed by a tab, you could enter "`\n\t`".
 
-### Pokretanje i zaustavljanje zapisivanja
+### Pokretanje/prekidanje zapisivanja
 
-Ovaj dodatak ima dvije geste postavljene prema zadanim postavkama.
-Možete ih promijeniti u kategoriji ulaznih gesti u NVDA alatima.
-Potražite "Pokreće i zaustavlja zapisivanje govora" i "Pokreće i zaustavlja zapisivanje govora s udaljenog računala".
-* NVDA+Alt+L: pokretanje/zaustavljanje zapisivanja govora.
-* NVDA+Shift+Alt+L: pokretanje/zaustavljanje zapisivanja govora s udaljenog računala.
+This add-on has two gestures set by default.  You can change them in the
+NVDA Input Gestures Tools category.  Look for "Toggles logging of local
+speech" and "Toggles logging of remote speech".
 
-### Napomena o zapisivanju govora s udaljenog računala
+* NVDA+Alt+L: pokreni/prekini zapisivanje govora na lokalnom uređaju.
+* NVDA+Shift+Alt+L: NVDA+Alt+L: pokreni/prekini zapisivanje govora na
+  eksternom uređaju.
 
-Ovaj dodatak je namijenjen za rad s dodatkom Udaljena podrška, za zapisivanje govora s udaljenog računala.
+### Napomena o zapisivanju govora na eksternom uređaju
 
-Važno je znati da nije moguće pokrenuti zapisivanje govora udaljene sesije dok se stvarno ne spojite.
-Ne postoji način da se, na primjer, započne zapisivanje, i čeka, u stanju pripravnosti, dok udaljena sesija ne započne, i počne zapisivati u tom trenutku.
+This add-on is intended to work with the NVDA Remote add-on, for logging of
+remote speech.
 
-Međutim, nakon pokretanja, zapisivanje će se nastaviti kroz udaljene sesije.
+It is important to know, that it is not possible to start logging for remote
+sessions until you actually start one.  There is no way to, for example,
+start logging, and have it wait, on stand-by, until a remote session starts,
+and begin logging at that time.
 
-### Povratne informacije i zahtjevi za značajke
+However, once started, logging will continue across remote sessions.
 
-Ako želite predložiti značajku ili prijaviti grešku, javite se e-poštom ili pošaljite [problem][2].
+### Povratne informacije i predlaganje novih funkcija
 
-Kao i uvijek, drago mi je čuti da su moji dodaci korisni i za što ih ljudi koriste.
+Ako želiš predložiti funkciju ili prijaviti grešku, javi se putem e-pošte
+ili pošalji [problem][2].
+
+Kao i uvijek, volio bih čuti da su moji dodaci korisni i za što ih ljudi
+koriste.
+
+[[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
 [2]: https://github.com/opensourcesys/speechLogger/issues/new

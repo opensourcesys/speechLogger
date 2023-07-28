@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 19:30+0000\n"
-"PO-Revision-Date: 2023-05-21 23:04+0100\n"
+"PO-Revision-Date: 2023-07-28 16:58+0100\n"
 "Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #. Translators: Text inserted in the log indicating logging has started.
 msgid "Log started"
@@ -90,7 +90,7 @@ msgstr ""
 
 #. Translators: Input help mode message for open Speech Logger settings command.
 msgid "Opens the Speech Logger add-on's settings"
-msgstr ""
+msgstr "Abre as configurações do extra do registo de voz"
 
 #. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
 #. Add-on summary, usually the user visible name of the addon.
@@ -155,7 +155,7 @@ msgstr "Quando um registo começa ou termina"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
-msgstr "Log &Directory:"
+msgstr "Registo &Diretório:"
 
 #. Translators: The label of a button to browse for a directory.
 msgid "Browse..."
@@ -167,11 +167,11 @@ msgstr "Seleccionar directório de registo"
 
 #. Translators: label of a text field to enter local speech log filename.
 msgid "Local speech log filename: "
-msgstr "Nome do ficheiro do registo local do discurso:"
+msgstr "Nome do ficheiro de registo de voz local:"
 
 #. Translators: label of a text field to enter remote speech log filename.
 msgid "Remote speech log filename: "
-msgstr "Nome do ficheiro do registo remoto do discurso:"
+msgstr "Nome do ficheiro de registo do discurso remoto:"
 
 #. Translators: label of the separator options grouping.
 msgid "&Separator Options"
@@ -198,7 +198,7 @@ msgstr "Modo de carimbo de data/hora"
 #. Use default
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
-msgstr ""
+msgstr "Registo do Discurso durante o Say-&All (ler até ao fim)"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
