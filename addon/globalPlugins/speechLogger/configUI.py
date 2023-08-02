@@ -224,7 +224,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: This is the label for a checkbox to turn Say All logging on or off.
 		logSayAllCBLabel = _("Log speech during Say-&All (read to end)")
-		self.logSayAllCB = miscGroupHelper.addItem(wx.CheckBox(self, label=logSayAllCBLabel))
+		self.logSayAllCB = miscGroupHelper.addItem(wx.CheckBox(miscGroupBox, label=logSayAllCBLabel))
 		self.logSayAllCB.SetValue(getConf("logSayAll"))
 
 	def onSave(self):
