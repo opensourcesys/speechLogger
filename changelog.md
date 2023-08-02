@@ -1,3 +1,11 @@
+### 23..2.08
+
+* Fixed the position of a checkbox in configuration display (contributed in #8 by @CyrilleB79).
+
+### 23.2.05
+
+* Internal: adapt to gui.MainFrame.popupSettingsDialog becoming part of the public API.
+
 ### 23.2.03
 
 * Added an unassigned Input Gesture in the Configuration category, to open Speech Logger settings.
