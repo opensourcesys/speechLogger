@@ -1,5 +1,9 @@
 name: Check that we dont have extended ascii or utf boms in our files
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
