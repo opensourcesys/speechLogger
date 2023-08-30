@@ -111,7 +111,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Should we log during Say All/Read To End?
 			logSayAll=True,
 			# Should we start logging when launched?
-			logAtStartup=False
+			logAtStartup=False,
+			# Becomes True if we were initially set to log at startup
+			loggedAtStartup=False
 		)
 		#: Filenames are obtained from NVDA configuration, and setup in applyUserConfig().
 		self.files: ImmutableKeyObj = ImmutableKeyObj(local=None, remote=None)
@@ -133,7 +135,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.rotateLogs()
 		# If we are supposed to start logging at NVDA startup, register a handler for that
 		if self.flags.logAtStartup:
-			postNVDAStartup.register(self.startLocalLog)
+			postNvdaStartup.register(self.startLocalLog)
+			self.flags.loggedAtStartup = True
 		# Wrap speech.speech.speak, so we can get its output first
 		self._speak_orig = speech.speech.speak
 		@wraps(speech.speech.speak)
@@ -176,7 +179,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		speech.speech.speak = self._speak_orig
 		SpeechWithoutPauses.speakWithoutPauses = SpeechWithoutPauses._speakWithoutPauses_orig
 		# Unregister extensionPoints
-		postNVDAStartup.unregister(self.startLocalLog)
+		if self.flags.loggedAtStartup:
+			postNvdaStartup.unregister(self.startLocalLog)
 		extensionPoint._configChanged.unregister(self.applyUserConfig)
 		super().terminate()
 
