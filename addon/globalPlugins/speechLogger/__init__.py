@@ -46,6 +46,7 @@ from speech.priorities import Spri
 from scriptHandler import script
 from logHandler import log
 from globalCommands import SCRCAT_TOOLS, SCRCAT_CONFIG
+from core import postNvdaStartup
 
 from .configUI import SpeechLoggerSettings, getConf
 from .immutableKeyObj import ImmutableKeyObj
@@ -108,7 +109,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Should we log the timestamp when we start/stop a log session?
 			startStopTimestamps=True,
 			# Should we log during Say All/Read To End?
-			logSayAll = True
+			logSayAll=True,
+			# Should we start logging when launched?
+			logAtStartup=False
 		)
 		#: Filenames are obtained from NVDA configuration, and setup in applyUserConfig().
 		self.files: ImmutableKeyObj = ImmutableKeyObj(local=None, remote=None)
@@ -128,6 +131,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# If we are supposed to rotate logs, do that now.
 		if self.flags.rotate:
 			self.rotateLogs()
+		# If we are supposed to start logging at NVDA startup, register a handler for that
+		if self.flags.logAtStartup:
+			postNVDAStartup.register(self.startLocalLog)
 		# Wrap speech.speech.speak, so we can get its output first
 		self._speak_orig = speech.speech.speak
 		@wraps(speech.speech.speak)
@@ -170,8 +176,25 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		speech.speech.speak = self._speak_orig
 		SpeechWithoutPauses.speakWithoutPauses = SpeechWithoutPauses._speakWithoutPauses_orig
 		# Unregister extensionPoints
+		postNVDAStartup.unregister(self.startLocalLog)
 		extensionPoint._configChanged.unregister(self.applyUserConfig)
 		super().terminate()
+
+	def startLocalLog(self, automatic: bool = True) -> bool:
+		# If we are already logging, log a warning and return
+		if self.flags.localActive:
+			log.warning("Attempted to start logging speech when already logging speech!")
+			return True
+		# Must check whether we can or should log
+		if self.flags.logLocal:
+			self.flags.localActive = True  # Start logging with next utterance
+			if automatic:
+				log.info("Began logging local speech at NVDA startup.")
+			else:
+				log.info("User initiated logging of local speech.")
+			return True
+		else:
+			return False
 
 	def applyUserConfig(self, triggeredByExtensionPoint: bool = True) -> None:
 		"""Configures internal variables according to those set in NVDA config.
@@ -241,6 +264,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# In the config, tsMode will be 0 for off, higher for the other two options.
 		self.flags.startStopTimestamps = True if getConf("tsMode") > 0 else False
 		self.flags.logSayAll = bool(getConf("logSayAll"))
+		# In the config, possible logAtStartup values are:
+		# 0 for never, 1 for always, 2 for only if logging was on when shutdown (not yet implemented).
+		self.flags.logAtStartup = True if getConf("logAtStartup") == 1 else False
 		# Stage 5: utterance separation
 		# For this one we may need the configured custom separator. However, it seems that
 		# some part of NVDA or Configobj, escapes escape chars such as \t. We must undo that.
@@ -373,9 +399,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging local speech."))
 		else:  # Currently not logging, start
-			# Must check whether we can or should log
-			if self.flags.logLocal:
-				self.flags.localActive = True
+			if self.startLocalLog(False):
 				# Translators: a message to tell the user that we are now logging.
 				ui.message(_("Started logging local speech."))
 			else:
