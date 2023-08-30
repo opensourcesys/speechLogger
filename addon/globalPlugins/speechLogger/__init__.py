@@ -1,4 +1,4 @@
-# NVDA Speech Logger add-on, V23.2
+# NVDA Speech Logger add-on, V23.3
 #
 #    Copyright (C) 2022-2023 Luke Davis <XLTechie@newanswertech.com>
 # Initially based on code ideas suggested by James Scholes.
@@ -51,8 +51,12 @@ from .configUI import SpeechLoggerSettings, getConf
 from .immutableKeyObj import ImmutableKeyObj
 from . import extensionPoint
 
-addonHandler.initTranslation()
-	
+try:
+	addonHandler.initTranslation()
+except addonHandler.AddonError:
+	log.error(
+		"Attempted to initialize translations in an inappropriate context. May be running from scratchpad."
+	)
 
 @unique
 class Origin(Enum):
