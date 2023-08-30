@@ -24,7 +24,8 @@ If you can think of some use case that requires it to operate differently in dif
 * Separator. This combobox lets you choose one of the available utterance separators. See below for more information.
 * Custom separator. This field lets you enter a custom utterance separator (see below), which is used if "custom" is chosen in the combobox.
 * Timestamp mode. This combobox allows you to choose between no timestamps, and a timestamp at the start and end of each log session.
-* Log speech during say-all (read to end) mode. As of version 23.2, this add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you would rather not have this kind of narrative long reading logged, un-check this box.
+* Log speech during say-all (read to end) mode. This add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you would rather not have that kind of narrative long reading logged, un-check this box.
+* Begin logging at startup. You can set this option to "Always", if you want speech to be logged automatically when NVDA starts. This only applies to local speech, and the default is "never".
 
 #### Utterance separator
 
@@ -45,6 +46,7 @@ If you wanted it to be a newline followed by a tab, you could enter "`\n\t`".
 This add-on has two gestures set by default.
 You can change them in the NVDA Input Gestures Tools category.
 Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
+
 * NVDA+Alt+L: start/stop logging of local speech.
 * NVDA+Shift+Alt+L: start/stop logging of remote speech.
 
@@ -64,4 +66,5 @@ If you would like to suggest a feature or report a bug, please reach out by emai
 As always, I appreciate hearing that my add-ons are useful, and what people are using them for.
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
+
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
