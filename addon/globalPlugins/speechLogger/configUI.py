@@ -23,7 +23,12 @@ from logHandler import log
 
 from . import extensionPoint
 
-addonHandler.initTranslation()
+try:
+	addonHandler.initTranslation()
+except addonHandler.AddonError:
+	log.error(
+		"Attempted to initialize translations in an inappropriate context. May be running from scratchpad."
+	)
 
 #: Default separator, when an invalid one has been set
 DEFAULT_SEPARATOR = 0
