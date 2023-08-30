@@ -34,6 +34,8 @@ except addonHandler.AddonError:
 DEFAULT_SEPARATOR = 0
 #: Default timestamp mode, when an invalid one has been set
 DEFAULT_TS_MODE = 1
+#: Default log at startup selection, when config is invalid
+DEFAULT_LOG_AT_STARTUP = 0
 
 #: speechLogger Add-on config database
 config.conf.spec["speechLogger"] = {
@@ -43,8 +45,9 @@ config.conf.spec["speechLogger"] = {
 	"rotate": "boolean(default=False)",
 	"separator": "string(default='2spc')",
 	"customSeparator": "string(default='')",
-	"tsMode": "integer(min=0,default=1,max=1)",
-	"logSayAll": "boolean(default=true)"
+	"tsMode": f"integer(min=0, default={DEFAULT_TS_MODE}, max=1)",
+	"logSayAll": "boolean(default=true)",
+	"logAtStartup": f"integer(min=0, default={DEFAULT_LOG_AT_STARTUP}, max=1)"
 }
 
 def getConf(item: str) -> str:
@@ -106,6 +109,14 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		_("Off, no timestamps"),
 		# Translators: A timestamp mode option in the timestamps mode combobox
 		_("When a log begins or ends")
+	)
+
+	#: Possible values for the log at startup configuration combobox
+	logAtStartupDisplayChoices: tuple = (
+		# Translators: An option in the log at startup combobox
+		_("Never"),
+		# Translators: An option in the log at startup combobox
+		_("Always")
 	)
 	
 
@@ -232,6 +243,23 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		self.logSayAllCB = miscGroupHelper.addItem(wx.CheckBox(miscGroupBox, label=logSayAllCBLabel))
 		self.logSayAllCB.SetValue(getConf("logSayAll"))
 
+		# Translators: this is the label for a combobox which determines whether to begin logging at startup.
+		logAtStartupComboLabel: str = _("Begin logging at startup")
+		self.logAtStartupChoiceControl = miscGroupHelper.addLabeledControl(
+			logAtStartupComboLabel, wx.Choice, choices=self.logAtStartupDisplayChoices
+		)
+		# Iterate the combobox choices, and pick the one listed in config
+		for index, name in enumerate(self.logAtStartupDisplayChoices):
+			if index == getConf("logAtStartup"):
+				self.logAtStartupChoiceControl.SetSelection(index)
+				break
+		else:  # Unrecognized choice saved in configuration
+			log.debugWarning(
+				'Could not set log at startup to the config derived option of "'
+				f'{getConf("logAtStartup")}". Using default.'
+			)
+			self.logAtStartupChoiceControl.SetSelection(DEFAULT_LOG_AT_STARTUP)  # Use default
+
 	def onSave(self):
 		"""Save the settings to the Normal Configuration."""
 		# Make sure we're operating in the "normal" profile
@@ -247,6 +275,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			setConf("customSeparator", self.customSeparatorControl.Value)
 			setConf("tsMode", self.tsModeChoiceControl.Selection)
 			setConf("logSayAll", self.logSayAllCB.Value)
+			setConf("logAtStartup", self.logAtStartupChoiceControl.Selection)
 
 	def postSave(self):
 		"""After saving settings, notify the extensionPoint to cause a config re-read by the add-on."""
