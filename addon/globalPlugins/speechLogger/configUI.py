@@ -249,7 +249,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			setConf("logSayAll", self.logSayAllCB.Value)
 
 	def postSave(self):
-		"""After saving settings, set a flag to cause a config re-read by the add-on."""
+		"""After saving settings, notify the extensionPoint to cause a config re-read by the add-on."""
 		# Make sure we're operating in the "normal" profile
 		if config.conf.profiles[-1].name is None and len(config.conf.profiles) == 1:
 			extensionPoint._configChanged.notify()
