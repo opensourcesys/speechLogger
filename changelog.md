@@ -1,3 +1,8 @@
+### 23.3.01
+
+* New feature: can be configured to automatically start logging at NVDA startup. (#9)
+* Now stop all logging during add-on termination (fixes unreported bug with plugin reloads).
+
 ### 23..2.08
 
 * Fixed the position of a checkbox in configuration display (contributed in #8 by @CyrilleB79).

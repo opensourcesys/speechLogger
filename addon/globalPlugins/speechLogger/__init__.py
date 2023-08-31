@@ -171,6 +171,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		SpeechWithoutPauses.speakWithoutPauses = speechLogger_speakWithoutPauses
 
 	def terminate(self) -> None:
+		# Stop all logging that may be in progress
+		self.stopRemoteLog()
+		self.stopLocalLog()
 		# Remove the NVDA settings panel
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
