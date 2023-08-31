@@ -171,7 +171,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		SpeechWithoutPauses.speakWithoutPauses = speechLogger_speakWithoutPauses
 
 	def terminate(self) -> None:
-		log.debug("\t\tTerminating...")
 		# Remove the NVDA settings panel
 		if not globalVars.appArgs.secure:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
@@ -197,6 +196,28 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				log.info("Began logging local speech at NVDA startup.")
 			else:
 				log.info("User initiated logging of local speech.")
+			return True
+		else:
+			return False
+
+	def stopLocalLog(self) -> bool:
+		if self.flags.localActive:  # Currently logging, stop
+			# Write a message to the log stating that we are no longer logging
+			self.logToFile(self.files.local, None, self.dynamicLogStoppedText)
+			self.flags.localActive = False
+			self.flags.startedLocalLog = False
+			log.info("Stopped logging local speech.")
+			return True
+		else:
+			return False
+
+	def stopRemoteLog(self) -> bool:
+		if self.flags.remoteActive:  # We were logging, stop
+			# Write a message to the log stating that we have stopped logging
+			self.logToFile(self.files.remote, None, self.dynamicLogStoppedText)
+			self.flags.remoteActive = False
+			self.flags.startedRemoteLog = False
+			log.info("Stopped logging remote speech.")
 			return True
 		else:
 			return False
@@ -396,11 +417,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleLocalSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging local speech."""
-		if self.flags.localActive:  # Currently logging, stop
-			# Write a message to the log stating that we are no longer logging
-			self.logToFile(self.files.local, None, self.dynamicLogStoppedText)
-			self.flags.localActive = False
-			self.flags.startedLocalLog = False
+		if self.stopLocalLog():  # Stop the local log; returns True if logging was stopped
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging local speech."))
 		else:  # Currently not logging, start
@@ -419,11 +436,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
-		if self.flags.remoteActive:  # We were logging, stop
-			# Write a message to the log stating that we have stopped logging
-			self.logToFile(self.files.remote, None, self.dynamicLogStoppedText)
-			self.flags.remoteActive = False
-			self.flags.startedRemoteLog = False
+		if self.stopRemoteLog():  # Stops remote logging if we were; returns True if stopped
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging remote speech."))
 		else:  # We weren't logging, start
