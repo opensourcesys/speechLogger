@@ -211,6 +211,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			return False
 
+	def stopRemoteLog(self) -> bool:
+		if self.flags.remoteActive:  # We were logging, stop
+			# Write a message to the log stating that we have stopped logging
+			self.logToFile(self.files.remote, None, self.dynamicLogStoppedText)
+			self.flags.remoteActive = False
+			self.flags.startedRemoteLog = False
+			log.info("Stopped logging remote speech.")
+			return True
+		else:
+			return False
+
 	def applyUserConfig(self, triggeredByExtensionPoint: bool = True) -> None:
 		"""Configures internal variables according to those set in NVDA config.
 
@@ -425,11 +436,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_toggleRemoteSpeechLogging(self, gesture):
 		"""Toggles whether we are actively logging remote speech."""
-		if self.flags.remoteActive:  # We were logging, stop
-			# Write a message to the log stating that we have stopped logging
-			self.logToFile(self.files.remote, None, self.dynamicLogStoppedText)
-			self.flags.remoteActive = False
-			self.flags.startedRemoteLog = False
+		if self.stopRemoteLog():  # Stops remote logging if we were; returns True if stopped
 			# Translators: message to tell the user that we are no longer logging.
 			ui.message(_("Stopped logging remote speech."))
 		else:  # We weren't logging, start
