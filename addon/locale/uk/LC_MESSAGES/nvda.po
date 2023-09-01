@@ -5,16 +5,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: speechLogger 23.0.4\n"
-"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2023-03-31 19:30+0000\n"
-"PO-Revision-Date: 2023-07-18 23:19+0300\n"
+"Project-Id-Version: 'speechLogger' '23.3.01'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2023-09-01 15:54+0300\n"
+"PO-Revision-Date: 2023-09-01 16:00+0300\n"
 "Last-Translator: Heorhii <nvda.translation.uk@gmail.com>\n"
-"Language-Team: \n"
+"Language-Team: Heorhii-uk\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.3.2\n"
 
 #. Translators: Text inserted in the log indicating logging has started.
@@ -41,6 +43,7 @@ msgstr " в "
 msgid "Toggles logging of local speech"
 msgstr "Перемикає журнал локального мовлення"
 
+#. Stop the local log; returns True if logging was stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging local speech."
 msgstr "Журналювання локального мовлення зупинено."
@@ -61,6 +64,7 @@ msgstr ""
 msgid "Toggles logging of remote speech"
 msgstr "Перемикає журнал віддаленого мовлення"
 
+#. Stops remote logging if we were; returns True if stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging remote speech."
 msgstr "Журналювання віддаленого мовлення зупинено."
@@ -150,6 +154,14 @@ msgstr "Вимкнено, без часових міток"
 msgid "When a log begins or ends"
 msgstr "Коли журнал починається або завершується"
 
+#. Translators: An option in the log at startup combobox
+msgid "Never"
+msgstr "Ніколи"
+
+#. Translators: An option in the log at startup combobox
+msgid "Always"
+msgstr "Завжди"
+
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
 msgstr "&Каталог журналу: "
@@ -197,6 +209,10 @@ msgstr "Режим часової мітки"
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
 msgstr "&Журналювати мовлення в режимі «Читати все» (читати до кінця)"
+
+#. Translators: this is the label for a combobox which determines whether to begin logging at startup.
+msgid "Begin logging at startup"
+msgstr "Починати ведення журналу під час запуску"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

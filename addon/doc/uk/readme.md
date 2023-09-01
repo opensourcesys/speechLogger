@@ -12,14 +12,15 @@
 
 ### Конфігурація
 
-Щоб налаштувати цей додаток, відкрийте меню NVDA, перейдіть до «Параметри»,
-потім «Налаштування», а потім «Записувач мовлення».
-
-Примітка: додаток можна налаштувати лише в профілі нормальної конфігурації
-NVDA. Він не підтримує профілів. Якщо ви можете придумати якийсь варіант
-використання, який вимагає, щоб він працював по-різному в різних профілях,
-будь ласка, зв’яжіться з автором або повідомте про проблему в [репозиторії
-GitHub][2].
+To configure this add-on, open the NVDA menu, go to Preferences, then
+Settings, then Speech Logger (NVDA+N, P, S, then press S until you get
+there, on a default U.S. English keyboard).  There is also an unassigned
+gesture in the Input Gestures "Configuration" category, which you can assign
+and use to quickly open the add-on's settings directly.  Note: the add-on
+can only be configured while in the Normal Configuration profile of NVDA.
+The add-on is not profile-aware.  If you can think of some use case that
+requires it to operate differently in different profiles, please contact the
+author or file an issue on the [GitHub repo][2].
 
 ### Доступні такі налаштування:
 
@@ -42,10 +43,13 @@ GitHub][2].
 * Режим часової мітки. Цей комбінований список дозволяє вам вибрати між
   відсутністю часових міток і часовою міткою на початку і в кінці кожного
   сеансу ведення журналу.
-* Журналювати мовлення в режимі «Читати все» (читати до кінця). Починаючи з
-  версії 23.2, цей додаток журналює мовлення, згенероване після натискання
-  NVDA+стрілка вниз (NVDA+a в розкладці laptop). Якщо ви не бажаєте, щоб
-  подібні прочитані довгі розповіді журналювалися, зніміть цей прапорець.
+* Log speech during say-all (read to end) mode. This add-on logs speech
+  generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you
+  would rather not have that kind of narrative long reading logged, un-check
+  this box.
+* Begin logging at startup. You can set this option to "Always", if you want
+  speech to be logged automatically when NVDA starts. This only applies to
+  local speech, and the default is "never".
 
 #### Роздільник фраз
 

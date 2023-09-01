@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Konuşma Kaydedici 23.2.01\n"
+"Project-Id-Version: Konuşma Kaydedici 23.3.01\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2023-07-07 11:37+0000\n"
-"PO-Revision-Date: 2023-07-15 15:12+0300\n"
+"POT-Creation-Date: 2023-08-31 06:26+0000\n"
+"PO-Revision-Date: 2023-08-31 12:09+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language: tr_TR\n"
@@ -39,6 +39,7 @@ msgstr " tire "
 msgid "Toggles logging of local speech"
 msgstr "Yerel konuşmanın günlüğe kaydedilmesini açar/kapatır"
 
+#. Stop the local log; returns True if logging was stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging local speech."
 msgstr "Yerel konuşma kaydı durduruldu."
@@ -59,6 +60,7 @@ msgstr ""
 msgid "Toggles logging of remote speech"
 msgstr "Uzak konuşmanın günlüğe kaydedilmesini açar/kapatır"
 
+#. Stops remote logging if we were; returns True if stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging remote speech."
 msgstr "Uzak konuşma kaydı durduruldu."
@@ -149,6 +151,14 @@ msgstr "Kapalı, zaman damgası yok"
 msgid "When a log begins or ends"
 msgstr "Bir kayıt başladığında veya bittiğinde"
 
+#. Translators: An option in the log at startup combobox
+msgid "Never"
+msgstr "Asla"
+
+#. Translators: An option in the log at startup combobox
+msgid "Always"
+msgstr "Her zaman"
+
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
 msgstr "Günlük &Dizini: "
@@ -194,6 +204,10 @@ msgstr "Zaman Damgası Modu"
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
 msgstr "Tümünü Oku sır&asında konuşmayı günlüğe kaydet (sonuna kadar oku)"
+
+#. Translators: this is the label for a combobox which determines whether to begin logging at startup.
+msgid "Begin logging at startup"
+msgstr "Başlangıçta günlüğe kaydetmeye başla"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

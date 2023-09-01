@@ -13,14 +13,15 @@ konuşmayı aynı veya farklı bir dosyaya kaydedebilir.
 ### Yapılandırma
 
 Bu eklentiyi yapılandırmak için NVDA menüsünü açın, Tercihler'e, ardından
-Ayarlar'a, ardından Konuşma Kaydedici'ye (NVDA+N, T, L, ardından varsayılan
-ABD İngilizcesi klavyede oraya gelene kadar K tuşuna basın) gidin.
-
-Not: eklenti yalnızca NVDA'nın Normal Yapılandırma profilindeyken
-yapılandırılabilir. Eklenti, profile duyarlı değildir. Farklı profillerde
-farklı şekilde çalışmasını gerektiren bir kullanım durumu düşünebilirseniz,
-lütfen yazarla iletişime geçin veya [GitHub deposunda][2] bir sorun
-bildirin.
+Ayarlar'a ve ardından Konuşma Kaydedici'ye gidin (NVDA+N, T, L, ardından
+varsayılan ABD İngilizcesi klavyede oraya ulaşana kadar K tuşuna
+basın). Ayrıca Girdi Hareketleri "Yapılandırma" kategorisinde eklentinin
+ayarlarını doğrudan hızlı bir şekilde açmak için atayabileceğiniz ve
+kullanabileceğiniz atanmamış bir hareket vardır. Not: Eklenti yalnızca
+NVDA'nın Normal Yapılandırma profilindeyken yapılandırılabilir. Eklenti
+profil uyumlu değildir. Farklı profillerde farklı şekilde çalışmasını
+gerektiren bir kullanım durumu aklınıza geliyorsa, lütfen yazarla iletişime
+geçin veya [GitHub deposunda][2] bir sorun bildirin.
 
 ### Aşağıdaki ayarlar mevcuttur:
 
@@ -42,11 +43,15 @@ bildirin.
 * Zaman damgası modu. Bu açılan kutu, zaman damgası olmaması ile her günlük
   oturumunun başında ve sonunda bir zaman damgası arasında seçim yapmanızı
   sağlar.
-* Tümünü söyle (sonuna kadar oku) modunda konuşmayı günlüğe kaydedin. 23.2
-  sürümünden itibaren bu eklenti, NVDA+Aşağı Ok (dizüstü bilgisayar
-  düzeninde NVDA+a) tuşlarına bastığınızda oluşturulan konuşmayı günlüğe
-  kaydeder. Bu tür uzun anlatıların günlüğe kaydedilmesini istemiyorsanız,
-  bu kutunun işaretini kaldırın.
+* Tümünü söyle (sonuna kadar oku) modunda konuşmayı günlüğe kaydedin. Bu
+  eklenti, NVDA+Aşağı Ok (dizüstü bilgisayar düzeninde NVDA+a) tuşlarına
+  bastığınızda oluşturulan konuşmayı günlüğe kaydeder. Bu tür uzun
+  anlatıların günlüğe kaydedilmesini istemiyorsanız, bu kutunun işaretini
+  kaldırın.
+* Başlangıçta günlüğe kaydetmeye başla. NVDA başladığında konuşmanın
+  otomatik olarak günlüğe kaydedilmesini istiyorsanız, bu seçeneği "Her
+  Zaman" olarak ayarlayabilirsiniz. Bu yalnızca yerel konuşma için
+  geçerlidir ve varsayılan değer "asla" dır.
 
 #### İfade ayırıcı
 

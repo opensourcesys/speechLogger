@@ -11,16 +11,16 @@ eri tiedostoon etäkoneessa tuotetun puheen, joka on vastaanotettu
 
 ### Asetusten määrittäminen
 
-Määritä tämän lisäosan asetukset avaamalla NVDA-valikko, menemällä
+Määritä tämän lisäosan asetukset avaamalla NVDA-valikko, siirtymällä
 Asetukset-alivalikkoon, valitsemalla Asetukset ja sitten Puhelokin tallennin
-(paina NVDA+N, A, A ja sitten P, kunnes tulet tämän lisäosan kategorian
-kohdalle).
-
-Huom: Tämä lisäosa voidaan määrittää vain NVDA:n normaalissa
-asetusprofiilissa. Lisäosa ei tue useita profiileita. Mikäli sinulla on
-mielessäsi jokin käyttötapaus, joka edellyttää lisäosan toimimista eri
-tavalla eri profiileissa, ota yhteyttä tekijään tai ilmoita ongelmasta
-[GitHubin koodivarastossa][2].
+(NVDA+N, A, A ja paina sitten P niin monta kertaa, että olet kohdassa
+Puhelokin tallennin. Näppäinkomennot-valintaikkunan "Asetukset"-kategoriassa
+on myös määrittämätön näppäinkomento, jonka määritettyäsi voit käyttää sitä
+lisäosan asetusten avaamiseen. Huom: Tämä lisäosa voidaan määrittää vain
+NVDA:n normaalissa asetusprofiilissa. Lisäosa ei tue useita
+profiileja. Mikäli sinulla on mielessäsi jokin käyttötapaus, joka edellyttää
+lisäosan toimimista eri tavalla eri profiileissa, ota yhteyttä tekijään tai
+ilmoita ongelmasta [GitHubin koodivarastossa][2].
 
 ### Seuraavat asetukset ovat käytettävissä:
 
@@ -45,11 +45,13 @@ tavalla eri profiileissa, ota yhteyttä tekijään tai ilmoita ongelmasta
 * Aikaleimatila. Tästä yhdistelmäruudusta voit valita kahden vaihtoehdon
   väliltä, jotka ovat "Ei käytössä" ja "Kun lokin tallennus alkaa tai
   päättyy".
-* Tallenna puhelokia jatkuvaa lukua käytettäessä. Versiosta 23.2 lähtien
-  tämä lisäosa tallentaa lokiin puhetta, joka tuotetaan painettaessa
-  NVDA+Nuoli alas (kannettavien näppäinasettelussa NVDA+A). Jos et halua
-  tallentaa kaikkea jatkuvan luvun aikana puhuttua tekstiä, poista tämän
-  valintaruudun valinta.
+* Tallenna puhelokia jatkuvaa lukua käytettäessä. Tämä lisäosa tallentaa
+  lokiin puhetta, joka tuotetaan painettaessa NVDA+Nuoli alas (kannettavien
+  näppäinasettelussa NVDA+A). Jos et halua tallentaa kaikkea jatkuvan luvun
+  aikana puhuttua tekstiä, poista tämän valintaruudun valinta.
+* Aloita lokin tallennus käynnistettäessä. Määritä asetukseksi "Aina",
+  mikäli haluat, että puhelokin tallennus alkaa NVDA:n käynnistyessä. Tämä
+  koskee vain paikallisen järjestelmän puhetta, ja oletus on "Ei koskaan".
 
 #### Puhekatkelmien erotin
 

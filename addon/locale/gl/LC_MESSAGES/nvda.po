@@ -42,6 +42,7 @@ msgstr " ás "
 msgid "Toggles logging of local speech"
 msgstr "Conmuta o rexistro da voz local"
 
+#. Stop the local log; returns True if logging was stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging local speech."
 msgstr "Rexistro da voz local detido."
@@ -62,6 +63,7 @@ msgstr ""
 msgid "Toggles logging of remote speech"
 msgstr "Conmuta o rexistro da voz remota"
 
+#. Stops remote logging if we were; returns True if stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging remote speech."
 msgstr "Rexistro de voz remota detido."
@@ -151,6 +153,14 @@ msgstr "Desactivado, sen marcas de tempo"
 msgid "When a log begins or ends"
 msgstr "Cando o rexistro comece ou remate"
 
+#. Translators: An option in the log at startup combobox
+msgid "Never"
+msgstr ""
+
+#. Translators: An option in the log at startup combobox
+msgid "Always"
+msgstr ""
+
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
 msgstr "Cartafol do &rexistro: "
@@ -197,6 +207,10 @@ msgstr "Modo de marcas de tempo"
 #. Use default
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
+msgstr ""
+
+#. Translators: this is the label for a combobox which determines whether to begin logging at startup.
+msgid "Begin logging at startup"
 msgstr ""
 
 #. Add-on description

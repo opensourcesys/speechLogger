@@ -14,15 +14,16 @@ différent.
 ### Configuration
 
 Pour configurer cette extension, ouvrez le menu NVDA, accédez aux
-Préférences, puis Paramètres, puis dans Speech Logger  (NVDA + N, P, S, puis
-appuyez sur S jusqu'à arrivée là, sur un clavier Anglais États-Unis par
-défaut).
-
-Remarque : L'extension ne peut être configurée que dans le profil de
-configuration normal de NVDA. L'extension n'est pas conscient du profil. Si
-vous pouvez penser à un cas d'utilisation qui le nécessite de fonctionner
-différemment dans différents profils, veuillez contacter l'auteur ou déposer
-une incidence (issue) sur le [dépôt GitHub][2].
+Préférences, puis Paramètres, puis Speech Logger (NVDA+N, P, P, puis appuyez
+sur S jusqu'à que vous êtes arrivé là, sur un clavier français par défaut).
+Il existe également un geste non attribué dans la catégorie "Configuration"
+du dialogue Gestes de commandes que vous pouvez affecter et utiliser pour
+ouvrir rapidement le dialogue des paramètres de l'extension.  Remarque :
+L'extension ne peut être configurée que dans le profil de configuration
+normal de NVDA. L'extension n'est pas conscient du profil. Si vous pouvez
+penser à un cas d'utilisation qui le nécessite de fonctionner différemment
+dans différents profils, veuillez contacter l'auteur ou déposer une
+incidence (issue) sur le [dépôt GitHub][2].
 
 ### Les paramètres suivants sont disponibles :
 
@@ -49,11 +50,14 @@ une incidence (issue) sur le [dépôt GitHub][2].
   aucun horodatage et un horodatage au début et à la fin de chaque session
   de journalisation.
 * Journalisation de la parole pendant le mode Dire tout (lire jusqu'à la
-  fin).  À partir de la version 23.2, cette extension journalise la parole
-  généré lorsque vous appuyez sur NVDA+Flèche bas (NVDA+A dans la
-  disposition du clavier pour ordinateur portable). Si vous préférez ne pas
-  avoir ce genre de longue lecture narrative journalisée, décocher cette
-  case.
+  fin). Cette extension journalise la parole  généré lorsque vous appuyez
+  sur NVDA+Flèche bas (NVDA+A dans la disposition du clavier pour ordinateur
+  portable). Si vous préférez ne pas avoir ce genre de longue lecture
+  narrative journalisée, décocher cette case.
+* Commencer la journalisation au démarrage. Vous pouvez définir cette option
+  sur "Toujours", si vous voulez que la parole soit enregistrée
+  automatiquement lorsque NVDA démarre. Cela ne s'applique qu'à la parole
+  locale, et la valeur par défaut est "Jamais".
 
 #### Séparateur de messages
 

@@ -41,6 +41,7 @@ msgstr " в "
 msgid "Toggles logging of local speech"
 msgstr "Превключва протоколирането на локална реч"
 
+#. Stop the local log; returns True if logging was stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging local speech."
 msgstr "Протоколирането на локалната реч е спряно."
@@ -61,6 +62,7 @@ msgstr ""
 msgid "Toggles logging of remote speech"
 msgstr "Превключва протоколирането на отдалечена реч"
 
+#. Stops remote logging if we were; returns True if stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging remote speech."
 msgstr "Протоколирането на отдалечената реч е спряно."
@@ -152,6 +154,14 @@ msgstr "Изключено, без премеви клейма"
 msgid "When a log begins or ends"
 msgstr "При начало или край на протоколирането"
 
+#. Translators: An option in the log at startup combobox
+msgid "Never"
+msgstr ""
+
+#. Translators: An option in the log at startup combobox
+msgid "Always"
+msgstr ""
+
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
 msgstr "&Директория за протоколните файлове: "
@@ -198,6 +208,10 @@ msgstr "Режим на времево клеймо"
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
 msgstr "Протоколирай речта по време на изчитане на &всичко (четене до края)"
+
+#. Translators: this is the label for a combobox which determines whether to begin logging at startup.
+msgid "Begin logging at startup"
+msgstr ""
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

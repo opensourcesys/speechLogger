@@ -43,6 +43,7 @@ msgid "Toggles logging of local speech"
 msgstr ""
 "Ottaa käyttöön paikallisen puheen lokin tallennuksen tai poistaa sen käytöstä"
 
+#. Stop the local log; returns True if logging was stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging local speech."
 msgstr "Paikallisen puheen lokin tallennus lopetettu."
@@ -63,6 +64,7 @@ msgstr ""
 msgid "Toggles logging of remote speech"
 msgstr "Ottaa etäpuheen lokin tallennuksen käyttöön tai poistaa sen käytöstä"
 
+#. Stops remote logging if we were; returns True if stopped
 #. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging remote speech."
 msgstr "Etäpuheen lokin tallennus lopetettu."
@@ -155,6 +157,14 @@ msgstr "Ei käytössä (ei aikaleimoja)"
 msgid "When a log begins or ends"
 msgstr "Kun lokintallennus alkaa tai loppuu"
 
+#. Translators: An option in the log at startup combobox
+msgid "Never"
+msgstr ""
+
+#. Translators: An option in the log at startup combobox
+msgid "Always"
+msgstr ""
+
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
 msgstr "Loki&hakemisto: "
@@ -200,6 +210,10 @@ msgstr "Aikaleimatila"
 #. Translators: This is the label for a checkbox to turn Say All logging on or off.
 msgid "Log speech during Say-&All (read to end)"
 msgstr "Tallenna puhelokia &jatkuvaa lukua käytettäessä"
+
+#. Translators: this is the label for a combobox which determines whether to begin logging at startup.
+msgid "Begin logging at startup"
+msgstr ""
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

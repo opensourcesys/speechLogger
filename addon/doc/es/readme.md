@@ -13,14 +13,14 @@ mismo archivo o a uno distinto.
 ### Configuración
 
 Para configurar este complemento, abre el menú NVDA, ve a Preferencias,
-Opciones, Speech Logger (NVDA+n, p, o, s hasta llegar allí en un teclado en
-inglés o español).
-
-Nota: el complemento sólo se puede configurar con el perfil normal de
-NVDA. Este complemento no es sensible a perfiles. Si crees que hay un caso
-de uso en el que pueda operar de manera diferente en perfiles distintos,
-contacta con el autor o abre una incidencia en el [repositorio de
-GitHub][2].
+luego a Opciones, y finalmente Speech Logger (NVDA+n, p, o, y s hasta llegar
+allí en un teclado español). Hay también un gesto sin asignar en la
+categoría "Configuración" del diálogo Gestos de entrada que puedes asignar y
+usar para abrir rápidamente el diálogo de opciones del complemento. Nota: el
+complemento sólo se puede configurar con el perfil normal de NVDA. Este
+complemento no es sensible a perfiles. Si crees que hay un caso de uso en el
+que pueda operar de manera diferente en perfiles distintos, contacta con el
+autor o abre una incidencia en el [repositorio de GitHub][2].
 
 ### Se encuentran disponibles las siguientes opciones:
 
@@ -43,10 +43,14 @@ GitHub][2].
 * Modo de sello de tiempo. Este cuadro combinado permite elegir entre no
   usar marcas de tiempo, y una marca de tiempo al inicio y al final de cada
   sesión de registro.
-* Modo registrar voz al verbalizar todo (leer hasta el final). Desde la
-  versión 23.2, este complemento registra la voz generada al pulsar
-  NVDA+flecha abajo (NVDA+a en la distribución portátil). Si no quieres
-  registrar textos tan largos, desmarca esta casilla.
+* Modo registrar voz al verbalizar todo (leer hasta el final). El
+  complemento registra la voz generada al pulsar NVDA+flecha abajo (NVDA+a
+  en la distribución portátil). Si no quieres registrar textos tan largos,
+  desmarca esta casilla.
+* Iniciar registro al arrancar. Se puede configurar esta opción en "siempre"
+  si quieres que se registre la voz automáticamente cuando NVDA se
+  inicia. Esto sólo se aplica a la voz local, y el valor por defecto es
+  "nunca".
 
 #### SEPARADOR DE SECUENCIAS
 

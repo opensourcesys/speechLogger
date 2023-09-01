@@ -12,14 +12,15 @@ file.
 
 ### Configuración
 
-Para configurar este complemento, abre o menú de NVDA, vai a Preferencias,
-logo Opcións, logo Speech Logger (NVDA+N, P, O, logo preme S ata chegar alí,
-nun teclado español por defecto).
-
-Note: the add-on can only be configured while in the Normal Configuration
-profile of NVDA.  The add-on is not profile-aware.  If you can think of some
-use case that requires it to operate differently in different profiles,
-please contact the author or file an issue on the [GitHub repo][2].
+To configure this add-on, open the NVDA menu, go to Preferences, then
+Settings, then Speech Logger (NVDA+N, P, S, then press S until you get
+there, on a default U.S. English keyboard).  There is also an unassigned
+gesture in the Input Gestures "Configuration" category, which you can assign
+and use to quickly open the add-on's settings directly.  Note: the add-on
+can only be configured while in the Normal Configuration profile of NVDA.
+The add-on is not profile-aware.  If you can think of some use case that
+requires it to operate differently in different profiles, please contact the
+author or file an issue on the [GitHub repo][2].
 
 ### Están dispoñibles as seguintes opcións:
 
@@ -45,10 +46,13 @@ please contact the author or file an issue on the [GitHub repo][2].
   na caixa combinada.
 * Timestamp mode. This combobox allows you to choose between no timestamps,
   and a timestamp at the start and end of each log session.
-* Log speech during say-all (read to end) mode. As of version 23.2, this
-  add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in
-  laptop layout). If you would rather not have this kind of narrative long
-  reading logged, un-check this box.
+* Log speech during say-all (read to end) mode. This add-on logs speech
+  generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you
+  would rather not have that kind of narrative long reading logged, un-check
+  this box.
+* Begin logging at startup. You can set this option to "Always", if you want
+  speech to be logged automatically when NVDA starts. This only applies to
+  local speech, and the default is "never".
 
 #### separador de declaración
 

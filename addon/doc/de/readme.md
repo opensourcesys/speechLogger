@@ -13,15 +13,17 @@ wurde, entweder in dieselbe oder eine andere Datei.
 
 ### Konfiguration
 
-Um diese Erweiterung zu konfigurieren, öffnen Sie das NVDA-Menü, gehen Sie
-in die Einstellungen, dort wählen Sie Sprachausgaben-Protokollierung aus
-(NVDA+N, O, E, dann drücken Sie S, bis Sie dorthin kommen).
-
-Hinweis: Die NVDA-Erweiterung kann nur im Profil "Normale Konfiguration" in
+Um diese NVDA-Erweiterung zu konfigurieren, öffnen Sie das NVDA-Menü, gehen
+Sie  dann zu Optionen, dann zu Einstellungen und wählen Sie die Kategorie
+"SpeechLogger" aus.
+Es gibt auch einen nicht zugewiesenen Tastenbefehl in der Kategorie
+"Konfiguration", die Sie zuweisen und verwenden können, um die Einstellungen
+der NVDA-Erweiterung direkt zu öffnen.
+Hinweis: Die NVDA-Erweiterung kann nur im Profil "Normale Konfiguration" von
 NVDA konfiguriert werden. Die NVDA-Erweiterung ist nicht
 profilabhängig. Wenn Ihnen ein Anwendungsfall einfällt, bei dem es in
-verschiedenen Profilen anders funktionieren sollte, wenden Sie sich bitte an
-den Autor oder melden Sie einen Fehler im [GitHub-Repository][2].
+verschiedenen Profilen anders funktionieren muss, wenden Sie sich bitte an
+den Autor oder melden Sie einen Fehler im Repository auf [GitHub][2].
 
 ### Die folgenden Einstellungen sind verfügbar:
 
@@ -51,10 +53,15 @@ den Autor oder melden Sie einen Fehler im [GitHub-Repository][2].
   keinem Zeitstempel und einem Zeitstempel zu Beginn und am Ende jeder
   Protokollsitzung.
 * Aufzeichnung der Sprachausgabe während Alles Vorlesen (liest bis zum
-  Ende). Ab Version 23.2 protokolliert diese NVDA-Erweiterung die
+  Ende). Ab Version 2023.2 protokolliert diese NVDA-Erweiterung die
   Sprachausgabe, wenn Sie NVDA+Pfeiltaste nach unten im Desktop-Layout oder
   NVDA+A im Laptop-Layout drücken. Wenn Sie dies nicht wünschen,
   deaktivieren Sie ganz einfach dieses Kontrollkästchen.
+* Protokollierung beim Starten beginnen. Sie können diese Option auf "Immer"
+  einstellen, wenn Sie möchten, dass die Sprachausgabe automatisch beim
+  Start von NVDA protokolliert wird. Dies gilt nur lokal für die
+  Sprachausgabe auf dem eigenen Computer, und die Standard-Einstellung ist
+  "Niemals".
 
 #### Trennzeichen für die Äußerungen
 
