@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: speechLogger\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-10 19:30+0000\n"
-"PO-Revision-Date: 2023-07-14 23:39+0200\n"
+"PO-Revision-Date: 2023-09-01 23:31+0200\n"
 "Last-Translator: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language-Team: fi_FI <janikinnunen340@gmail.com>\n"
 "Language: fi\n"
@@ -159,11 +159,11 @@ msgstr "Kun lokintallennus alkaa tai loppuu"
 
 #. Translators: An option in the log at startup combobox
 msgid "Never"
-msgstr ""
+msgstr "Ei koskaan"
 
 #. Translators: An option in the log at startup combobox
 msgid "Always"
-msgstr ""
+msgstr "Aina"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
@@ -213,7 +213,7 @@ msgstr "Tallenna puhelokia &jatkuvaa lukua käytettäessä"
 
 #. Translators: this is the label for a combobox which determines whether to begin logging at startup.
 msgid "Begin logging at startup"
-msgstr ""
+msgstr "Aloita lokin tallennus käynnistettäessä"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

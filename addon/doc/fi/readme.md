@@ -51,7 +51,8 @@ ilmoita ongelmasta [GitHubin koodivarastossa][2].
   aikana puhuttua tekstiä, poista tämän valintaruudun valinta.
 * Aloita lokin tallennus käynnistettäessä. Määritä asetukseksi "Aina",
   mikäli haluat, että puhelokin tallennus alkaa NVDA:n käynnistyessä. Tämä
-  koskee vain paikallisen järjestelmän puhetta, ja oletus on "Ei koskaan".
+  koskee vain paikallisen järjestelmän puhetta, ja oletusasetuksena on "Ei
+  koskaan".
 
 #### Puhekatkelmien erotin
 

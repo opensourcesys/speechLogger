@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 19:30+0000\n"
-"PO-Revision-Date: 2023-07-17 22:08+0200\n"
+"PO-Revision-Date: 2023-09-01 23:49+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -159,11 +159,11 @@ msgstr "Lorsque une journalisation débute ou finalise"
 
 #. Translators: An option in the log at startup combobox
 msgid "Never"
-msgstr ""
+msgstr "Jamais"
 
 #. Translators: An option in the log at startup combobox
 msgid "Always"
-msgstr ""
+msgstr "Toujours"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
@@ -215,7 +215,7 @@ msgstr "Journalisation de la parole pendant Dire &tout (lire jusqu'à la fin)"
 
 #. Translators: this is the label for a combobox which determines whether to begin logging at startup.
 msgid "Begin logging at startup"
-msgstr ""
+msgstr "Commencer la journalisation au démarrage"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

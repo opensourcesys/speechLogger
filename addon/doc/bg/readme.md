@@ -12,15 +12,17 @@
 
 ### Настройки
 
-To configure this add-on, open the NVDA menu, go to Preferences, then
-Settings, then Speech Logger (NVDA+N, P, S, then press S until you get
-there, on a default U.S. English keyboard).  There is also an unassigned
-gesture in the Input Gestures "Configuration" category, which you can assign
-and use to quickly open the add-on's settings directly.  Note: the add-on
-can only be configured while in the Normal Configuration profile of NVDA.
-The add-on is not profile-aware.  If you can think of some use case that
-requires it to operate differently in different profiles, please contact the
-author or file an issue on the [GitHub repo][2].
+За да конфигурирате тази добавка, отворете менюто на NVDA, отидете на
+"Настройки", след това "Опции", след това "Протоколиране на речта" (NVDA+N,
+Н, О, след това натискайте П, докато стигнете до там, на стандартна
+българска клавиатурна подредба). Има и неприсвоен жест в категорията
+"Настройки" в прозореца "Жестове на въвеждане", който можете да присвоите и
+използвате за бързо отваряне директно на настройките на
+добавката. Забележка: Добавката може да бъде конфигурирана само докато е
+активен профила "Обичайни настройки" на NVDA. Добавката не поддържа
+конфигурационните профили на NVDA. Ако се сещате за някакъв случай на
+употреба, който изисква тя да работи различно в различни профили, моля,
+свържете се с автора или пуснете доклад в [хранилището в GitHub][2].
 
 ### Налични са следните настройки:
 
@@ -46,13 +48,15 @@ author or file an issue on the [GitHub repo][2].
 * Режим на времево клеймо: Този падащ списък ви позволява да избирате между
   липса на времево клеймо и времево клеймо в началото и края на всяка сесия
   на протокола.
-* Log speech during say-all (read to end) mode. This add-on logs speech
-  generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you
-  would rather not have that kind of narrative long reading logged, un-check
-  this box.
-* Begin logging at startup. You can set this option to "Always", if you want
-  speech to be logged automatically when NVDA starts. This only applies to
-  local speech, and the default is "never".
+* Протоколирай речта по време на режим на изчитане на всичко (четене до
+  края): Тази добавка протоколира реч, генерирана, когато натиснете
+  NVDA+Стрелка надолу (NVDA+A при лаптоп подредба). Ако предпочитате да не
+  се протоколира този вид дълги речеви фрази, премахнете отметката от това
+  квадратче.
+* Започни протоколиране при стартиране: Можете да зададете тази опция на
+  "Винаги", ако искате речта да бъде протоколирана автоматично при
+  стартиране на NVDA. Това се отнася само за локалната реч и по подразбиране
+  е зададено на "Никога".
 
 #### Разделител за фразите
 

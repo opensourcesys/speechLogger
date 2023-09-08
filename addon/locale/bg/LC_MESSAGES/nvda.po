@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-10 19:30+0000\n"
-"PO-Revision-Date: 2023-07-15 09:57+0300\n"
+"PO-Revision-Date: 2023-09-03 18:45+0300\n"
 "Last-Translator: Kostadin Kolev <k_kolev1985@mail.bg>\n"
 "Language-Team: \n"
 "Language: bg\n"
@@ -156,11 +156,11 @@ msgstr "При начало или край на протоколирането"
 
 #. Translators: An option in the log at startup combobox
 msgid "Never"
-msgstr ""
+msgstr "Никога"
 
 #. Translators: An option in the log at startup combobox
 msgid "Always"
-msgstr ""
+msgstr "Винаги"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
@@ -211,7 +211,7 @@ msgstr "Протоколирай речта по време на изчитан�
 
 #. Translators: this is the label for a combobox which determines whether to begin logging at startup.
 msgid "Begin logging at startup"
-msgstr ""
+msgstr "Започни протоколиране при стартиране"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
