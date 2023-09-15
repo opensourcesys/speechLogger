@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 19:30+0000\n"
-"PO-Revision-Date: 2023-08-04 13:37+0200\n"
+"PO-Revision-Date: 2023-09-09 00:27+0200\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -167,11 +167,11 @@ msgstr "Wann eine Aufzeichnung beginnt oder endet"
 
 #. Translators: An option in the log at startup combobox
 msgid "Never"
-msgstr ""
+msgstr "Niemals"
 
 #. Translators: An option in the log at startup combobox
 msgid "Always"
-msgstr ""
+msgstr "Immer"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
@@ -227,7 +227,7 @@ msgstr "Sprachausgabe aufzeichnen während Alles &Lesen (bis zum Ende vorlesen)"
 
 #. Translators: this is the label for a combobox which determines whether to begin logging at startup.
 msgid "Begin logging at startup"
-msgstr ""
+msgstr "Beim Start von NVDA protokollieren"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
