@@ -12,15 +12,16 @@
 
 ### Конфігурація
 
-To configure this add-on, open the NVDA menu, go to Preferences, then
-Settings, then Speech Logger (NVDA+N, P, S, then press S until you get
-there, on a default U.S. English keyboard).  There is also an unassigned
-gesture in the Input Gestures "Configuration" category, which you can assign
-and use to quickly open the add-on's settings directly.  Note: the add-on
-can only be configured while in the Normal Configuration profile of NVDA.
-The add-on is not profile-aware.  If you can think of some use case that
-requires it to operate differently in different profiles, please contact the
-author or file an issue on the [GitHub repo][2].
+Щоб налаштувати цей додаток, відкрийте меню NVDA, перейдіть до Параметрів,
+потім до Налаштувань, потім «Записувач мовлення» (NVDA+N, П, Н, далі
+натискайте З, допоки не дійдете до «Записувача мовлення».  У категорії
+«Конфігурація» у «Жестах вводу» також є непризначений жест, який ви можете
+призначити і використовувати для швидкого доступу до налаштувань додатка.
+Примітка: додаток можна налаштувати, лише перебуваючи у профілі нормальної
+конфігурації NVDA.  Додаток не працює з профілями.  Якщо ви можете придумати
+якийсь варіант використання, який вимагає, щоб він працював по-різному у
+різних профілях, будь ласка, зв'яжіться з автором або створіть проблему у
+[репозиторії GitHub][2].
 
 ### Доступні такі налаштування:
 
@@ -43,13 +44,14 @@ author or file an issue on the [GitHub repo][2].
 * Режим часової мітки. Цей комбінований список дозволяє вам вибрати між
   відсутністю часових міток і часовою міткою на початку і в кінці кожного
   сеансу ведення журналу.
-* Log speech during say-all (read to end) mode. This add-on logs speech
-  generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you
-  would rather not have that kind of narrative long reading logged, un-check
-  this box.
-* Begin logging at startup. You can set this option to "Always", if you want
-  speech to be logged automatically when NVDA starts. This only applies to
-  local speech, and the default is "never".
+* Журналювати мовлення в режимі «Читати все» (читати до кінця). Цей додаток
+  журналює мовлення, згенероване після натискання NVDA+стрілка вниз (NVDA+a
+  в розкладці laptop). Якщо ви не бажаєте, щоб подібні прочитані довгі
+  розповіді журналювалися, зніміть цей прапорець.
+* Починати ведення журналу під час запуску. Ви можете встановити цей
+  параметр на «Завжди», якщо хочете, щоб мовлення журналювалося автоматично,
+  коли запускається NVDA. Це застосовується лише до локального мовлення й
+  початково вибрано «Ніколи».
 
 #### Роздільник фраз
 
