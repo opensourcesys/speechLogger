@@ -25,7 +25,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description": _("""Logs speech utterances to a file, after the user presses an initiating key. Can also log NVDA remote session speech from the NVDA Remote add-on, to the same or another file. Optionally includes speech from say-all."""),
 	# version
-	"addon_version": "24.1.1",
+	"addon_version": "24.1.502",
 	# Author(s)
 	"addon_author": "Luke Davis <XLTechie@newanswertech.com>, James Scholes",
 	# URL for the add-on documentation support
@@ -41,7 +41,7 @@ addon_info = {
 	# Add-on update channel (default is None, denoting stable releases,
 	# and for development releases, use "dev".)
 	# Do not change unless you know what you are doing!
-	"addon_updateChannel": None,
+	"addon_updateChannel": "dev",
 	# Add-on license such as GPL 2
 	"addon_license": "GPL 2",
 	# URL for the license document the ad-on is licensed under
