@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.1.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-05-19 19:30+0000\n"
-"PO-Revision-Date: 2023-07-19 09:49+0300\n"
+"PO-Revision-Date: 2023-10-11 10:07+0300\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.4\n"
 
 #. Translators: Text inserted in the log indicating logging has started.
 msgid "Log started"
@@ -157,11 +157,11 @@ msgstr "Când un jurnal începe sau se termină"
 
 #. Translators: An option in the log at startup combobox
 msgid "Never"
-msgstr ""
+msgstr "Niciodată"
 
 #. Translators: An option in the log at startup combobox
 msgid "Always"
-msgstr ""
+msgstr "Întotdeauna"
 
 #. Translators: label of the log files location grouping.
 msgid "Log &Directory: "
@@ -213,7 +213,7 @@ msgstr ""
 
 #. Translators: this is the label for a combobox which determines whether to begin logging at startup.
 msgid "Begin logging at startup"
-msgstr ""
+msgstr "Începe trecerea în jurnal la pornire"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
