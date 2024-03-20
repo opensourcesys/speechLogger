@@ -1,10 +1,16 @@
-Checkout new branch named version.
-Update buildVars with new version.
+There are three main-line branches: master, beta, and dev.
+Master is stable, and where all work ends up.
+Beta is for things thought stable, but may need testing. Also for non-compatible future NVDA versions.
+Dev is for public testing, usually rebased on either master or beta, depending on NVDA target.
+
+To add a feature:
+Checkout new branch named feature.
 Update copyright date if necessary, in source files.
 Update version in source files.
-Commit a message like "Started work on version.".
-Do work.
-In final commit, remove the "-devN" from the version in buildVars, if necessary.
-Clean up history.
-Checkout master
-merge no-ff versions
+Work.
+Then check out dev.
+Update buildVars with new version.
+Merge in "feature".
+If testing works, checkout feature and clean up history.
+Then merge feature into beta or master.
+repeat for other main-line branches.
