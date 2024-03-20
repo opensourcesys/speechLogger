@@ -1,3 +1,9 @@
+### 24.1.0
+
+* Move the input gestures from the "tools" category, to a category named for the add-on.
+* Compatibility with NVDA 2024.1.
+* Added a request for reviews to the readme.
+
 ### 23.3.01
 
 * New feature: can be configured to automatically start logging at NVDA startup. (#9)

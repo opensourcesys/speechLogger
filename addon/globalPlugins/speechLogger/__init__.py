@@ -1,6 +1,6 @@
-# NVDA Speech Logger add-on, V23.3
+# NVDA Speech Logger add-on, V24.1
 #
-#    Copyright (C) 2022-2023 Luke Davis <XLTechie@newanswertech.com>
+#    Copyright (C) 2022-2024 Luke Davis <XLTechie@newanswertech.com>
 # Initially based on code ideas suggested by James Scholes.
 #
 # This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -17,7 +17,7 @@ Lightly based on suggestions sent to the nvda-addons@groups.io mailing list by J
 
 This add-on must be configured before use. Configure it in NVDA Preferences -> Settings -> Speech Logger.
 
-You can change the logging toggle gestures for this add-on, under the NVDA Input Gestures Tools category.
+You can change the logging toggle gestures for this add-on, under its own category in NVDA's Input Gestures.
 Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
 
 The log files are opened and closed for each speech utterance, because the original mandate for this add-on
@@ -58,6 +58,13 @@ except addonHandler.AddonError:
 	log.error(
 		"Attempted to initialize translations in an inappropriate context. May be running from scratchpad."
 	)
+
+# Configure the Input Gestures category
+try:
+	ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]
+except Exception:
+	ADDON_SUMMARY = "Speech Logger"  # Static assignment for emergencies (e.g. scratchpad use)
+
 
 @unique
 class Origin(Enum):
@@ -413,8 +420,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		return startedRemoteLogging
 
 	@script(
-		category=SCRCAT_TOOLS,
-		# Translators: the description of an item in the input gestures tools category
+		category=ADDON_SUMMARY,
+		# Translators: the description of an item in the input gestures category for this add-on.
 		description=_("Toggles logging of local speech"),
 		gesture="kb:NVDA+Alt+L"
 	)
@@ -432,8 +439,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				ui.message(_("Local speech logging has been disabled by an error or your NVDA configuration."))
 
 	@script(
-		category=SCRCAT_TOOLS,
-		# Translators: the description of an item in the input gestures tools category
+		category=ADDON_SUMMARY,
+		# Translators: the description of an item in the input gestures category for this add-on.
 		description=_("Toggles logging of remote speech"),
 		gesture="kb:NVDA+Shift+Alt+L"
 	)
