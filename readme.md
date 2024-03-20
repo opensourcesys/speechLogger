@@ -4,9 +4,9 @@
 * Download [stable version][1]
 * NVDA compatibility: 2019.3.1 and later
 
-An [NVDA](https://nvaccess.org/) add-on to log speech to a file or files.
+An [NVDA][3] add-on to log speech to a file or files.
 It can log speech generated on the local machine into a text file.
-It can also log speech from a remote machine received through the [NVDA Remote](https://nvdaremote.com/) add-on, either to the same or a different file.
+It can also log speech from a remote machine received through the [NVDA Remote][5] add-on, either to the same or a different file.
 
 ### Configuration
 
@@ -41,14 +41,16 @@ Speech Logger allows you to separate utterances in the same way NVDA does (with 
 If, for example, you wanted your utterance separator to be two dollar signs (`$$`), you would set the combobox to "custom", and enter "`$$`" (without the quotes), in the custom separator field.
 If you wanted it to be a newline followed by a tab, you could enter "`\n\t`".
 
-### Starting and stopping logging
+### Controls:
 
-This add-on has two gestures set by default.
-You can change them in the NVDA Input Gestures Tools category.
-Look for "Toggles logging of local speech" and "Toggles logging of remote speech".
+This add-on has two keyboard shortcuts set by default, and one that is unassigned.
 
+The default gestures, which you can change in the NVDA Input Gestures "`Speech Logger`" category, are:
 * NVDA+Alt+L: start/stop logging of local speech.
 * NVDA+Shift+Alt+L: start/stop logging of remote speech.
+These are listed as "Toggles logging of local speech" and "Toggles logging of remote speech", respectively.
+
+Additionally, it has one unassigned gesture for opening its configuration panel, which you may assign from the `Speech Logger` category in NVDA's Input Gestures.
 
 ### A note on remote speech logging
 
@@ -63,8 +65,12 @@ However, once started, logging will continue across remote sessions.
 
 If you would like to suggest a feature or report a bug, please reach out by email, or file an [issue][2].
 
-As always, I appreciate hearing that my add-ons are useful, and what people are using them for.
+If you find this add-on useful, it would really help if you could [leave a review][4].
+
+As always, I appreciate hearing that my add-ons are helpful, and finding out what people are using them for.
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
-
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
+[3]: https://nvaccess.org/
+[4]: https://github.com/nvaccess/addon-datastore/discussions/2636
+[5]: https://nvdaremote.com/
