@@ -45,7 +45,6 @@ from speech.types import SpeechSequence
 from speech.priorities import Spri
 from scriptHandler import script
 from logHandler import log
-from globalCommands import SCRCAT_TOOLS, SCRCAT_CONFIG
 from core import postNvdaStartup
 
 from .configUI import SpeechLoggerSettings, getConf
@@ -473,7 +472,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(
 		# Translators: Input help mode message for open Speech Logger settings command.
 		description=_("Opens the Speech Logger add-on's settings"),
-		category=SCRCAT_CONFIG
+		category=ADDON_SUMMARY
 	)
 	@gui.blockAction.when(gui.blockAction.Context.MODAL_DIALOG_OPEN)
 	def script_activateSpeechLoggerSettingsDialog(self, gesture):
