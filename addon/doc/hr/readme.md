@@ -1,14 +1,15 @@
 [[!meta title=„Zapisnik govora (Speech Logger)"]]
 
+### NVDA Speech Logger add-on
+
 * Autor: Luke Davis, doprinositelj James Scholes
 * Preuzmi [stabilnu verziju][1]
 * NVDA kompatibilnost: 2019.3 i novija izdanja
 
-[NVDA](https://nvaccess.org/) dodatak za zapis govora u datoteku ili
-datoteke. Može zabilježiti govor generiran na lokalnom računalu u tekstualnu
-datoteku. Također može zabilježiti govor s udaljenog uređaja primljen putem
-dodatka [NVDA Remote](https://nvdaremote.com/), bilo u istu ili jednu drugu
-datoteku.
+An [NVDA][3] add-on to log speech to a file or files.  It can log speech
+generated on the local machine into a text file.  It can also log speech
+from a remote machine received through the [NVDA Remote][5] add-on, either
+to the same or a different file.
 
 ### Konfiguracija
 
@@ -73,15 +74,24 @@ If, for example, you wanted your utterance separator to be two dollar signs
 the quotes), in the custom separator field.  If you wanted it to be a
 newline followed by a tab, you could enter "`\n\t`".
 
-### Pokretanje/prekidanje zapisivanja
+### Controls:
 
-This add-on has two gestures set by default.  You can change them in the
-NVDA Input Gestures Tools category.  Look for "Toggles logging of local
-speech" and "Toggles logging of remote speech".
+This add-on has two keyboard shortcuts set by default, and one that is
+unassigned.
+
+The default gestures, which you can change in the NVDA Input Gestures
+"`Speech Logger`" category, are:
 
 * NVDA+Alt+L: pokreni/prekini zapisivanje govora na lokalnom uređaju.
 * NVDA+Shift+Alt+L: NVDA+Alt+L: pokreni/prekini zapisivanje govora na
   eksternom uređaju.
+
+These are listed as "Toggles logging of local speech" and "Toggles logging
+of remote speech", respectively.
+
+Additionally, it has one unassigned gesture for opening its configuration
+panel, which you may assign from the `Speech Logger` category in NVDA's
+Input Gestures.
 
 ### Napomena o zapisivanju govora na eksternom uređaju
 
@@ -100,11 +110,21 @@ However, once started, logging will continue across remote sessions.
 Ako želiš predložiti funkciju ili prijaviti grešku, javi se putem e-pošte
 ili pošalji [problem][2].
 
-Kao i uvijek, volio bih čuti da su moji dodaci korisni i za što ih ljudi
-koriste.
+If you find this add-on useful, it would really help if you could [leave a
+review][4].
+
+As always, I appreciate hearing that my add-ons are helpful, and finding out
+what people are using them for.
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
 
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
+
+[3]: https://nvaccess.org/
+
+[4]: https://github.com/nvaccess/addon-datastore/discussions/2636
+
+[5]: https://nvdaremote.com/
+

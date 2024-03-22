@@ -1,15 +1,15 @@
 # Speech Logger #
 
+### NVDA Speech Logger add-on
+
 * Auteur : Luke Davis, avec des contributions de James Scholes
 * Télécharger [version stable][1]
 * Compatibilité NVDA : 2019.3.1 et ultérieure
 
-Une extension [NVDA](https://nvaccess.org/) pour journaliser la parole dans
-un fichier ou des fichiers. Il peut enregistrer la parole générée sur la
-machine locale dans un fichier texte. Il peut également enregistrer la
-parole reçue à partir d'une machine distante via l'extension [NVDA
-Remote](https://nvdaremote.com/) dans le même fichier ou un fichier
-différent.
+An [NVDA][3] add-on to log speech to a file or files.  It can log speech
+generated on the local machine into a text file.  It can also log speech
+from a remote machine received through the [NVDA Remote][5] add-on, either
+to the same or a different file.
 
 ### Configuration
 
@@ -86,16 +86,24 @@ signes de dollar (`$$`), vous définissez dans la liste déroulante sur
 séparateur personnalisé.  Si vous vouliez que ce soit une nouvelle ligne
 suivie d'une tabulation, vous pouvez entrer "`\n\t`".
 
-### Démarrage et arrêt de la journalisation
+### Controls:
 
-Cette extension a deux gestes définis par défaut. Vous pouvez les modifier
-sous la catégorie Outils dans le dialogue Gestes de commandes de NVDA.
-Chercher dans "Bascule de journalisation de la parole locale" et "Bascule de
-journalisation de la parole distante".
+This add-on has two keyboard shortcuts set by default, and one that is
+unassigned.
+
+The default gestures, which you can change in the NVDA Input Gestures
+"`Speech Logger`" category, are:
 
 * NVDA+Alt+L : démarre / arrête la journalisation de la parole locale.
 * NVDA+Shift+Alt+L : démarre / arrête la journalisation de la parole
   distante.
+
+These are listed as "Toggles logging of local speech" and "Toggles logging
+of remote speech", respectively.
+
+Additionally, it has one unassigned gesture for opening its configuration
+panel, which you may assign from the `Speech Logger` category in NVDA's
+Input Gestures.
 
 ### Une note sur la journalisation de la parole distante
 
@@ -116,11 +124,21 @@ sessions distantes.
 Si vous souhaitez suggérer une fonctionnalité ou signaler un bogue, veuillez
 contacter par courriel, ou déposer une [incidence (issue)][2].
 
-Comme toujours, j'apprécie d'entendre que mes extensions sont utiles et pour
-quoi les gens les utilisent.
+If you find this add-on useful, it would really help if you could [leave a
+review][4].
+
+As always, I appreciate hearing that my add-ons are helpful, and finding out
+what people are using them for.
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
 
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
+
+[3]: https://nvaccess.org/
+
+[4]: https://github.com/nvaccess/addon-datastore/discussions/2636
+
+[5]: https://nvdaremote.com/
+

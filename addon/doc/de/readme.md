@@ -1,15 +1,15 @@
 # Aufzeichnung des Sprachausgabenverlaufs #
 
+### NVDA Speech Logger add-on
+
 * Autoren: Luke Davis, mit Unterstützung von James Scholes
 * [Stabile Version herunterladen][1]
 * NVDA-Kompatibilität: 2019.3.1 und neuer
 
-Eine [NVDA](https://nvaccess.org/)-Erweiterung zum Aufzeichnen des
-Sprachausgabenverlaufs in einer oder mehreren Dateien. Es kann auf dem
-eigenen Computer erzeugte Sprache in eine Textdatei protokollieren. Es kann
-auch den Sprachausgabenverlauf von einem Remote-Computer protokollieren, die
-über die NVDA-Erweiterung [NVDA-Remote](https://nvdaremote.com/) empfangen
-wurde, entweder in dieselbe oder eine andere Datei.
+An [NVDA][3] add-on to log speech to a file or files.  It can log speech
+generated on the local machine into a text file.  It can also log speech
+from a remote machine received through the [NVDA Remote][5] add-on, either
+to the same or a different file.
 
 ### Konfiguration
 
@@ -88,17 +88,24 @@ stellen Sie das Kombinationsfeld auf "benutzerdefiniert" und geben "$$"
 ein. Wenn einen Zeilenumbruch gefolgt von einem Tabulatorzeichen sein soll,
 können Sie "\n\t" eingeben.
 
-### Protokollierung starten und beenden
+### Controls:
 
-In dieser NVDA-Erweiterung sind standardmäßig zwei Tastenbefehle
-voreingestellt. Sie können sie in der Kategorie Werkzeuge in den
-Tastenbefehlen anpassen. Suchen Sie nach "Schaltet die Aufzeichnung der
-eigenen Sprachausgabe um" und "Schaltet die Aufzeichnung der Sprachausgabe
-auf dem Remote-Computer um".
+This add-on has two keyboard shortcuts set by default, and one that is
+unassigned.
+
+The default gestures, which you can change in the NVDA Input Gestures
+"`Speech Logger`" category, are:
 
 * NVDA+Alt+L: Startet/beendet die Aufzeichnung der eigenen Sprachausgabe.
 * NVDA+Umschalt+Alt+L: Startet/stoppt die Aufzeichnung der
   Remote-Sprachausgabe.
+
+These are listed as "Toggles logging of local speech" and "Toggles logging
+of remote speech", respectively.
+
+Additionally, it has one unassigned gesture for opening its configuration
+panel, which you may assign from the `Speech Logger` category in NVDA's
+Input Gestures.
 
 ### Ein Hinweis zur Aufzeichnung der Remote-Sprachausgabe
 
@@ -119,11 +126,21 @@ hinweg fortgesetzt.
 Wenn Sie eine Funktion vorschlagen oder einen Fehler melden möchten, wenden
 Sie sich bitte per E-Mail an uns oder melden Sie ein [Problem][2].
 
-Wie immer freue ich mich, wenn ich höre, dass meine Erweiterungen nützlich
-sind und wofür sie verwendet werden.
+If you find this add-on useful, it would really help if you could [leave a
+review][4].
+
+As always, I appreciate hearing that my add-ons are helpful, and finding out
+what people are using them for.
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
 
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
+
+[3]: https://nvaccess.org/
+
+[4]: https://github.com/nvaccess/addon-datastore/discussions/2636
+
+[5]: https://nvdaremote.com/
+
