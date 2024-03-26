@@ -38,7 +38,7 @@ msgstr "le"
 msgid " at "
 msgstr " à "
 
-#. Translators: the description of an item in the input gestures tools category
+#. Translators: the description of an item in the input gestures category for this add-on.
 msgid "Toggles logging of local speech"
 msgstr "Bascule de journalisation de la parole locale"
 
@@ -59,7 +59,7 @@ msgstr ""
 "La journalisation de la parole locale a été désactivée par une erreur ou "
 "votre configuration NVDA."
 
-#. Translators: the description of an item in the input gestures tools category
+#. Translators: the description of an item in the input gestures category for this add-on.
 msgid "Toggles logging of remote speech"
 msgstr "Bascule de journalisation de la parole distante"
 
@@ -219,9 +219,11 @@ msgstr "Commencer la journalisation au démarrage"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
 msgid ""
-"Logs speech utterances to a file. Can also log NVDA remote session speech "
-"from the NVDA Remote add-on, to the same or another file."
+"Logs speech utterances to a file, after the user presses an initiating key. "
+"Can also log NVDA remote session speech from the NVDA Remote add-on, to the "
+"same or another file. Optionally includes speech from say-all."
 msgstr ""
 "Enregistre les messages de la parole dans un fichier. Vous pouvez également "
 "enregistrer la parole d'une session distante NVDA à partir de l'extension "

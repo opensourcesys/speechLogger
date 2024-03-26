@@ -1,14 +1,15 @@
 # Konuşma Kaydedici #
 
+### NVDA Konuşma Kaydedici eklentisi
+
 * Yazar: Luke Davis, James Scholes'un katkılarıyla
 * [Kararlı sürümü indirin][1]
 * NVDA uyumluluğu: 2019.3.1 ve sonrası
 
-Konuşmayı dosya veya dosyalara kaydetmek için bir
-[NVDA](https://nvaccess.org/) eklentisi. Yerel makinede oluşturulan
-konuşmayı bir metin dosyasına kaydedebilir. Ayrıca uzak bir makineden [NVDA
-Uzaktan Destek](https://nvdaremote.com/) eklentisi aracılığıyla alınan
-konuşmayı aynı veya farklı bir dosyaya kaydedebilir.
+Konuşmayı bir dosyaya veya dosyalara kaydetmek için bir [NVDA][3]
+eklentisi. Yerel makinede oluşturulan konuşmayı bir metin dosyasına
+kaydedebilir. Ayrıca, [NVDA Remote][5] eklentisi aracılığıyla uzaktaki bir
+makineden alınan konuşmayı aynı veya farklı bir dosyaya kaydedebilir.
 
 ### Yapılandırma
 
@@ -75,16 +76,23 @@ birleşik giriş kutusunu "özel" olarak ayarlar ve özel ayırıcıya "`$$`"
 (tırnak işaretleri olmadan) girersiniz. alan. Yeni bir satır ve ardından bir
 sekme olmasını istiyorsanız, "`\\n\\t`" girebilirsiniz.
 
-### Günlüğe kaydetmeyi başlatma ve durdurma
+### Kontroller:
 
-Bu eklentinin varsayılan olarak ayarlanmış iki hareketi vardır. Bunları NVDA
-Girdi Hareketleri iletişim kutusunda Araçlar kategorisinden
-değiştirebilirsiniz. "Yerel konuşmanın günlüğe kaydedilmesini açar/kapatır"
-ve "Uzaktan konuşmanın günlüğe kaydedilmesini açar/kapatır" ifadelerine
-bakın.
+Bu eklentinin varsayılan olarak ayarlanmış iki klavye kısayolu ve atanmamış
+bir klavye kısayolu vardır.
+
+The default gestures, which you can change in the NVDA Input Gestures
+"`Speech Logger`" category, are:
 
 * NVDA+Alt+L: yerel konuşma kaydını başlat/durdur.
 * NVDA+Shift+Alt+L: uzaktan konuşma kaydını başlat/durdur.
+
+These are listed as "Toggles logging of local speech" and "Toggles logging
+of remote speech", respectively.
+
+Ek olarak, NVDA'nın Girdi Hareketleri'ndeki 'Konuşma Kaydedici'
+kategorisinden atayabileceğiniz, yapılandırma panelini açmak için atanmamış
+bir hareket vardır.
 
 ### Uzaktan konuşma kaydı hakkında bir not
 
@@ -104,11 +112,21 @@ edecektir.
 Bir özellik önermek veya bir hata bildirmek istiyorsanız, lütfen e-posta ile
 iletişime geçin veya bir [sorun][2] gönderin.
 
-Her zaman olduğu gibi, eklentilerimin yararlı olduğunu ve insanların bunları
-ne için kullandığını duymaktan memnuniyet duyuyorum.
+Bu eklentiyi faydalı bulursanız, [inceleme bırakırsanız][4]  gerçekten
+yardımcı olacaktır.
+
+Her zaman olduğu gibi, eklentilerimin faydalı olduğunu duymaktan ve
+insanların bunları ne için kullandığını öğrenmekten memnuniyet duyuyorum.
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
 
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
+
+[3]: https://nvaccess.org/
+
+[4]: https://github.com/nvaccess/addon-datastore/discussions/2636
+
+[5]: https://nvdaremote.com/
+

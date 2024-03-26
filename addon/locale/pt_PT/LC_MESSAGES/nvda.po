@@ -37,7 +37,7 @@ msgstr "em"
 msgid " at "
 msgstr " a "
 
-#. Translators: the description of an item in the input gestures tools category
+#. Translators: the description of an item in the input gestures category for this add-on.
 msgid "Toggles logging of local speech"
 msgstr "Alterna o registo do discurso local"
 
@@ -58,7 +58,7 @@ msgstr ""
 "O registo de voz local foi desactivado por um erro ou pela sua configuração "
 "no NVDA."
 
-#. Translators: the description of an item in the input gestures tools category
+#. Translators: the description of an item in the input gestures category for this add-on.
 msgid "Toggles logging of remote speech"
 msgstr "Alterna o registo da fala à distância"
 
@@ -216,9 +216,11 @@ msgstr ""
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
 msgid ""
-"Logs speech utterances to a file. Can also log NVDA remote session speech "
-"from the NVDA Remote add-on, to the same or another file."
+"Logs speech utterances to a file, after the user presses an initiating key. "
+"Can also log NVDA remote session speech from the NVDA Remote add-on, to the "
+"same or another file. Optionally includes speech from say-all."
 msgstr ""
 "Registos de declarações de discurso a um ficheiro. Pode também registar o "
 "discurso de sessão remota NVDA a partir do suplemento NVDA Remote, para o "

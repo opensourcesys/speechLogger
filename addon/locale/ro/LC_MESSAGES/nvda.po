@@ -37,7 +37,7 @@ msgstr "pe"
 msgid " at "
 msgstr " la "
 
-#. Translators: the description of an item in the input gestures tools category
+#. Translators: the description of an item in the input gestures category for this add-on.
 msgid "Toggles logging of local speech"
 msgstr "Comută înregistrarea vorbirii locale"
 
@@ -58,7 +58,7 @@ msgstr ""
 "Înregistrarea locală a vorbirii a fost dezactivată de o eroare sau de "
 "configurația dvs. NVDA."
 
-#. Translators: the description of an item in the input gestures tools category
+#. Translators: the description of an item in the input gestures category for this add-on.
 msgid "Toggles logging of remote speech"
 msgstr "Comută înregistrarea vorbirii de la distanță"
 
@@ -217,9 +217,11 @@ msgstr "Începe trecerea în jurnal la pornire"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
 msgid ""
-"Logs speech utterances to a file. Can also log NVDA remote session speech "
-"from the NVDA Remote add-on, to the same or another file."
+"Logs speech utterances to a file, after the user presses an initiating key. "
+"Can also log NVDA remote session speech from the NVDA Remote add-on, to the "
+"same or another file. Optionally includes speech from say-all."
 msgstr ""
 "Înregistrează enunțurile vocale într-un fișier. De asemenea, poate "
 "înregistra vorbirea sesiunii de la distanță NVDA din suplimentul NVDA "

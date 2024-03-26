@@ -1,14 +1,15 @@
 # Speech Logger (Записувач мовлення) #
 
+### NVDA Speech Logger add-on
+
 * Автор: Luke Davis, за участю James Scholes
 * Завантажити [стабільну версію][1]
 * Сумісність з NVDA: 2019.3 і пізніші
 
-Додаток для [NVDA](https://nvaccess.org/) для запису мовлення в один або
-декілька файлів. Він може записувати мовлення, згенероване на локальному
-комп’ютері, у текстовий файл. Він також може записувати мовлення з
-віддаленого комп’ютера через додаток [NVDA Remote](https://nvdaremote.com/),
-у той самий або інший файл.
+An [NVDA][3] add-on to log speech to a file or files.  It can log speech
+generated on the local machine into a text file.  It can also log speech
+from a remote machine received through the [NVDA Remote][5] add-on, either
+to the same or a different file.
 
 ### Конфігурація
 
@@ -76,14 +77,23 @@
 ввести «`$$`» (без лапок) у спеціальному полі роздільника. Якщо ви хочете,
 щоб це був Tab, ви можете ввести "`\\t`".
 
-### Запуск і зупинка запису
+### Controls:
 
-Цей додаток має  два призначені жести. Їх можна змінити в категорії
-«Інструменти» жестів вводу NVDA. Шукайте «Перемикає журналювання локального
-мовлення» і «Перемикає журнал віддаленого мовлення».
+This add-on has two keyboard shortcuts set by default, and one that is
+unassigned.
+
+The default gestures, which you can change in the NVDA Input Gestures
+"`Speech Logger`" category, are:
 
 * NVDA+Alt+L: почати/зупинити запис локального мовлення.
 * NVDA+Shift+Alt+L: почати/зупинити запис віддаленого мовлення.
+
+These are listed as "Toggles logging of local speech" and "Toggles logging
+of remote speech", respectively.
+
+Additionally, it has one unassigned gesture for opening its configuration
+panel, which you may assign from the `Speech Logger` category in NVDA's
+Input Gestures.
 
 ### Примітка щодо віддаленого запису мовлення
 
@@ -103,11 +113,21 @@
 Якщо ви хочете запропонувати функцію чи повідомити про помилку, зв’яжіться
 електронною поштою або надішліть [проблему][2].
 
-Як завжди, мені приємно чути, що мої додатки корисні, і що люди ними
-користуються.
+If you find this add-on useful, it would really help if you could [leave a
+review][4].
+
+As always, I appreciate hearing that my add-ons are helpful, and finding out
+what people are using them for.
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
 
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
+
+[3]: https://nvaccess.org/
+
+[4]: https://github.com/nvaccess/addon-datastore/discussions/2636
+
+[5]: https://nvdaremote.com/
+

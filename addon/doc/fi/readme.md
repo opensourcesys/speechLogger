@@ -1,13 +1,15 @@
 # Puhelokin tallennin #
 
+### NVDA Speech Logger add-on
+
 * Tekijä: Luke Davis yhteistyössä James Scholesin kanssa
 * Lataa [vakaa versio][1]
 * Yhteensopivuus: NVDA 2019.3.1 ja uudemmat
 
-Tämä lisäosa tallentaa NVDA:n paikallisessa koneessa tuottaman puheen
-tekstitiedostoon tai -tiedostoihin. Se voi tallentaa myös joko samaan tai
-eri tiedostoon etäkoneessa tuotetun puheen, joka on vastaanotettu
-[NVDA-etäkäyttö](https://nvdaremote.com/)-lisäosan kautta.
+An [NVDA][3] add-on to log speech to a file or files.  It can log speech
+generated on the local machine into a text file.  It can also log speech
+from a remote machine received through the [NVDA Remote][5] add-on, either
+to the same or a different file.
 
 ### Asetusten määrittäminen
 
@@ -77,16 +79,23 @@ Jos esimerkiksi haluat katkelman erottimen olevan kaksi dollarimerkkiä
 erottimen kenttään "`$$`" ilman lainausmerkkejä. Jos haluat erottimeksi
 rivinvaihdon ja sarkainmerkin, kirjoita "`\n\t`".
 
-### Lokin tallennuksen aloittaminen ja lopettaminen
+### Controls:
 
-Tälle lisäosalle on määritetty kaksi oletusarvoista näppäinkomentoa. Voit
-muuttaa niitä NVDA:n Näppäinkomennot-valintaikkunan
-Työkalut-kategoriassa. Etsi kohtia "Ottaa käyttöön paikallisen puheen lokin
-tallennuksen tai poistaa sen käytöstä" ja "Ottaa käyttöön etäpuheen lokin
-tallennuksen tai poistaa sen käytöstä".
+This add-on has two keyboard shortcuts set by default, and one that is
+unassigned.
+
+The default gestures, which you can change in the NVDA Input Gestures
+"`Speech Logger`" category, are:
 
 * NVDA+Alt+L: aloita/lopeta paikallisen puheen lokin tallennus.
 * NVDA+Vaihto+Alt+L: aloita/lopeta etäpuheen lokin tallennus.
+
+These are listed as "Toggles logging of local speech" and "Toggles logging
+of remote speech", respectively.
+
+Additionally, it has one unassigned gesture for opening its configuration
+panel, which you may assign from the `Speech Logger` category in NVDA's
+Input Gestures.
 
 ### Huomautus etäpuheen lokin tallennuksesta
 
@@ -105,11 +114,21 @@ Aloittamisen jälkeen lokin tallennus kuitenkin jatkuu etäistuntojen välillä.
 Jos haluat ehdottaa ominaisuutta tai ilmoittaa bugista, ota yhteyttä
 sähköpostitse tai tee [ongelmaraportti][2].
 
-Kuten aina, arvostan kuullessani, että lisäosistani on hyötyä ja mihin niitä
-käytetään.
+If you find this add-on useful, it would really help if you could [leave a
+review][4].
+
+As always, I appreciate hearing that my add-ons are helpful, and finding out
+what people are using them for.
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
 
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
+
+[3]: https://nvaccess.org/
+
+[4]: https://github.com/nvaccess/addon-datastore/discussions/2636
+
+[5]: https://nvdaremote.com/
+

@@ -1,14 +1,15 @@
 # Speech Logger #
 
+### Complemento de registro del habla para NVDA
+
 * Autor: Luke Davis, con colaboraciones de James Scholes
 * Descargar [versión estable][1]
 * Compatibilidad con NVDA: de 2019.3.1 en adelante
 
-Un complemento de [NVDA](https://nvaccess.org/) para registrar el habla en
-uno o varios archivos. Puede grabar la voz generada en el equipo local a un
-archivo de texto. También puede grabar la voz recibida desde un equipo
-remoto mediante el complemento [NVDA Remote](https://nvdaremote.com/) al
-mismo archivo o a uno distinto.
+Un complemento para [NVDA][3] para registrar el habla en uno o varios
+archivos. Puede grabar la voz generada en el equipo local a un archivo de
+texto. También puede grabar la voz recibida desde un equipo remoto mediante
+el complemento [NVDA Remote][5] al mismo archivo o a uno distinto.
 
 ### Configuración
 
@@ -78,15 +79,23 @@ introducirías "`$$`" (sin las comillas) en el campo de separador
 personalizado. Si quisieras una línea en blanco seguida de un tabulador,
 podrías introducir "`\n\t`".
 
-### Iniciar y detener el registro
+### Controles:
 
-Este complemento tiene dos gestos configurados por defecto. Puedes
-cambiarlos en la categoría Herramientas del diálogo Gestos de entrada de
-NVDA. Busca "Conmuta el registro de la voz local" y "Conmuta el registro de
-la voz remota".
+Este complemento tiene dos atajos de teclado configurados por defecto, y uno
+que viene sin asignar.
+
+Los gestos por defecto, que puedes cambiar desde la categoría `Speech
+Logger` de los gestos de entrada de NVDA, son:
 
 * NVDA+alt+l: inicia o detiene el registro del habla local.
 * NVDA+shift+alt+l: inicia o detiene el registro del habla remota.
+
+Se enumeran como "Conmuta el registro del habla local" y "Conmuta el
+registro del habla remota", respectivamente.
+
+Además, tiene un gesto sin asignar para abrir su panel de configuración, que
+puedes asignar desde la categoría `Speech logger` en los gestos de entrada
+de NVDA.
 
 ### Nota sobre el registro del habla remota
 
@@ -106,10 +115,21 @@ sesiones remotas.
 Si deseas sugerir una función o informar de un fallo, contacta por correo o
 abre una [incidencia][2].
 
-[[!tag dev stable]]
+Si encuentras este complemento útil, sería muy útil que [dejaras una
+reseña][4].
+
+Como siempre, agradezco oír que mis complementos son útiles, y averiguar
+para qué los usa la gente.
 
 [[!tag dev stable]]
 
 [1]: https://www.nvaccess.org/addonStore/legacy?file=speechLogger
 
 [2]: https://github.com/opensourcesys/speechLogger/issues/new
+
+[3]: https://nvaccess.org/
+
+[4]: https://github.com/nvaccess/addon-datastore/discussions/2636
+
+[5]: https://nvdaremote.com/
+
