@@ -81,14 +81,14 @@ sekme olmasını istiyorsanız, "`\\n\\t`" girebilirsiniz.
 Bu eklentinin varsayılan olarak ayarlanmış iki klavye kısayolu ve atanmamış
 bir klavye kısayolu vardır.
 
-The default gestures, which you can change in the NVDA Input Gestures
-"`Speech Logger`" category, are:
+NVDA Girdi Hareketleri "`Konuşma Kaydedici'' kategorisinde
+değiştirebileceğiniz varsayılan hareketler şunlardır:
 
 * NVDA+Alt+L: yerel konuşma kaydını başlat/durdur.
 * NVDA+Shift+Alt+L: uzaktan konuşma kaydını başlat/durdur.
 
-These are listed as "Toggles logging of local speech" and "Toggles logging
-of remote speech", respectively.
+Bunlar sırasıyla "Yerel konuşmanın günlüğe kaydedilmesini çıp kapatır" ve
+"Uzaktan konuşmanın günlüğe kaydedilmesini Açıp kapatır" olarak listelenir.
 
 Ek olarak, NVDA'nın Girdi Hareketleri'ndeki 'Konuşma Kaydedici'
 kategorisinden atayabileceğiniz, yapılandırma panelini açmak için atanmamış

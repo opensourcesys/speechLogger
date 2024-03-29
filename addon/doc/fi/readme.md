@@ -1,15 +1,15 @@
 # Puhelokin tallennin #
 
-### NVDA Speech Logger add-on
+### Puhetallennin
 
 * Tekijä: Luke Davis yhteistyössä James Scholesin kanssa
 * Lataa [vakaa versio][1]
 * Yhteensopivuus: NVDA 2019.3.1 ja uudemmat
 
-An [NVDA][3] add-on to log speech to a file or files.  It can log speech
-generated on the local machine into a text file.  It can also log speech
-from a remote machine received through the [NVDA Remote][5] add-on, either
-to the same or a different file.
+Tämä [NVDA][3]-lisäosa tallentaa paikallisessa koneessa tuotetun puheen
+tekstitiedostoon tai -tiedostoihin. Se voi lisäksi tallentaa joko samaan tai
+eri tiedostoon etäkoneessa tuotetun puheen, joka on vastaanotettu
+[NVDA-etäkäyttö][5]-lisäosan kautta.
 
 ### Asetusten määrittäminen
 
@@ -79,23 +79,24 @@ Jos esimerkiksi haluat katkelman erottimen olevan kaksi dollarimerkkiä
 erottimen kenttään "`$$`" ilman lainausmerkkejä. Jos haluat erottimeksi
 rivinvaihdon ja sarkainmerkin, kirjoita "`\n\t`".
 
-### Controls:
+### Näppäinkomennot:
 
-This add-on has two keyboard shortcuts set by default, and one that is
-unassigned.
+Tällä lisäosalla on kaksi oletusarvoisesti määritettyä näppäinkomentoa sekä
+yksi määrittämätön.
 
-The default gestures, which you can change in the NVDA Input Gestures
-"`Speech Logger`" category, are:
+Oletusnäppäinkomennot, joita voit muuttaa NVDA:n
+Näppäinkomennot-valintaikkunan "`Puhelokin tallennin`" -kategoriasta, ovat:
 
 * NVDA+Alt+L: aloita/lopeta paikallisen puheen lokin tallennus.
 * NVDA+Vaihto+Alt+L: aloita/lopeta etäpuheen lokin tallennus.
 
-These are listed as "Toggles logging of local speech" and "Toggles logging
-of remote speech", respectively.
+Ne ovat "Ottaa käyttöön tai poistaa käytöstä paikallisen puheen
+tallennuksen" ja "Ottaa käyttöön tai poistaa käytöstä etäpuheen
+tallennuksen".
 
-Additionally, it has one unassigned gesture for opening its configuration
-panel, which you may assign from the `Speech Logger` category in NVDA's
-Input Gestures.
+Siinä on lisäksi yksi määrittämätön näppäinkomento lisäosan asetuspaneelin
+avaamiseen, jolle voit määrittää näppäinkomennon NVDA:n
+Näppäinkomennot-valintaikkunan `Puhelokin tallennin` -kategoriasta.
 
 ### Huomautus etäpuheen lokin tallennuksesta
 
@@ -114,11 +115,11 @@ Aloittamisen jälkeen lokin tallennus kuitenkin jatkuu etäistuntojen välillä.
 Jos haluat ehdottaa ominaisuutta tai ilmoittaa bugista, ota yhteyttä
 sähköpostitse tai tee [ongelmaraportti][2].
 
-If you find this add-on useful, it would really help if you could [leave a
-review][4].
+Mikäli tämä lisäosa on mielestäsi hyödyllinen, auttaisi paljon, jos
+[arvostelisit sen][4].
 
-As always, I appreciate hearing that my add-ons are helpful, and finding out
-what people are using them for.
+Kuten aina, arvostan kuullessani, että lisäosistani on hyötyä ja mihin niitä
+käytetään.
 
 [[!tag dev stable]]
 
