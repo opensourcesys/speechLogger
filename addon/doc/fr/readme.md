@@ -143,4 +143,3 @@ quoi les gens les utilisent.
 [4]: https://github.com/nvaccess/addon-datastore/discussions/2636
 
 [5]: https://nvdaremote.com/
-
