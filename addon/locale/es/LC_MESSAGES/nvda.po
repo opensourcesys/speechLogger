@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: speechLogger 23.0.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-10 19:30+0000\n"
-"PO-Revision-Date: 2023-09-01 21:40+0200\n"
+"PO-Revision-Date: 2024-03-22 21:03+0100\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. Translators: Text inserted in the log indicating logging has started.
 msgid "Log started"
@@ -215,11 +215,12 @@ msgstr "Comenzar a registrar al inicio"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#, fuzzy
 msgid ""
 "Logs speech utterances to a file, after the user presses an initiating key. "
 "Can also log NVDA remote session speech from the NVDA Remote add-on, to the "
 "same or another file. Optionally includes speech from say-all."
 msgstr ""
-"Registra mensajes de voz en un archivo. También puede registrar la voz de "
-"una sesión remota del complemento NVDA Remote al mismo o a otro archivo."
+"Registra mensajes de voz en un archivo después de que el usuario pulse un "
+"atajo de teclado. También puede registrar la voz de una sesión remota del "
+"complemento NVDA Remote al mismo o a otro archivo. Incluye opcionalmente la "
+"voz del modo verbalizar todo."
