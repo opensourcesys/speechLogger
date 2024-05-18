@@ -1,15 +1,15 @@
 [[!meta title=„Zapisnik govora (Speech Logger)"]]
 
-### NVDA Speech Logger add-on
+### NVDA dodatak zapisnika govora
 
 * Autor: Luke Davis, doprinositelj James Scholes
 * Preuzmi [stabilnu verziju][1]
 * NVDA kompatibilnost: 2019.3 i novija izdanja
 
-An [NVDA][3] add-on to log speech to a file or files.  It can log speech
-generated on the local machine into a text file.  It can also log speech
-from a remote machine received through the [NVDA Remote][5] add-on, either
-to the same or a different file.
+[NVDA][3] dodatak za zapis govora u datoteku ili datoteke. Može zabilježiti
+govor generiran na lokalnom računalu u tekstualnu datoteku. Također može
+zabilježiti govor s udaljenog uređaja primljen putem [NVDA Remote][5]
+dodatka, bilo u istu ili jednu drugu datoteku.
 
 ### Konfiguracija
 
