@@ -6,10 +6,10 @@
 * Lataa [vakaa versio][1]
 * Yhteensopivuus: NVDA 2019.3.1 ja uudemmat
 
-Tämä [NVDA][3]-lisäosa tallentaa paikallisessa koneessa tuotetun puheen
-tekstitiedostoon tai -tiedostoihin. Se voi lisäksi tallentaa joko samaan tai
-eri tiedostoon etäkoneessa tuotetun puheen, joka on vastaanotettu
-[NVDA-etäkäyttö][5]-lisäosan kautta.
+An [NVDA][3] add-on to log speech to a file or files.  It can log speech
+generated on the local machine into a text file.  It can also log speech
+from a remote machine received through the [NVDA Remote][5] add-on, either
+to the same or a different file.
 
 ### Asetusten määrittäminen
 
@@ -74,15 +74,15 @@ NVDA (kahdella välilyönnillä) tai jollakin muutamasta järkevästä
 vaihtoehdosta (rivinvaihto, pilkku ja välilyönti, sarkain, kaksi alaviivaa)
 tai itse määrittämälläsi mukautetulla erottimella.
 
-Jos esimerkiksi haluat katkelman erottimen olevan kaksi dollarimerkkiä
-(`$$`), valitse yhdistelmäruudusta "Mukautettu" ja kirjoita mukautetun
-erottimen kenttään "`$$`" ilman lainausmerkkejä. Jos haluat erottimeksi
-rivinvaihdon ja sarkainmerkin, kirjoita "`\n\t`".
+If, for example, you wanted your utterance separator to be two dollar signs
+(`$$`), you would set the combobox to "custom", and enter "`$$`" (without
+the quotes), in the custom separator field.  If you wanted it to be a
+newline followed by a tab, you could enter "`\n\t`".
 
 ### Näppäinkomennot:
 
-Tällä lisäosalla on kaksi oletusarvoisesti määritettyä näppäinkomentoa sekä
-yksi määrittämätön.
+This add-on has two keyboard shortcuts set by default, and one that is
+unassigned.
 
 Oletusnäppäinkomennot, joita voit muuttaa NVDA:n
 Näppäinkomennot-valintaikkunan "`Puhelokin tallennin`" -kategoriasta, ovat:
