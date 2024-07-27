@@ -153,8 +153,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.flags.loggedAtStartup = True
 		# We have two ways to play here. Either an extension point, or a patch.
 		if _USING_EXT_POINT_FOR_SPEAK:
+			log.info("Using extensionPoint for speech logging of local, non-say-all, speech.")
 			pre_speech.register(self.captureFromExtPoint)
 		else:
+			log.info("Patching speak function for speech logging of local, non-say-all, speech.")
 			# Wrap speech.speech.speak, so we can get its output first
 			self._speak_orig = speech.speech.speak
 			@wraps(speech.speech.speak)
