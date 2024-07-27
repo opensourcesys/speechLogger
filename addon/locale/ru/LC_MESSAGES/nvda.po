@@ -1,0 +1,227 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the speechLogger package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: speechLogger 24.1.4\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2024-05-17 19:30+0000\n"
+"PO-Revision-Date: 2024-06-15 15:40+0300\n"
+"Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. Translators: Text inserted in the log indicating logging has started.
+msgid "Log started"
+msgstr "Журнал начат"
+
+#. Translators: Text inserted in the log indicating logging has ended.
+msgid "Log ended"
+msgstr "Журнал Закончен"
+
+#. Translators: Series of punctuations that appear around unspoken log started/stopped messages.
+msgid "###"
+msgstr "###"
+
+#. Translators: This word appears between log stopped/started messages, and the date and time it happened.
+msgid "on"
+msgstr "дата"
+
+#. Translators: A string that separates a date from a time. Should include space(s).
+msgid " at "
+msgstr " время "
+
+#. Translators: the description of an item in the input gestures category for this add-on.
+msgid "Toggles logging of local speech"
+msgstr "Переключает ведение журнала локальной речи"
+
+#. Stop the local log; returns True if logging was stopped
+#. Translators: message to tell the user that we are no longer logging.
+msgid "Stopped logging local speech."
+msgstr "Закончена запись локальной речи."
+
+#. Translators: a message to tell the user that we are now logging.
+msgid "Started logging local speech."
+msgstr "Начата запись локальной речи."
+
+#. Translators: a message to tell the user that we can't start this kind of logging
+msgid ""
+"Local speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr ""
+"Локальное ведение журнала речевых сообщений было отключено из-за ошибки или "
+"вашей конфигурации NVDA."
+
+#. Translators: the description of an item in the input gestures category for this add-on.
+msgid "Toggles logging of remote speech"
+msgstr "Переключает ведение журнала удалённой речи"
+
+#. Stops remote logging if we were; returns True if stopped
+#. Translators: message to tell the user that we are no longer logging.
+msgid "Stopped logging remote speech."
+msgstr "Закончена запись удалённой речи."
+
+#. Translators: a message to tell the user that we are now logging.
+msgid "Started logging remote speech."
+msgstr "Начата запись удалённой речи."
+
+#. Translators: a message to tell the user that we can not start logging because remote may not be connected..
+msgid "Could not log remote speech, probably not connected."
+msgstr "Не удалось записать удаленную речь, возможно отсутствует подключение."
+
+#. self._obtainRemote() returned False
+#. Translators: a message telling the user that the Remote add-on is unavailable.
+msgid "Failed! Could not find the NVDA Remote add-on."
+msgstr "Неудача! Не удалось найти дополнение Remote NVDA."
+
+#. Translators: a message to tell the user that we can't start this kind of logging
+msgid ""
+"Remote speech logging has been disabled by an error or your NVDA "
+"configuration."
+msgstr ""
+"Удалённое ведение журнала речевых сообщений было отключено из-за ошибки или "
+"вашей конфигурации NVDA."
+
+#. Translators: Input help mode message for open Speech Logger settings command.
+msgid "Opens the Speech Logger add-on's settings"
+msgstr "Открывает настройки дополнения регистратора речи"
+
+#. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+msgid "Speech Logger"
+msgstr "Регистратор Речи"
+
+msgid ""
+"Choose the log directory and filenames for the speech logs. System variables "
+"such as %temp% are permitted.\n"
+"You can also alter the string used to separate multiple utterances from the "
+"same speech sequence, and control how or whether timestamps are used."
+msgstr ""
+"Выберите каталог журналов и имена файлов для речевых журналов. Разрешены "
+"системные переменные, такие как %temp%.\n"
+"Вы также можете изменить строку, используемую для разделения нескольких "
+"высказываний из одной и той же речевой последовательности, и управлять "
+"использованием меток времени."
+
+msgid ""
+"The Speech Logger add-on can only be configured from the Normal "
+"Configuration profile.\n"
+"Please close this dialog, set your config profile to normal, and try again."
+msgstr ""
+"Дополнение регистратора речи можно настроить только в обычном профиле "
+"конфигурации.\n"
+"Пожалуйста, закройте этот диалог, выберите свой нормальный профиль и "
+"повторите попытку."
+
+#. Translators: a separator option in the separators combobox
+msgid "Two spaces (NVDA log style)"
+msgstr "Два пробела (стиль журнала NVDA)"
+
+#. Translators: a separator option in the separators combobox
+msgid "Newline"
+msgstr "Новая строка"
+
+#. Translators: a separator option in the separators combobox
+msgid "Tab"
+msgstr "Табулятор"
+
+#. Translators: a separator option in the separators combobox
+msgid "A comma and space"
+msgstr "Запятая и пробел"
+
+#. Translators: a separator option in the separators combobox
+msgid "Two underscores"
+msgstr "Два символа подчёркивания"
+
+#. Translators: a separator option in the separators combobox
+msgid "Custom"
+msgstr "Пользовательский"
+
+#. Translators: A timestamp mode option in the timestamps mode combobox
+msgid "Off, no timestamps"
+msgstr "Отключён, без меток времени"
+
+#. Translators: A timestamp mode option in the timestamps mode combobox
+msgid "When a log begins or ends"
+msgstr "Когда начинается или заканчивается журнал"
+
+#. Translators: An option in the log at startup combobox
+msgid "Never"
+msgstr "Никогда"
+
+#. Translators: An option in the log at startup combobox
+msgid "Always"
+msgstr "Всегда"
+
+#. Translators: label of the log files location grouping.
+msgid "Log &Directory: "
+msgstr "&Каталог журнала: "
+
+#. Translators: The label of a button to browse for a directory.
+msgid "Browse..."
+msgstr "Обзор..."
+
+#. Translators: The title of the dialog presented when browsing for the log directory.
+msgid "Select log  directory"
+msgstr "Выберите  каталог журнала"
+
+#. Translators: label of a text field to enter local speech log filename.
+msgid "Local speech log filename: "
+msgstr "Имя файла локального журнала: "
+
+#. Translators: label of a text field to enter remote speech log filename.
+msgid "Remote speech log filename: "
+msgstr "Имя файла удалённого журнала: "
+
+#. Translators: label of the separator options grouping.
+msgid "&Separator Options"
+msgstr "Настройки &Разделителя"
+
+#. Translators: this is the label for a combobox providing possible separator values
+msgid "Utterance separator"
+msgstr "Разделитель звуков"
+
+#. Translators: the label for a text field requesting an optional custom separator string.
+#. Note that this string is raw, so that \t is presented literally.
+msgid "Custom utterance separator (can use escapes like \\t): "
+msgstr ""
+"Пользовательский разделитель звуков (можно использовать экранирующие "
+"элементы типа \\t): "
+
+#. Translators: label of the Other options grouping.
+msgid "&Other Options"
+msgstr "&Другие Настройки"
+
+#. Translators: this is the label for a combobox providing possible timestamp mode values.
+msgid "Timestamp Mode"
+msgstr "Режим меток времени"
+
+#. Use default
+#. Translators: This is the label for a checkbox to turn Say All logging on or off.
+msgid "Log speech during Say-&All (read to end)"
+msgstr "Записывать речь в режиме полного воспроизведения (чтения до конца)"
+
+#. Translators: this is the label for a combobox which determines whether to begin logging at startup.
+msgid "Begin logging at startup"
+msgstr "Начинать запись в журнал при запуске"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+msgid ""
+"Logs speech utterances to a file, after the user presses an initiating key. "
+"Can also log NVDA remote session speech from the NVDA Remote add-on, to the "
+"same or another file. Optionally includes speech from say-all."
+msgstr ""
+"Записывает речевые высказывания в файл после того, как пользователь нажмет "
+"клавишу запуска. Также можно записывать речь удаленного сеанса NVDA из "
+"дополнения NVDA Remote в тот же или другой файл. Дополнительно включает "
+"запись речи в режиме полного воспроизведения."
