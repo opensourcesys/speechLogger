@@ -1,7 +1,7 @@
-# NVDA Speech Logger add-on, V24.1
+# NVDA Speech Logger add-on, V24.2
 #
 #    Copyright (C) 2022-2024 Luke Davis <XLTechie@newanswertech.com>
-# Initially based on code ideas suggested by James Scholes.
+# Initially based loosely on code ideas suggested by James Scholes.
 #
 # This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
 # as published by    the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
@@ -43,9 +43,17 @@ import speech
 from speech.speechWithoutPauses import SpeechWithoutPauses
 from speech.types import SpeechSequence
 from speech.priorities import Spri
+from characterProcessing import SymbolLevel
 from scriptHandler import script
 from logHandler import log
 from core import postNvdaStartup
+
+_USING_EXT_POINT_FOR_SPEAK: bool = False
+try:
+	from speech.extensions import pre_speech
+	_USING_EXT_POINT_FOR_SPEAK = True
+except:
+	pass
 
 from .configUI import SpeechLoggerSettings, getConf
 from .immutableKeyObj import ImmutableKeyObj
@@ -143,19 +151,24 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if self.flags.logAtStartup:
 			postNvdaStartup.register(self.startLocalLog)
 			self.flags.loggedAtStartup = True
-		# Wrap speech.speech.speak, so we can get its output first
-		self._speak_orig = speech.speech.speak
-		@wraps(speech.speech.speak)
-		def new_speak(  # noqa: C901
-				sequence: SpeechSequence,
-				symbolLevel: Optional[int] = None,
-				priority: Spri = Spri.NORMAL,
-				*args,
-				**kwargs
-		):
-			self.captureSpeech(sequence, Origin.LOCAL)
-			return self._speak_orig(sequence, symbolLevel, priority, *args, **kwargs)
-		speech.speech.speak = new_speak
+		# We have two ways to play here. Either an extension point, or a patch.
+		if _USING_EXT_POINT_FOR_SPEAK:
+			pre_speech.register(self.captureFromExtPoint)
+		else:
+			# Wrap speech.speech.speak, so we can get its output first
+			self._speak_orig = speech.speech.speak
+			@wraps(speech.speech.speak)
+			def new_speak(  # noqa: C901
+					sequence: SpeechSequence,
+					symbolLevel: Optional[int] = None,
+					priority: Spri = Spri.NORMAL,
+					*args,
+					**kwargs
+			):
+				self.captureSpeech(sequence, Origin.LOCAL)
+				return self._speak_orig(sequence, symbolLevel, priority, *args, **kwargs)
+			speech.speech.speak = new_speak
+		# We don't have an extension point for this one yet.
 		# Wrap speech.SpeechWithoutPauses.speechWithoutPauses.speakWithoutPauses, so we can get its output first
 		SpeechWithoutPauses._speakWithoutPauses_orig = SpeechWithoutPauses.speakWithoutPauses
 		SpeechWithoutPauses._speechLogger_object = self
@@ -191,6 +204,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if self.flags.loggedAtStartup:
 			postNvdaStartup.unregister(self.startLocalLog)
 		extensionPoint._configChanged.unregister(self.applyUserConfig)
+		pre_speech.unregister(self.captureFromExtPoint)
 		super().terminate()
 
 	def startLocalLog(self, automatic: bool = True) -> bool:
@@ -361,6 +375,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		If the proper flag is set, it will include the date and time.
 		"""
 		return self._createDynamicLogStateText(False)
+
+	def captureFromExtPoint(
+			self,
+			speechSequence: SpeechSequence,
+			symbolLevel: Optional[SymbolLevel] = None,
+			priority: Optional[Spri] = None
+	) -> None:
+		"""Converts parameters passed from the speech extensionPoints, for use by captureSpeech."""
+		self.captureSpeech(sequence=speechSequence, origin=Origin.LOCAL)
 
 	def captureSpeech(self, sequence: SpeechSequence, origin: Origin) -> None:
 		"""Receives incoming local or remote speech, and if we are capturing that kind, sends it to the appropriate file."""
