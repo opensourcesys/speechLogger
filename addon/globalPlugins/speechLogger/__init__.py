@@ -48,12 +48,11 @@ from scriptHandler import script
 from logHandler import log
 from core import postNvdaStartup
 
-_USING_EXT_POINT_FOR_SPEAK: bool = False
 try:
 	from speech.extensions import pre_speech
-	_USING_EXT_POINT_FOR_SPEAK = True
+	_USING_EXT_POINT_FOR_SPEAK: bool = True
 except:
-	pass
+	_USING_EXT_POINT_FOR_SPEAK: bool = False
 
 from .configUI import SpeechLoggerSettings, getConf
 from .immutableKeyObj import ImmutableKeyObj
@@ -200,13 +199,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechLoggerSettings)
 		# Unwrap/un-patch methods that we patched.
 		# Note that this may screw with add-ons that patched them after we did.
-		speech.speech.speak = self._speak_orig
+		if not _USING_EXT_POINT_FOR_SPEAK:
+			speech.speech.speak = self._speak_orig
 		SpeechWithoutPauses.speakWithoutPauses = SpeechWithoutPauses._speakWithoutPauses_orig
 		# Unregister extensionPoints
 		if self.flags.loggedAtStartup:
 			postNvdaStartup.unregister(self.startLocalLog)
 		extensionPoint._configChanged.unregister(self.applyUserConfig)
-		pre_speech.unregister(self.captureFromExtPoint)
+		if _USING_EXT_POINT_FOR_SPEAK:
+			pre_speech.unregister(self.captureFromExtPoint)
 		super().terminate()
 
 	def startLocalLog(self, automatic: bool = True) -> bool:
