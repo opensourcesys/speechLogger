@@ -1,6 +1,6 @@
 ### 24.1.0
 
-* Move the input gestures from the "tools" category, to a category named for the add-on.
+* Move the input gestures from the "tools" category, to a language-specific category named for the add-on.
 * Compatibility with NVDA 2024.1.
 * Added a request for reviews to the readme.
 
