@@ -24,7 +24,7 @@ If you can think of some use case that requires it to operate differently in dif
 * Separator. This combobox lets you choose one of the available utterance separators. See below for more information.
 * Custom separator. This field lets you enter a custom utterance separator (see below), which is used if "custom" is chosen in the combobox.
 * Timestamp mode. This combobox allows you to choose between no timestamps, and a timestamp at the start and end of each log session.
-* Log speech during say-all (read to end) mode. This add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you would rather not have that kind of narrative long reading logged, un-check this box.
+* Log speech during say-all (read to end) mode. This add-on logs speech generated when you press NVDA+DownArrow (NVDA+a in laptop layout). If you would rather not have that kind of narrative (potentially long) reading logged, un-check this box.
 * Begin logging at startup. You can set this option to "Always", if you want speech to be logged automatically when NVDA starts. This only applies to local speech, and the default is "never".
 
 #### Utterance separator
