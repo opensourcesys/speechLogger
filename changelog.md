@@ -1,3 +1,7 @@
+### 24.2.0
+
+* Use the pre_speech extensionPoint to obtain speech, instead of patching, if supported by NVDA. Still must patch for say-all.
+
 ### 24.1.0
 
 * Move the input gestures from the "tools" category, to a language-specific category named for the add-on.
