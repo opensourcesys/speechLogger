@@ -156,7 +156,6 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		# Translators: The title of the dialog presented when browsing for the log directory.
 		dirChooserTitle: str = _("Select log  directory")
 		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseButtonLabel, dirChooserTitle)
-		directoryEntryControl.pathControl.SetEditable(False)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
 		self.logDirectoryEdit.SetValue(getConf("folder"))
