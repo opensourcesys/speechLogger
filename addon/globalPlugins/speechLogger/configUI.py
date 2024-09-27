@@ -158,6 +158,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseButtonLabel, dirChooserTitle)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
+		self.logDirectoryEdit.SetEditable(False)
 		self.logDirectoryEdit.SetValue(getConf("folder"))
 
 		self.localFNControl = fileGroupHelper.addLabeledControl(
