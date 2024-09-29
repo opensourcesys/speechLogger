@@ -17,11 +17,11 @@ import addonHandler
 import config
 import ui
 import globalVars
-import gui
 from gui.settingsDialogs import PANEL_DESCRIPTION_WIDTH
 from logHandler import log
 
 from . import extensionPoint
+from .slPathSelectionHelper import SLPathSelectionHelper
 
 try:
 	addonHandler.initTranslation()
@@ -155,7 +155,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		browseButtonLabel: str = _("Browse...")
 		# Translators: The title of the dialog presented when browsing for the log directory.
 		dirChooserTitle: str = _("Select log  directory")
-		dirChooserHelper = gui.guiHelper.PathSelectionHelper(fileGroupBox, browseButtonLabel, dirChooserTitle)
+		dirChooserHelper = SLPathSelectionHelper(fileGroupBox, browseButtonLabel, dirChooserTitle)
 		directoryEntryControl = fileGroupHelper.addItem(dirChooserHelper)
 		self.logDirectoryEdit = directoryEntryControl.pathControl
 		self.logDirectoryEdit.SetValue(getConf("folder"))
