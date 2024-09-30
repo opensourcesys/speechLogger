@@ -18,9 +18,8 @@ import addonHandler
 import config
 import ui
 import globalVars
-import gui
-from gui.settingsDialogs import PANEL_DESCRIPTION_WIDTH
-from gui.dpiScalingHelper import scaleSize
+from gui.dpiScalingHelper import (DpiScalingHelperMixinWithoutInit, scalesize)
+from gui.settingsDialogs import (SettingsPanel, PANEL_DESCRIPTION_WIDTH)
 from gui import guiHelper
 from logHandler import log
 
@@ -63,7 +62,7 @@ def setConf(key: str, value: Any) -> Any:
 	return value
 
 
-class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
+class SpeechLoggerSettings(SettingsPanel):
 	"""NVDA configuration panel based configurator  for speechLogger."""
 
 	# Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
@@ -138,7 +137,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 		else:
 			SpeechLoggerSettings.panelDescription: str = self.panelDescription_otherProfile
 
-		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		helper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		introItem = helper.addItem(wx.StaticText(self, label=self.panelDescription))
 		introItem.Wrap(self.scaleSize(PANEL_DESCRIPTION_WIDTH))
 
@@ -151,7 +150,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			# Translators: label of the log files location grouping.
 			label=_("Log &Directory: ")
 		)
-		fileGroupHelper = helper.addItem(gui.guiHelper.BoxSizerHelper(self, sizer=groupSizer))
+		fileGroupHelper = helper.addItem(guiHelper.BoxSizerHelper(self, sizer=groupSizer))
 		fileGroupBox = groupSizer.GetStaticBox()
 
 		# Translators: The label of a button to browse for a directory.
@@ -186,7 +185,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			# Translators: label of the separator options grouping.
 			label=_("&Separator Options")
 		)
-		sepGroupHelper = helper.addItem(gui.guiHelper.BoxSizerHelper(self, sizer=sepGroupSizer))
+		sepGroupHelper = helper.addItem(guiHelper.BoxSizerHelper(self, sizer=sepGroupSizer))
 		sepGroupBox = sepGroupSizer.GetStaticBox()
 
 		# Translators: this is the label for a combobox providing possible separator values
@@ -221,7 +220,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			# Translators: label of the Other options grouping.
 			label=_("&Other Options")
 		)
-		miscGroupHelper = helper.addItem(gui.guiHelper.BoxSizerHelper(self, sizer=miscGroupSizer))
+		miscGroupHelper = helper.addItem(guiHelper.BoxSizerHelper(self, sizer=miscGroupSizer))
 		miscGroupBox = miscGroupSizer.GetStaticBox()
 
 		# Translators: this is the label for a combobox providing possible timestamp mode values.
@@ -294,7 +293,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			self.customSeparatorControl.Enable(False)
 
 
-class SLPathSelectionHelper(object):
+class SLPathSelectionHelper(DpiScalingHelperMixinWithoutInit, object):
 	"""
 	Abstracts away details for creating a path selection helper. The path selection helper is a textCtrl with a
 	button in horizontal layout. The Button launches a directory explorer. To get the path selected by the user, use the
@@ -310,7 +309,7 @@ class SLPathSelectionHelper(object):
 		object.__init__(self)
 		self._textCtrl = ExpandoTextCtrl(
 			parent,
-			size=(scaleSize(250), -1),
+			size=(self.scaleSize(250), -1),
 			style=wx.TE_READONLY,
 		)
 		self._browseButton = wx.Button(parent, label=buttonText)
