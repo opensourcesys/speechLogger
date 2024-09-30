@@ -17,6 +17,7 @@ import addonHandler
 import config
 import ui
 import globalVars
+import gui
 from gui.settingsDialogs import PANEL_DESCRIPTION_WIDTH
 from logHandler import log
 
