@@ -293,7 +293,7 @@ class SpeechLoggerSettings(SettingsPanel):
 			self.customSeparatorControl.Enable(False)
 
 
-class SLPathSelectionHelper(DpiScalingHelperMixinWithoutInit, object):
+class SLPathSelectionHelper(DpiScalingHelperMixinWithoutInit, object, metaclass=guiHelper.SIPABCMeta):
 	"""
 	Abstracts away details for creating a path selection helper. The path selection helper is a textCtrl with a
 	button in horizontal layout. The Button launches a directory explorer. To get the path selected by the user, use the
