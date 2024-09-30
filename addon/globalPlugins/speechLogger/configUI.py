@@ -317,4 +317,4 @@ class SLPathSelectionHelper(guiHelper.PathSelectionHelper):
 		self._browseForDirectoryTitle = browseForDirectoryTitle
 		self._browseButton.Bind(wx.EVT_BUTTON, self.onBrowseForDirectory)
 		self._sizer = associateElements(self._textCtrl, self._browseButton)
-
+		self._parent = parent
