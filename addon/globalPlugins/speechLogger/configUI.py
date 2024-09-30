@@ -294,7 +294,7 @@ class SpeechLoggerSettings(gui.settingsDialogs.SettingsPanel):
 			self.customSeparatorControl.Enable(False)
 
 
-class SLPathSelectionHelper(guiHelper.PathSelectionHelper):
+class SLPathSelectionHelper(object):
 	"""
 	Abstracts away details for creating a path selection helper. The path selection helper is a textCtrl with a
 	button in horizontal layout. The Button launches a directory explorer. To get the path selected by the user, use the
@@ -316,5 +316,23 @@ class SLPathSelectionHelper(guiHelper.PathSelectionHelper):
 		self._browseButton = wx.Button(parent, label=buttonText)
 		self._browseForDirectoryTitle = browseForDirectoryTitle
 		self._browseButton.Bind(wx.EVT_BUTTON, self.onBrowseForDirectory)
-		self._sizer = associateElements(self._textCtrl, self._browseButton)
+		self._sizer = guiHelper.associateElements(self._textCtrl, self._browseButton)
 		self._parent = parent
+
+	@property
+	def pathControl(self):
+		return self._textCtrl
+
+	@property
+	def sizer(self):
+		return self._sizer
+
+	def getDefaultBrowseForDirectoryPath(self):
+		return self._textCtrl.Value or "c:\\"
+
+	def onBrowseForDirectory(self, evt):
+		startPath = self.getDefaultBrowseForDirectoryPath()
+		with wx.DirDialog(self._parent, self._browseForDirectoryTitle, defaultPath=startPath) as d:
+			if d.ShowModal() == wx.ID_OK:
+				self._textCtrl.Value = d.Path
+
