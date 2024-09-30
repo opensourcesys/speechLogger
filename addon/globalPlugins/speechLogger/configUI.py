@@ -18,7 +18,7 @@ import addonHandler
 import config
 import ui
 import globalVars
-from gui.dpiScalingHelper import (DpiScalingHelperMixinWithoutInit, scalesize)
+from gui.dpiScalingHelper import (DpiScalingHelperMixinWithoutInit, scaleSize)
 from gui.settingsDialogs import (SettingsPanel, PANEL_DESCRIPTION_WIDTH)
 from gui import guiHelper
 from logHandler import log
