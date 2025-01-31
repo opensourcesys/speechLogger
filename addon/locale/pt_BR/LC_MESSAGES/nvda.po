@@ -1,63 +1,227 @@
-# Portuguese translations for PACKAGE package.
-# Copyright (C) 2023 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# U-DESKTOP-EI2LNIE\edu_home <diaseduardo139@gmail.com[1;5d>, 2023.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025 NVDA Contributors.
+# This file is distributed under the same license as the speechLogger package.
+# Josevan Barbosa Fernandes <josevanfernandes@yahoo.com.br>, 2025.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-22 00:17-0300\n"
-"PO-Revision-Date: 2023-03-22 00:19-0300\n"
-"Last-Translator: U-DESKTOP-EI2LNIE\\edu_home <diaseduardo139@gmail."
-"com[1;5d>\n"
-"Language-Team: Brazilian Portuguese\n"
+"Project-Id-Version: speechLogger 23.0.4\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2023-03-31 19:30+0000\n"
+"PO-Revision-Date: 2025-01-25 20:25-0300\n"
+"Last-Translator: Josevan Fernandes <josevanfernandes@yahoo.com.br>\n"
+"Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
+"tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.5\n"
 
-#: __init__.py:250
+#. Translators: Text inserted in the log indicating logging has started.
+msgid "Log started"
+msgstr "Registro iniciado"
+
+#. Translators: Text inserted in the log indicating logging has ended.
+msgid "Log ended"
+msgstr "Registro encerrado"
+
+#. Translators: Series of punctuations that appear around unspoken log started/stopped messages.
+msgid "###"
+msgstr "###"
+
+#. Translators: This word appears between log stopped/started messages, and the date and time it happened.
+msgid "on"
+msgstr "em"
+
+#. Translators: A string that separates a date from a time. Should include space(s).
+msgid " at "
+msgstr " às "
+
+#. Translators: the description of an item in the input gestures category for this add-on.
 msgid "Toggles logging of local speech"
-msgstr "Alterna o registro de fala local"
+msgstr "Alterna o registro da fala local"
 
-#: __init__.py:258
+#. Stop the local log; returns True if logging was stopped
+#. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging local speech."
-msgstr "Fim da gravação do log local."
+msgstr "Parou de registrar a fala local."
 
-#: __init__.py:264
+#. Translators: a message to tell the user that we are now logging.
 msgid "Started logging local speech."
-msgstr "Iniciando a gravação de log local."
+msgstr "Começou a registrar a fala local."
 
-#: __init__.py:267
+#. Translators: a message to tell the user that we can't start this kind of logging
 msgid ""
 "Local speech logging has been disabled by an error or your NVDA "
 "configuration."
-msgstr "O registro de fala local foi desabilitado por um erro de configuração ou pelo NVDA"
+msgstr ""
+"O registro de fala local foi desativado por um erro ou pela configuração do "
+"NVDA."
 
-#: __init__.py:272
+#. Translators: the description of an item in the input gestures category for this add-on.
 msgid "Toggles logging of remote speech"
 msgstr "Alterna o registro de fala remota"
 
-#: __init__.py:280
+#. Stops remote logging if we were; returns True if stopped
+#. Translators: message to tell the user that we are no longer logging.
 msgid "Stopped logging remote speech."
-msgstr "Parando a gravação de fala remota."
+msgstr "Parou de registrar a fala remota."
 
-#: __init__.py:291
+#. Translators: a message to tell the user that we are now logging.
 msgid "Started logging remote speech."
-msgstr "Iniciando a gravação de fala remota."
+msgstr "Começou a registrar a fala remota."
 
-#: __init__.py:294
+#. Translators: a message to tell the user that we can not start logging because remote may not be connected..
 msgid "Could not log remote speech, probably not connected."
-msgstr "Não foi possível gravar o log da fala remota, provavelmente você não está conectado."
+msgstr ""
+"Não foi possível registrar a fala remota, provavelmente não está conectada."
 
-#: __init__.py:297
+#. self._obtainRemote() returned False
+#. Translators: a message telling the user that the Remote add-on is unavailable.
 msgid "Failed! Could not find the NVDA Remote add-on."
-msgstr "Falha! Não foi possível encontrar o complemento NVDA Remote instalado no seu NVDA."
+msgstr "Falha! Não foi possível encontrar o complemento NVDA Remote."
 
-#: __init__.py:300
+#. Translators: a message to tell the user that we can't start this kind of logging
 msgid ""
 "Remote speech logging has been disabled by an error or your NVDA "
 "configuration."
-msgstr "O registro de fala remota foi desabilitado por um erro de configuração ou do nvda."
+msgstr ""
+"O registro de fala remota foi desabilitado por um erro ou pela configuração "
+"do NVDA."
+
+#. Translators: Input help mode message for open Speech Logger settings command.
+msgid "Opens the Speech Logger add-on's settings"
+msgstr "Abre as configurações do complemento Speech Logger"
+
+#. Translators: This is the label for the Speech Logger settings category in NVDA Settings dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
+msgid "Speech Logger"
+msgstr "Registrador de fala"
+
+msgid ""
+"Choose the log directory and filenames for the speech logs. System variables "
+"such as %temp% are permitted.\n"
+"You can also alter the string used to separate multiple utterances from the "
+"same speech sequence, and control how or whether timestamps are used."
+msgstr ""
+"Escolha o diretório de registro e os nomes dos arquivos para os registros de "
+"fala. São permitidas variáveis de sistema, como %temp%.\n"
+"Você também pode alterar a cadeia de caracteres usada para separar vários "
+"enunciados da mesma sequência de fala e controlar como ou se os carimbos de "
+"data/hora são usados."
+
+msgid ""
+"The Speech Logger add-on can only be configured from the Normal "
+"Configuration profile.\n"
+"Please close this dialog, set your config profile to normal, and try again."
+msgstr ""
+"O complemento Speech Logger só pode ser configurado a partir do perfil "
+"Configuração normal.\n"
+"Feche esta caixa de diálogo, defina seu perfil de configuração como normal e "
+"tente novamente."
+
+#. Translators: a separator option in the separators combobox
+msgid "Two spaces (NVDA log style)"
+msgstr "Dois espaços (estilo de registro NVDA)"
+
+#. Translators: a separator option in the separators combobox
+msgid "Newline"
+msgstr "Nova linha"
+
+#. Translators: a separator option in the separators combobox
+msgid "Tab"
+msgstr "Tab"
+
+#. Translators: a separator option in the separators combobox
+msgid "A comma and space"
+msgstr "Uma vírgula e um espaço"
+
+#. Translators: a separator option in the separators combobox
+msgid "Two underscores"
+msgstr "Dois sublinhados"
+
+#. Translators: a separator option in the separators combobox
+msgid "Custom"
+msgstr "Personalizado"
+
+#. Translators: A timestamp mode option in the timestamps mode combobox
+msgid "Off, no timestamps"
+msgstr "Desligado, sem registros de data e hora"
+
+#. Translators: A timestamp mode option in the timestamps mode combobox
+msgid "When a log begins or ends"
+msgstr "Quando um registro começa ou termina"
+
+#. Translators: An option in the log at startup combobox
+msgid "Never"
+msgstr "Nunca"
+
+#. Translators: An option in the log at startup combobox
+msgid "Always"
+msgstr "Sempre"
+
+#. Translators: label of the log files location grouping.
+msgid "Log &Directory: "
+msgstr "Registro &Diretório: "
+
+#. Translators: The label of a button to browse for a directory.
+msgid "Browse..."
+msgstr "Procurar..."
+
+#. Translators: The title of the dialog presented when browsing for the log directory.
+msgid "Select log  directory"
+msgstr "Selecione o diretório de registro"
+
+#. Translators: label of a text field to enter local speech log filename.
+msgid "Local speech log filename: "
+msgstr "Nome do arquivo de registro de fala local: "
+
+#. Translators: label of a text field to enter remote speech log filename.
+msgid "Remote speech log filename: "
+msgstr "Nome do arquivo de registro de fala remota: "
+
+#. Translators: label of the separator options grouping.
+msgid "&Separator Options"
+msgstr "Opções do &Separador"
+
+#. Translators: this is the label for a combobox providing possible separator values
+msgid "Utterance separator"
+msgstr "Separador de enunciados"
+
+#. Translators: the label for a text field requesting an optional custom separator string.
+#. Note that this string is raw, so that \t is presented literally.
+msgid "Custom utterance separator (can use escapes like \\t): "
+msgstr "Separador de enunciado personalizado (pode usar escapes como \\t): "
+
+#. Translators: label of the Other options grouping.
+msgid "&Other Options"
+msgstr "&Outras opções"
+
+#. Translators: this is the label for a combobox providing possible timestamp mode values.
+msgid "Timestamp Mode"
+msgstr "Modo de registro de data e hora"
+
+#. Use default
+#. Translators: This is the label for a checkbox to turn Say All logging on or off.
+msgid "Log speech during Say-&All (read to end)"
+msgstr "Discurso de registro durante o Dizer-&Todos (leia até o fim)"
+
+#. Translators: this is the label for a combobox which determines whether to begin logging at startup.
+msgid "Begin logging at startup"
+msgstr "Iniciar o registro em log na inicialização"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
+msgid ""
+"Logs speech utterances to a file, after the user presses an initiating key. "
+"Can also log NVDA remote session speech from the NVDA Remote add-on, to the "
+"same or another file. Optionally includes speech from say-all."
+msgstr ""
+"Registra as declarações de fala em um arquivo. Também pode registrar a fala "
+"da sessão remota do NVDA a partir do complemento NVDA Remote, no mesmo "
+"arquivo ou em outro."
