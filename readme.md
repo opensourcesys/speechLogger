@@ -8,6 +8,8 @@ An [NVDA][3] add-on to log speech to a file or files.
 It can log speech generated on the local machine into a text file.
 It can also log speech from a remote machine received through the [NVDA Remote][5] add-on, either to the same or a different file.
 
+**Note**: This feature is untested with NVDA's built in remote function, as of June, 2025.
+
 ### Configuration
 
 To configure this add-on, open the NVDA menu, go to Preferences, then Settings, then Speech Logger (NVDA+N, P, S, then press S until you get there, on a default U.S. English keyboard).
